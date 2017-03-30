@@ -6,7 +6,7 @@
     [#include "common/common-meta.ftl"/]
     [#include "common/common-css.ftl"/]
   </head>
-  <body class="hold-transition skin-blue sidebar-mini fixed">
+  <body class="hold-transition sidebar-mini wysihtml5-supported skin-green fixed">
     <div class="wrapper">
 
 
