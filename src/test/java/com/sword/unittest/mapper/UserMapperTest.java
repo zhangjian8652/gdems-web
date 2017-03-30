@@ -9,6 +9,7 @@ import com.sword.unittest.common.SpringTest;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 /**
@@ -41,11 +42,20 @@ public class UserMapperTest extends SpringTest{
 
 
     @Test
-    public void testSelectOne(){
+    public void testSelectOne() throws NoSuchAlgorithmException {
         User user = new User();
         user.setLoginName("zhangjian");
+        user.setPassword("31ace546d14f7add7423867cbb6bc87a5e7bcc7e");
         User user1 = userMapper.selectOne(user);
         System.out.println(user1.toString());
+    }
+
+    @Test
+    public void testSelectList() throws NoSuchAlgorithmException {
+        User user = new User();
+        user.setLoginName("zhangjian");
+        List<User> users = userMapper.select(user);
+        System.out.println(users.toString());
     }
 
 }

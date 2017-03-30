@@ -1,6 +1,8 @@
 package com.sword.gdems.web.service.impl;
 
+import com.sword.gdems.common.encrypt.util.EncryptUtil;
 import com.sword.gdems.web.config.ErrorCodeConfig;
+import com.sword.gdems.web.config.GlobalConfig;
 import com.sword.gdems.web.entity.User;
 import com.sword.gdems.web.exception.AuthenticationException;
 import com.sword.gdems.web.mapper.UserMapper;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import static com.sword.gdems.web.service.impl.UserAuthor.AuthType.USERNAME_PASSWORD;
@@ -38,6 +41,13 @@ public class UserAuthor implements UserAuthorizable {
     }
 
     public User auth(User user) throws AuthenticationException {
+
+
+        try {
+            user.setPassword(EncryptUtil.SHA_1(user.getPassword(), GlobalConfig.PASSWORD_SALT));
+        } catch (NoSuchAlgorithmException e) {
+            throw new AuthenticationException(ErrorCodeConfig.INTERNAL_ERROR,ErrorCodeConfig.getMessage(ErrorCodeConfig.INTERNAL_ERROR));
+        }
 
         /**
          * 根据不同方式做不同的认证，目前只支持用户命名密码，或者邮箱密码，或者都兼容

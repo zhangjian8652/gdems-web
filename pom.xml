@@ -476,7 +476,7 @@
             <resource>
                 <directory>src/main/resources</directory>
                 <includes>
-                    <include>sword-*-config.properties</include>
+                    <include>*-config.properties</include>
                     <include>jdbc.properties</include>
                     <include>generator-config.properties</include>
                 </includes>
