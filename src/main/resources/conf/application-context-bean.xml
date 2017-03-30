@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvcMySQL - vivian@localhost
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd"
+       default-autowire="byName">
+
+
+    <!-- 自动扫描包 -->
+    <context:component-scan base-package="com.*" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Component"/>
+    </context:component-scan>
+
+    <!-- 配置文件加载 -->
+    <context:property-placeholder location="classpath*:sword-web-config.properties" ignore-resource-not-found="true" ignore-unresolvable="true"></context:property-placeholder>
+     <!-- 注解形式的AOP需开启自动代理-->
+     <!-- <aop:aspectj-autoproxy />-->
+       <!-- 系统服务组件的切面Bean -->
+   <!--    <bean id="serviceLogger" class="com.joker.modules.web.aop.ActionLogger"/>-->
+
+       <!-- AOP配置 -->
+<!--
+       <aop:config>
+              &lt;!&ndash; 声明一个切面,并注入切面Bean,相当于@Aspect &ndash;&gt;
+              <aop:aspect id="serviceLoggerAspect" ref="serviceLogger">
+                     &lt;!&ndash; 配置一个切入点,相当于@Pointcut &ndash;&gt;
+                     <aop:pointcut expression="execution(* com.joker.modules.web.service.serviceImpl..*(..))" id="serviceLoggerAspect"/>
+                     &lt;!&ndash; 配置通知,相当于@Before、@After、@AfterReturn、@Around、@AfterThrowing &ndash;&gt;
+                     <aop:before pointcut-ref="serviceLoggerAspect" method="before"/>
+                     <aop:after pointcut-ref="serviceLoggerAspect" method="after"/>
+                     <aop:around method="around" pointcut-ref="serviceLoggerAspect"/>
+                     <aop:after-returning pointcut-ref="serviceLoggerAspect" method="afterReturn"/>
+                     <aop:after-throwing pointcut-ref="serviceLoggerAspect" method="afterThrow" throwing="ex"/>
+              </aop:aspect>
+       </aop:config>
+-->
+
+
+</beans>

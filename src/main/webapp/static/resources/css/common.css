@@ -1,0 +1,21 @@
+.error,.login-box-body .has-error .form-control{
+    color: #a94442;
+}
+.glyphicon-remove:before{
+    content: "\e014";
+}
+.glyphicon-ok:before {
+    content: "\e013";
+}
+.error::-webkit-input-placeholder { /* WebKit browsers*/
+    　　color:#999;font-size:14px;
+}
+.error:-moz-placeholder {  /* Mozilla Firefox 4 to 18*/
+    　　color:#999;font-size:14px;
+}
+.error::-moz-placeholder {  /* Mozilla Firefox 19+*/
+    　　color:#999;font-size:14px;
+}
+.error:-ms-input-placeholder { /* Internet Explorer 10+*/
+    　　color:#999;font-size:14px;
+}

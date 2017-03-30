@@ -1,0 +1,9 @@
+html{
+    background-image: url("../images/backgroud-01.jpg");
+}
+body{
+    background-color: inherit;
+}
+.login-logo a{
+    color: white;
+}
