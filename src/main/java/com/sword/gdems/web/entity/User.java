@@ -15,8 +15,8 @@ import java.util.Date;
 public class User extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
-	private String companyId;	// 归属公司
-	private String officeId;	// 归属部门
+	private String departmentId;	// 归属公司
+	private String majorId;	// 归属部门
 	private String loginName;// 登录名
 	private String password;// 密码
 	private String no;		// 工号
@@ -31,20 +31,20 @@ public class User extends BaseEntity {
 	private String photo;	// 头像
 
 
-	public String getCompanyId() {
-		return companyId;
+	public String getDepartmentId() {
+		return departmentId;
 	}
 
-	public void setCompanyId(String companyId) {
-		this.companyId = companyId;
+	public void setDepartmentId(String departmentId) {
+		this.departmentId = departmentId;
 	}
 
-	public String getOfficeId() {
-		return officeId;
+	public String getMajorId() {
+		return majorId;
 	}
 
-	public void setOfficeId(String officeId) {
-		this.officeId = officeId;
+	public void setMajorId(String majorId) {
+		this.majorId = majorId;
 	}
 
 	public String getLoginName() {
@@ -147,8 +147,8 @@ public class User extends BaseEntity {
 	@Override
 	public String toString() {
 		return "User{" +
-				"companyId='" + companyId + '\'' +
-				", officeId='" + officeId + '\'' +
+				"departmentId='" + departmentId + '\'' +
+				", majorId='" + majorId + '\'' +
 				", loginName='" + loginName + '\'' +
 				", password='" + password + '\'' +
 				", no='" + no + '\'' +

@@ -2,11 +2,11 @@
 <html>
   <head>
 
-      <title>毕业设计考核 | 信息</title>
+      <title>毕业设计 | 管理系统</title>
     [#include "common/common-meta.ftl"/]
     [#include "common/common-css.ftl"/]
   </head>
-  <body class="hold-transition sidebar-mini wysihtml5-supported skin-green fixed">
+  <body class="sidebar-mini wysihtml5-supported skin-green fixed">
     <div class="wrapper">
 
 
@@ -14,7 +14,7 @@
     [#include "common/dashboard-menu.ftl"/]
 
       <!-- Content Wrapper. Contains page content -->
-      <div class="content-wrapper">
+      <div class="content-wrapper" id="container">
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>

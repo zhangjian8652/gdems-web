@@ -10,10 +10,17 @@
 <script src="${path!}/static/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 <!-- Bootstrap 3.3.5 -->
 <script src="${path!}/static/plugins/bootstrap/js/bootstrap.min.js"></script>
+<!-- DataTables -->
+<script src="${path!}/static/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="${path!}/static/plugins/datatables/dataTables.bootstrap.min.js"></script>
+<!-- SlimScroll -->
+<script src="${path!}/static/plugins/slimScroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
 <script src="${path!}/static/plugins/fastclick/fastclick.min.js"></script>
 <!-- ICheck -->
 <script src="${path!}/static/plugins/iCheck/icheck.min.js"></script>
+<!-- admin lte app js -->
+<script src="${path!}/static/plugins/admintle/js/app.min.js"></script>
 <!-- jquery validtion -->
 <script src="${path}/static/plugins/jquery-validation-1.14.0/jquery.validate.min.js"></script>
 <script src="${path}/static/plugins/jquery-validation-1.14.0/additional-methods.min.js"></script>

@@ -48,14 +48,14 @@
         <typeAlias type="com.joker.modules.management.entity.Avatar" alias="managementPhoto"/>-->
     </typeAliases>
 
-
+<!--
     <plugins>
         <plugin interceptor="com.github.pagehelper.PageHelper">
             <property name="dialect" value="mysql"/>
             <property name="pageSizeZero" value="true"/>
             <property name="reasonable" value="true"/>
         </plugin>
-    </plugins>
+    </plugins>-->
 
 
 </configuration>

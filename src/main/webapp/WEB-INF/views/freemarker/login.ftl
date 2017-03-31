@@ -9,7 +9,7 @@
   <body class="hold-transition">
     <div class="login-box">
       <div class="login-logo">
-        <a href="#"><b>毕业设计考核</b>&nbsp;管理系统</a>
+        <a href="#"><b>毕业设计</b>&nbsp;管理系统</a>
       </div><!-- /.login-logo -->
       <div class="login-box-body">
         <p class="login-box-msg">登录</p>

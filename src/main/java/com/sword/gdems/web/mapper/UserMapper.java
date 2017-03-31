@@ -1,7 +1,11 @@
 package com.sword.gdems.web.mapper;
 
 import com.sword.gdems.web.entity.User;
+import com.sword.gdems.web.response.entity.DataTableUser;
+import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.common.Mapper;
+
+import java.util.List;
 
 /**
  * @Author zhangjian
@@ -10,5 +14,7 @@ import tk.mybatis.mapper.common.Mapper;
  * @Describe:
  */
 public interface UserMapper extends Mapper<User> {
+
+     List<DataTableUser> getDatableUsers(@Param("dataTableUser") DataTableUser dataTableUser, @Param("offset") int offset, @Param("limit") int limit);
 
 }

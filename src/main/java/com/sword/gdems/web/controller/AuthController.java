@@ -6,7 +6,7 @@ import com.sword.gdems.web.exception.AuthenticationException;
 import com.sword.gdems.web.exception.InvalidRequestException;
 import com.sword.gdems.web.exception.NotFoundException;
 import com.sword.gdems.web.request.entity.UserInfo;
-import com.sword.gdems.web.request.util.SessionUtil;
+import com.sword.gdems.web.request.util.RequestUtil;
 import com.sword.gdems.web.response.JsonResponse;
 import com.sword.gdems.web.service.impl.UserAuthor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +57,7 @@ public class AuthController {
         }
 
         //将用户信息存入session之中
-        SessionUtil.setAttribute(request, "USER", user);
+        RequestUtil.setLoginUserToSession(request, user);
 
         return new JsonResponse<User>(ErrorCodeConfig.SUCCESS, ErrorCodeConfig.getMessage(ErrorCodeConfig.SUCCESS));
 
@@ -68,5 +68,8 @@ public class AuthController {
     private void rememberMe(HttpServletResponse response,String userId){
 
     }
+
+
+
 
 }
