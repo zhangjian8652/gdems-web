@@ -36,12 +36,16 @@ public class AuthController {
 
     @RequestMapping(value = "",method = RequestMethod.POST)
     @ResponseBody
-    public Object doLogin(@Validated @ModelAttribute("form") UserInfo userInfo, BindingResult result, HttpServletRequest request) throws Exception {
+    public Object doLogin(@Validated @ModelAttribute("form") UserInfo userInfo, BindingResult result, HttpServletRequest request,HttpServletResponse response) throws Exception {
 
         //判断输入信息是否正确
         if (result.hasErrors()) {
             String code = result.getAllErrors().get(0).getDefaultMessage();
             throw new InvalidRequestException(code, ErrorCodeConfig.getMessage(code));
+        }
+
+        if (RequestUtil.getLoginUserFromSession(request) != null) {
+            response.sendRedirect("/dashboard");
         }
 
         User loginUser = new User();

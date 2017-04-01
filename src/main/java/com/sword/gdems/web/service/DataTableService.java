@@ -1,5 +1,6 @@
 package com.sword.gdems.web.service;
 
+import com.sword.gdems.web.entity.Page;
 import com.sword.gdems.web.response.entity.DataTableUser;
 
 import java.util.List;
@@ -11,5 +12,14 @@ import java.util.List;
  * @Describe:
  */
 public interface DataTableService {
-    List<DataTableUser> findList(DataTableUser schoolUser, int offset, int limit) throws Exception;
+    /**
+     * data table 分页数据查询
+     * @param searchValue
+     * @param offset
+     * @param limit
+     * @return
+     * @throws Exception
+     */
+    Page<DataTableUser> findList(String searchValue, int offset, int limit) throws Exception;
+
 }

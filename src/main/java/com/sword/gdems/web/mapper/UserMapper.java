@@ -15,6 +15,8 @@ import java.util.List;
  */
 public interface UserMapper extends Mapper<User> {
 
-     List<DataTableUser> getDatableUsers(@Param("dataTableUser") DataTableUser dataTableUser, @Param("offset") int offset, @Param("limit") int limit);
+     List<DataTableUser> getDatableUsers(@Param("searchValue")String searchValue, @Param("offset") int offset, @Param("limit") int limit);
+
+     long getDatableUsersTotalCount(@Param("searchValue")String searchValue);
 
 }

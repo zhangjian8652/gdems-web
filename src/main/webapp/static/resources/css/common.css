@@ -19,3 +19,6 @@
 .error:-ms-input-placeholder { /* Internet Explorer 10+*/
     　　color:#999;font-size:14px;
 }
+.margin-right{
+    margin-right: 10px;
+}

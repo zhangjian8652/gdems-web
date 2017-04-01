@@ -1,9 +1,13 @@
 package com.sword.gdems.web.request.util;
 
 import com.sword.gdems.web.entity.User;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+
+
 
 /**
  * @Author zhangjian
@@ -15,6 +19,7 @@ public class RequestUtil {
     public static String SESSION_KEY_LOGIN_USER = "USER";
     public static String COOKIE_NAME_AUTO_LOGIN = "ACCOUNTINFO";
 
+    private static Logger logger = LogManager.getLogger(RequestUtil.class);
     /**
      * 根据key获取session值
      * @param request
@@ -64,14 +69,16 @@ public class RequestUtil {
     public static Cookie getCookie(HttpServletRequest request,String name){
         Cookie[] cookies = request.getCookies();
 
-        for (Cookie cookie:cookies) {
-            if(cookie.getName().equalsIgnoreCase(name)){
-                return cookie;
+        if (cookies != null) {
+            logger.debug("Request cookie size:" + cookies.length);
+            for (Cookie cookie:cookies) {
+                logger.debug("cookie name :" + cookie.getName());
+                if(cookie.getName().equalsIgnoreCase(name)){
+                    return cookie;
+                }
             }
         }
-
         return null;
-
     }
 
 

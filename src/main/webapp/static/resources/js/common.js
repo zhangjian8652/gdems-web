@@ -19,13 +19,13 @@ var GlobalVariable = {
         //focusInvalid: false, //当为false时，验证无效时，没有焦点响应
         //onkeyup: false,
     },
-    containerId:"#container"
+    containerId: "#container"
 }
 
 
 var URIS = {
     dashboard: "/dashboard"
-}
+    };
 
 
 /**
@@ -34,22 +34,35 @@ var URIS = {
 $(function () {
     //绑定左边菜单收缩事件功能
     $(".page-button").click(function () {
-      var uri = $(this).data("uri");
+        var uri = $(this).data("uri");
         loadView(uri);
     });
 });
 
 
 //发送请求获取页面视图
-function loadView(uri){
+var loadView = function (uri) {
 
-    var url = $path + uri;
-    var callBack = function(html){
-        $(GlobalVariable.containerId).html(html);
+        var url = $path + uri;
+        var callBack = function (html) {
+            $(GlobalVariable.containerId).html(html);
+        }
+
+        $.get(url, callBack);
+    },
+
+//获取操作栏按钮组,编辑，删除
+    operations = function (data, type, full, meta) {
+        return getDetailButton(data) + getEditButton(data) + getDeleteButton(data);
+    },
+    getEditButton = function (id) {
+        return "<button type='button' class='btn bg-maroon margin-right' data-id edit" + id + ">编辑</button>"
+    },
+    getDetailButton = function (id) {
+        return "<button type='button' class='btn bg-orange margin-right' data-id detail" + id + ">详情</button>"
+    },
+
+    getDeleteButton = function (id) {
+        return "<button type='button' class='btn bg-olive margin-right' data-id delete" + id + ">删除</button>"
     }
-
-    $.get(url,callBack);
-}
-
-
-
+;

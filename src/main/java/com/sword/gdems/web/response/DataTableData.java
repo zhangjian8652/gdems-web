@@ -11,15 +11,18 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DataTableData<T> {
     private int draw;
-    private int recordsTotal;
-    private int recordsFiltered;
+    private long recordsTotal;
+    private long recordsFiltered;
     private List<T> data;
 
-    public DataTableData(int draw, int recordsTotal, int recordsFiltered, List<T> data) {
+    public DataTableData(int draw, long recordsTotal, long recordsFiltered, List<T> data) {
         this.draw = draw;
         this.recordsTotal = recordsTotal;
         this.recordsFiltered = recordsFiltered;
         this.data = data;
+    }
+
+    public DataTableData() {
     }
 
     public Integer getDraw() {
@@ -34,19 +37,19 @@ public class DataTableData<T> {
         this.draw = draw;
     }
 
-    public int getRecordsTotal() {
+    public long getRecordsTotal() {
         return recordsTotal;
     }
 
-    public void setRecordsTotal(int recordsTotal) {
+    public void setRecordsTotal(long recordsTotal) {
         this.recordsTotal = recordsTotal;
     }
 
-    public int getRecordsFiltered() {
+    public long getRecordsFiltered() {
         return recordsFiltered;
     }
 
-    public void setRecordsFiltered(int recordsFiltered) {
+    public void setRecordsFiltered(long recordsFiltered) {
         this.recordsFiltered = recordsFiltered;
     }
 

@@ -1,5 +1,6 @@
 package com.sword.gdems.web.service.impl;
 
+import com.sword.gdems.web.entity.Page;
 import com.sword.gdems.web.entity.Role;
 import com.sword.gdems.web.mapper.RoleMapper;
 import com.sword.gdems.web.mapper.UserMapper;
@@ -28,17 +29,20 @@ public class DataTableServiceImpl implements DataTableService {
     private RoleMapper roleMapper;
 
     @Override
-    public List<DataTableUser> findList(DataTableUser dataTableUser, int offset, int limit) throws Exception {
+    public Page<DataTableUser> findList(String searchValue, int offset, int limit) throws Exception {
 
-        List<DataTableUser> dataTableUsers = userMapper.getDatableUsers(dataTableUser, offset, limit);
+        List<DataTableUser> dataTableUsers = userMapper.getDatableUsers(searchValue, offset, limit);
 
         for (DataTableUser datatableUser : dataTableUsers) {
             datatableUser.setRoleNames(rolesString(datatableUser.getId()));
         }
 
-        return dataTableUsers;
-    }
+        Page<DataTableUser> page = new Page<DataTableUser>();
+        page.setDatas(dataTableUsers);
+        page.setCount(userMapper.getDatableUsersTotalCount(searchValue));
 
+        return page;
+    }
 
     private String rolesString(String userId) {
 

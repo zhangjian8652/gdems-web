@@ -73,12 +73,16 @@
         <property name="cookiePath" value="/"/>
     </bean>
 
-<!--    <mvc:interceptors>
+   <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
-            <ref bean="defaultInterceptor"/>
+            <mvc:exclude-mapping path="/"/>
+            <mvc:exclude-mapping path="/login"/>
+            <mvc:exclude-mapping path="/authLogin"/>
+            <mvc:exclude-mapping path="/static/**"/>
+            <ref bean="authInterceptor"/>
         </mvc:interceptor>
-    </mvc:interceptors>-->
+    </mvc:interceptors>
 
 <!--    <mvc:interceptors>
         <mvc:interceptor>
@@ -89,8 +93,7 @@
         </mvc:interceptor>
     </mvc:interceptors>-->
 
-<!--    <bean id="defaultInterceptor" class="com.joker.modules.web.interceptor.DefaultInterceptor" />-->
-
+   <bean id="authInterceptor" class="com.sword.gdems.web.interceptor.AuthInterceptor" />
 
     <import resource="mvc-dispatcher-servlet-static.xml"/>
 </beans>
