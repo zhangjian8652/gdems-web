@@ -33,7 +33,7 @@ public class DataTableMapperTest extends SpringTest {
         for (int i = 0; i < userList.size(); i++) {
             DataTableUser tableUser = userList.get(i);
             String userId = tableUser.getId();
-            List<Role> roles = roleMapper.getRolesByUserId(userId);
+            List<Role> roles = roleMapper.getByUserId(userId);
             StringBuilder roleNames = new StringBuilder();
             for (Role role : roles) {
                 roleNames.append(role.getName());

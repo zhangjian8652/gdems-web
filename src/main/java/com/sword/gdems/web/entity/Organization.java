@@ -5,13 +5,17 @@ package com.sword.gdems.web.entity;
 
 
 import com.sword.gdems.web.entity.common.BaseEntity;
+import freemarker.template.TemplateModel;
+
+import javax.persistence.Table;
 
 /**
  * 机构Entity
  * @author zhangjian
  * @version 2017-02-22
  */
-public class Organization extends BaseEntity {
+@Table(name = "sys_organization")
+public class Organization extends BaseEntity implements TemplateModel{
 
 	private static final long serialVersionUID = 1L;
 
@@ -159,5 +163,27 @@ public class Organization extends BaseEntity {
 
 	public void setSort(Integer sort) {
 		this.sort = sort;
+	}
+
+	@Override
+	public String toString() {
+		return "Organization{" +
+				"parentId='" + parentId + '\'' +
+				", areaId='" + areaId + '\'' +
+				", code='" + code + '\'' +
+				", name='" + name + '\'' +
+				", sort=" + sort +
+				", type='" + type + '\'' +
+				", grade='" + grade + '\'' +
+				", address='" + address + '\'' +
+				", zipCode='" + zipCode + '\'' +
+				", master='" + master + '\'' +
+				", phone='" + phone + '\'' +
+				", fax='" + fax + '\'' +
+				", email='" + email + '\'' +
+				", useable='" + useable + '\'' +
+				", primaryPersonId='" + primaryPersonId + '\'' +
+				", deputyPersonId='" + deputyPersonId + '\'' +
+				'}';
 	}
 }

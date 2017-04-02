@@ -29,7 +29,8 @@
                     <span class="label label-primary pull-right">4</span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="javascript:void(0);" class="page-button" data-uri="/user/list/view"><i class="fa  fa-list-ol"></i> 用户列表</a></li>
+                    <li><a href="javascript:void(0);" class="page-button" data-uri="/user/list"><i class="fa  fa-list-ol"></i> 用户列表</a></li>
+                    <li><a href="javascript:void(0);" class="page-button" data-uri="/user/add"><i class="fa  fa-list-ol"></i> 增加用户</a></li>
                 </ul>
             </li>
             <li class="treeview">

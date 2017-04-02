@@ -7,98 +7,135 @@
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i>主页</a></li>
         <li><a href="#">用户管理</a></li>
-        <li class="active">用户列表</li>
+        <li class="active">增加用户</li>
     </ol>
 </section>
 
 <!-- Main content -->
 <section class="content">
     <div class="row">
-        <div class="col-xs-12">
-            <div class="box">
-                <div class="box-header">
-                    <h3 class="box-title">用户列表</h3>
+        <!-- left column -->
+        <div class="col-md-6">
+            <!-- Form Element sizes -->
+            <div class="box box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Different Height</h3>
                 </div>
-                <!-- /.box-header -->
                 <div class="box-body">
-                    <table id="users" class="table table-bordered table-hover">
-                        <thead>
-                        <tr>
-                            <th>编号</th>
-                            <th>用户名</th>
-                            <th>手机号</th>
-                            <th>电子邮件</th>
-                            <th>院系</th>
-                            <th>专业</th>
-                            <th>职位</th>
-                            <th>操作</th>
-                        </tr>
-                        </thead>
+                    <div class="input-group">
+                        <span class="input-group-addon">@</span>
+                        <input type="text" class="form-control" placeholder="Username">
+                    </div>
+                    <br>
 
-                        <tfoot>
-                        <tr>
-                            <th>编号</th>
-                            <th>用户名</th>
-                            <th>手机号</th>
-                            <th>电子邮件</th>
-                            <th>院系</th>
-                            <th>专业</th>
-                            <th>职位</th>
-                            <th>操作</th>
-                        </tr>
-                        </tfoot>
-                    </table>
+                    <div class="input-group">
+                        <input type="text" class="form-control">
+                        <span class="input-group-addon">.00</span>
+                    </div>
+                    <br>
+
+                    <div class="input-group">
+                        <span class="input-group-addon">$</span>
+                        <input type="text" class="form-control">
+                        <span class="input-group-addon">.00</span>
+                    </div>
+
+                    <h4>With icons</h4>
+
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                        <input type="email" class="form-control" placeholder="Email">
+                    </div>
+                    <br>
+
+                    <div class="input-group">
+                        <input type="text" class="form-control">
+                        <span class="input-group-addon"><i class="fa fa-check"></i></span>
+                    </div>
+                    <br>
+
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                        <input type="text" class="form-control">
+                        <span class="input-group-addon"><i class="fa fa-ambulance"></i></span>
+                    </div>
+
+                    <h4>With checkbox and radio inputs</h4>
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="input-group">
+                        <span class="input-group-addon">
+                          <input type="checkbox">
+                        </span>
+                                <input type="text" class="form-control">
+                            </div>
+                            <!-- /input-group -->
+                        </div>
+                        <!-- /.col-lg-6 -->
+                        <div class="col-lg-6">
+                            <div class="input-group">
+                        <span class="input-group-addon">
+                          <input type="radio">
+                        </span>
+                                <input type="text" class="form-control">
+                            </div>
+                            <!-- /input-group -->
+                        </div>
+                        <!-- /.col-lg-6 -->
+                    </div>
+                    <!-- /.row -->
+
+                    <h4>With buttons</h4>
+
+                    <p class="margin">Large: <code>.input-group.input-group-lg</code></p>
+
+                    <div class="input-group input-group-lg">
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">Action
+                                <span class="fa fa-caret-down"></span></button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">Separated link</a></li>
+                            </ul>
+                        </div>
+                        <!-- /btn-group -->
+                        <input type="text" class="form-control">
+                    </div>
+                    <!-- /input-group -->
+                    <p class="margin">Normal</p>
+
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-danger">Action</button>
+                        </div>
+                        <!-- /btn-group -->
+                        <input type="text" class="form-control">
+                    </div>
+                    <!-- /input-group -->
+                    <p class="margin">Small <code>.input-group.input-group-sm</code></p>
+
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control">
+                    <span class="input-group-btn">
+                      <button type="button" class="btn btn-info btn-flat">Go!</button>
+                    </span>
+                    </div>
+                    <!-- /input-group -->
                 </div>
                 <!-- /.box-body -->
             </div>
             <!-- /.box -->
+
         </div>
-        <!-- /.col -->
+        <!--/.col (left) -->
     </div>
     <!-- /.row -->
 </section><!-- /.content -->
 
 <script type="text/javascript">
 
-    $(function () {
-
-        var bindOperationsEvent = function () {
-            $(".edit").click(editUserView);
-            $(".detail").click(detailUserView);
-            $(".delete").click(deleteUser);
-        }
-        ,
-        editUserView = function () {
-            var id = $(this).data("id");
-        },
-        detailUserView = function () {
-            var id = $(this).data("id");
-
-        },
-         deleteUser = function () {
-            var id = $(this).data("id");
-         }
-        ;
-
-        $('#users').dataTable({
-            "ordering": false,
-            "serverSide": true,
-            "ajax": {
-                "url": "/user/list/data"
-            },
-            "columns": [
-                {"data": "no"},
-                {"data": "loginName"},
-                {"data": "mobile"},
-                {"data": "email"},
-                {"data": "department"},
-                {"data": "major"},
-                {"data": "roleNames"},
-                {"data": "id", "render": operations},
-            ],
-            "drawCallback": bindOperationsEvent
-        });
-
-
-    });
 </script>

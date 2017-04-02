@@ -11,7 +11,7 @@
    </sql>
     
     
-    <select id="getRolesByUserId" resultType="com.sword.gdems.web.entity.Role">
+    <select id="getByUserId" resultType="com.sword.gdems.web.entity.Role">
 
         SELECT
         <include refid="allColumns"/>

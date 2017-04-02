@@ -55,13 +55,13 @@ var loadView = function (uri) {
         return getDetailButton(data) + getEditButton(data) + getDeleteButton(data);
     },
     getEditButton = function (id) {
-        return "<button type='button' class='btn bg-maroon margin-right' data-id edit" + id + ">编辑</button>"
+        return "<button type='button' class='btn bg-maroon margin-right edit' data-id " + id + ">编辑</button>"
     },
     getDetailButton = function (id) {
-        return "<button type='button' class='btn bg-orange margin-right' data-id detail" + id + ">详情</button>"
+        return "<button type='button' class='btn bg-orange margin-right detail' data-id " + id + ">详情</button>"
     },
 
     getDeleteButton = function (id) {
-        return "<button type='button' class='btn bg-olive margin-right' data-id delete" + id + ">删除</button>"
+        return "<button type='button' class='btn bg-olive margin-right delete' data-id " + id + ">删除</button>"
     }
 ;

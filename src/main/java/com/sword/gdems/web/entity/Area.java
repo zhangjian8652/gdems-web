@@ -6,11 +6,14 @@ package com.sword.gdems.web.entity;
 
 import com.sword.gdems.web.entity.common.BaseEntity;
 
+import javax.persistence.Table;
+
 /**
  * 区域Entity
  * @author zhangjian
  * @version 2017-02-22
  */
+@Table(name = "sys_area")
 public class Area  extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;

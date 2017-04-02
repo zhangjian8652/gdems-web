@@ -86,8 +86,7 @@
             "ordering": false,
             "serverSide": true,
             "ajax": {
-                "url": "/user/list",
-                "type":"POST"
+                "url": "/user/list/data"
             },
             "columns": [
                 {"data": "no"},

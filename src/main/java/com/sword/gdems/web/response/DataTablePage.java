@@ -9,20 +9,20 @@ import java.util.List;
  * @Date 2015/12/13
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class DataTableData<T> {
+public class DataTablePage<T> {
     private int draw;
     private long recordsTotal;
     private long recordsFiltered;
     private List<T> data;
 
-    public DataTableData(int draw, long recordsTotal, long recordsFiltered, List<T> data) {
+    public DataTablePage(int draw, long recordsTotal, long recordsFiltered, List<T> data) {
         this.draw = draw;
         this.recordsTotal = recordsTotal;
         this.recordsFiltered = recordsFiltered;
         this.data = data;
     }
 
-    public DataTableData() {
+    public DataTablePage() {
     }
 
     public Integer getDraw() {

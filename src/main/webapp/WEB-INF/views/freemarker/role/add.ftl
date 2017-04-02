@@ -70,8 +70,6 @@
         ,
         editUserView = function () {
             var id = $(this).data("id");
-            loadView()
-
         },
         detailUserView = function () {
             var id = $(this).data("id");
@@ -86,8 +84,7 @@
             "ordering": false,
             "serverSide": true,
             "ajax": {
-                "url": "/user/list",
-                "type":"POST"
+                "url": "/user/list/data"
             },
             "columns": [
                 {"data": "no"},
@@ -97,7 +94,7 @@
                 {"data": "department"},
                 {"data": "major"},
                 {"data": "roleNames"},
-                {"data": "operations"},
+                {"data": "id", "render": operations},
             ],
             "drawCallback": bindOperationsEvent
         });

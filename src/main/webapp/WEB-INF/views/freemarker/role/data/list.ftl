@@ -1,10 +1,10 @@
-[@permission permission="sys:user:edit" userId="${USER.id}" type="BOOLEAN";isOk]
+[@permission permission="sys:role:edit" userId="${USER.id}" type="BOOLEAN";isOk]
     [#assign edit = isOk/]
 [/@permission]
-[@permission permission="sys:user:detail" userId="${USER.id}" type="BOOLEAN";isOk]
+[@permission permission="sys:role:detail" userId="${USER.id}" type="BOOLEAN";isOk]
     [#assign detail = isOk/]
 [/@permission]
-[@permission permission="sys:user:delete" userId="${USER.id}" type="BOOLEAN";isOk]
+[@permission permission="sys:role:delete" userId="${USER.id}" type="BOOLEAN";isOk]
     [#assign delete = isOk/]
 [/@permission]
 
