@@ -38,27 +38,25 @@ public class UserController {
 
     @RequestMapping(value = "/list/view", method = RequestMethod.GET)
     public String listView(HttpServletRequest request) {
-        return "user/user-list";
+        return "user/list";
     }
 
     @RequestMapping(value = "/list/data", method = RequestMethod.GET)
-    @ResponseBody
-    public DataTableData<DataTableUser> listData(HttpServletRequest request, @ModelAttribute DatatableCondition datatableCondition, BindingResult result) throws Exception {
+    public String listData(HttpServletRequest request, @ModelAttribute DatatableCondition datatableCondition, BindingResult result) throws Exception {
 
         if (result.hasErrors()) {
             throw new InvalidRequestException(ErrorCodeConfig.REUQUEST_CONDIRION_ERROR,ErrorCodeConfig.getMessage(ErrorCodeConfig.REUQUEST_CONDIRION_ERROR));
         }
 
         String searchValue = request.getParameter("search[value]");
-        Page<DataTableUser> page;
+        int start = datatableCondition.getStart();
+        int length = datatableCondition.getLength();
 
-        //查询table user 分页数据
-        logger.debug("UserController listData search value is :" + searchValue);
-        page  = dataTableService.findList(searchValue, datatableCondition.getStart(), datatableCondition.getLength());
-        //封装返回数据
-        DataTableData<DataTableUser> dataTableData = new DataTableData<DataTableUser>(datatableCondition.getDraw(), page.getCount(),  page.getCount(), page.getDatas());
+        request.setAttribute("searchValue", searchValue);
+        request.setAttribute("start", start);
+        request.setAttribute("length", length);
 
-        return dataTableData;
+        return "user/data/list";
     }
 
 }

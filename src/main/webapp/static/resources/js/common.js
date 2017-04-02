@@ -42,7 +42,6 @@ $(function () {
 
 //发送请求获取页面视图
 var loadView = function (uri) {
-
         var url = $path + uri;
         var callBack = function (html) {
             $(GlobalVariable.containerId).html(html);
