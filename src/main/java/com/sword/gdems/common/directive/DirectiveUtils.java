@@ -4,6 +4,8 @@ package com.sword.gdems.common.directive;
 import com.sword.gdems.common.date.DateTypeEditor;
 import com.sword.gdems.common.directive.exception.*;
 import freemarker.core.Environment;
+import freemarker.ext.beans.BeanModel;
+import freemarker.ext.util.WrapperTemplateModel;
 import freemarker.template.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.servlet.support.RequestContext;
@@ -123,6 +125,8 @@ public abstract class DirectiveUtils {
 		}
 	}
 
+
+
 	public static Long getLong(String name, Map<String, TemplateModel> params)
 			throws TemplateException {
 		TemplateModel model = params.get(name);
@@ -167,6 +171,14 @@ public abstract class DirectiveUtils {
 		} else {
 			throw new MustNumberException(name);
 		}
+	}
+
+	public static Object getObject(String name, Map<String, TemplateModel> params) {
+		TemplateModel model = params.get(name);
+		if (model == null) {
+			return null;
+		}
+		return  model;
 	}
 
 	public static Integer[] getIntArray(String name,

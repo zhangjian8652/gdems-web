@@ -6,11 +6,14 @@ package com.sword.gdems.web.entity;
 
 import com.sword.gdems.web.entity.common.BaseEntity;
 
+import javax.persistence.Table;
+
 /**
  * 菜单Entity
  * @author zhangjian
  * @version 2017-02-22
  */
+@Table(name = "sys_menu")
 public class Menu extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;

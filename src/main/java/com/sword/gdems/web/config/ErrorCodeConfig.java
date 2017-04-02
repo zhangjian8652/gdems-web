@@ -37,6 +37,7 @@ public class ErrorCodeConfig {
     public static String USERNAME_PASSWORD_NOT_FOUND = "100011";
     public static String EMAIL_PASSWORD_USER_NOT_FOUND = "100012";
     public static String USERNAME_OR_EMAIL_PASSWORD_USER_NOT_FOUND = "100013";
+    public static String REUQUEST_CONDIRION_ERROR = "100018";
     public static String INTERNAL_ERROR = "500";
 
 

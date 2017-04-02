@@ -42,13 +42,30 @@
         sys_user u
         <include refid="joinColumns"/>
         WHERE 1=1
-        limit #{offset},#{limit}
+		<if test="searchValue != null">
+			<bind name="pattern" value="'%' + searchValue + '%'" />
+			AND (
+			u.login_name LIKE #{pattern} OR u.mobile LIKE #{pattern} OR u.email like #{pattern}
+			)
+		</if>
+		ORDER BY create_date DESC
+		limit #{offset},#{limit}
+	</select>
 
+
+    <select id="getDatableUsersTotalCount" resultType="java.lang.Long" >
+        SELECT
+        COUNT(1)
+        FROM
+        sys_user u
+		WHERE 1=1
+		<if test="searchValue != null">
+			<bind name="pattern" value="'%' + searchValue + '%'" />
+			AND (
+			u.login_name LIKE #{pattern} OR u.mobile LIKE #{pattern} OR u.email like #{pattern}
+			)
+		</if>
     </select>
-
-
-
-
 
 </mapper>
 

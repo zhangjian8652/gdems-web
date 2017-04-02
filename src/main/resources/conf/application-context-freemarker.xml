@@ -21,8 +21,12 @@
             <map>
                 <!-- 这里是自定义标签 -->
                 <entry key="xml_escape" value-ref="fmXmlEscape" />
-              <!--  <entry key="default_directive" value-ref="defaultDirective" />
-                <entry key="management_user_directive" value-ref="managementUserDirective" />-->
+          <!--     <entry key="default_directive" value-ref="defaultDirective" />-->
+               <entry key="user" value-ref="userDirective" />
+               <entry key="organization" value-ref="organizationDirective" />
+               <entry key="role" value-ref="roleDirective" />
+               <entry key="menu" value-ref="menuDirective" />
+               <entry key="permission" value-ref="permissionDirective" />
             </map>
         </property>
     </bean>
@@ -33,5 +37,10 @@
     <bean id="managementUserDirective" class="com.vivian.web.directive.DefaultDirective" />
     -->
 
+    <bean id="userDirective" class="com.sword.gdems.web.directive.UserDirective" />
+    <bean id="organizationDirective" class="com.sword.gdems.web.directive.OrganizationDirective" />
+    <bean id="roleDirective" class="com.sword.gdems.web.directive.RoleDirective" />
+    <bean id="menuDirective" class="com.sword.gdems.web.directive.MenuDirective" />
+    <bean id="permissionDirective" class="com.sword.gdems.web.directive.PermissionDirective" />
 
 </beans>
