@@ -91,4 +91,8 @@ public class RequestUtil {
         return getCookie(request,COOKIE_NAME_AUTO_LOGIN);
     }
 
+
+    public static boolean isXMLHttpRequest(HttpServletRequest request) {
+        return "XMLHttpRequest".equalsIgnoreCase(request.getHeader("X-Requested-With"));
+    }
 }

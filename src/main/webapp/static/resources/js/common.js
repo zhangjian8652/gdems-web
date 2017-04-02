@@ -65,3 +65,18 @@ var loadView = function (uri) {
         return "<button type='button' class='btn bg-olive margin-right delete' data-id " + id + ">删除</button>"
     }
 ;
+
+
+//设置AJAX的全局默认选项
+$.ajaxSetup( {
+    aysnc: false , // 默认同步加载
+    headers: { // 默认添加请求头
+        "Authorization": "XXXXXXXX-XXXXXXX"
+    } ,
+    dataFilter: function(data,type){ // 出错时默认的处理函数
+        console.log(data.code);
+    },
+    complete:function(xhr,status){
+        console.log(xhr.responseText);
+    }
+} );

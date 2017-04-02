@@ -36,7 +36,7 @@ public class AuthController {
 
     @RequestMapping(value = "",method = RequestMethod.POST)
     @ResponseBody
-    public Object doLogin(@Validated @ModelAttribute("form") UserInfo userInfo, BindingResult result, HttpServletRequest request,HttpServletResponse response) throws Exception {
+    public Object doLogin(@Validated @ModelAttribute("form") UserInfo userInfo, BindingResult result, HttpServletRequest request) throws Exception {
 
         //判断输入信息是否正确
         if (result.hasErrors()) {
@@ -45,7 +45,7 @@ public class AuthController {
         }
 
         if (RequestUtil.getLoginUserFromSession(request) != null) {
-            response.sendRedirect("/dashboard");
+           return new JsonResponse<User>(ErrorCodeConfig.SUCCESS, ErrorCodeConfig.getMessage(ErrorCodeConfig.SUCCESS));
         }
 
         User loginUser = new User();

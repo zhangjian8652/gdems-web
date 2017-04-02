@@ -17,6 +17,7 @@ public class ErrorCodeConfig {
     private static Properties errorCodeProperties;
     private static Logger logger = LogManager.getLogger(ErrorCodeConfig.class);
 
+
     static {
         errorCodeProperties = new Properties();
         try {
@@ -39,6 +40,7 @@ public class ErrorCodeConfig {
     public static String USERNAME_OR_EMAIL_PASSWORD_USER_NOT_FOUND = "100013";
     public static String REUQUEST_CONDIRION_ERROR = "100018";
     public static String INTERNAL_ERROR = "500";
+    public static String NOT_AUTHORIZED = "403";
 
 
 }

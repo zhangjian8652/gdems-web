@@ -1,7 +1,10 @@
 package com.sword.gdems.web.interceptor;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sword.gdems.web.config.ErrorCodeConfig;
 import com.sword.gdems.web.entity.User;
 import com.sword.gdems.web.request.util.RequestUtil;
+import com.sword.gdems.web.response.JsonResponse;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -27,23 +30,28 @@ public class AuthInterceptor implements HandlerInterceptor {
 
         User user = (User) RequestUtil.getSessionAttribute(httpServletRequest, RequestUtil.SESSION_KEY_LOGIN_USER);
 
-        if(user != null){
+        if (user != null) {
             return true;
         }
 
         Cookie cookie = RequestUtil.getAutoLoginCookie(httpServletRequest);
 
-        if(cookie != null){
+
+        if (RequestUtil.isXMLHttpRequest(httpServletRequest)) {
+            JsonResponse<Object> jsonResponse =
+                    new JsonResponse<Object>(ErrorCodeConfig.NOT_AUTHORIZED, ErrorCodeConfig.getMessage(ErrorCodeConfig.NOT_AUTHORIZED));
+
+       //     ObjectMapper objectMapper = new ObjectMapper()
+
+        }
+
+        if (cookie != null) {
             httpServletResponse.sendRedirect("/autoLogin");
             return false;
         }
 
-        if(user == null){
-            httpServletResponse.sendRedirect("/");
-            return false;
-        }
-
-        return true;
+        httpServletResponse.sendRedirect("/");
+        return false;
 
 
     }
