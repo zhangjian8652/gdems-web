@@ -13,4 +13,13 @@ public interface MenuService extends BaseService<Menu> {
 
     List<Menu> getByUserId(String userId) throws Exception;
 
+    List<Menu> getByParentId(String parentId) throws Exception;
+
+    List<Menu> getTopMenu() throws Exception;
+
+    List<Menu> list()  throws Exception;
+
+    boolean save(Menu menu) throws Exception;
+
+    boolean exist(Menu menu) throws Exception;
 }

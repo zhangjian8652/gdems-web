@@ -1,13 +1,13 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        用户管理
-        <small>系统用户</small>
+        角色管理
+        <small>系统角色</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i>主页</a></li>
-        <li><a href="#">用户管理</a></li>
-        <li class="active">用户列表</li>
+        <li><a href="#">角色管理</a></li>
+        <li class="active">角色列表</li>
     </ol>
 </section>
 
@@ -17,33 +17,27 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">用户列表</h3>
+                    <h3 class="box-title">角色列表</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <table id="users" class="table table-bordered table-hover">
+                    <table id="roles" class="table table-bordered table-hover">
                         <thead>
                         <tr>
-                            <th>编号</th>
-                            <th>用户名</th>
-                            <th>手机号</th>
-                            <th>电子邮件</th>
-                            <th>院系</th>
-                            <th>专业</th>
-                            <th>职位</th>
+                            <th>角色名</th>
+                            <th>角色英文名</th>
+                            <th>角色类型</th>
+                            <th>状态</th>
                             <th>操作</th>
                         </tr>
                         </thead>
 
                         <tfoot>
                         <tr>
-                            <th>编号</th>
-                            <th>用户名</th>
-                            <th>手机号</th>
-                            <th>电子邮件</th>
-                            <th>院系</th>
-                            <th>专业</th>
-                            <th>职位</th>
+                            <th>角色名</th>
+                            <th>角色英文名</th>
+                            <th>角色类型</th>
+                            <th>状态</th>
                             <th>操作</th>
                         </tr>
                         </tfoot>
@@ -63,40 +57,38 @@
     $(function () {
 
         var bindOperationsEvent = function () {
-            $(".edit").click(editUserView);
-            $(".detail").click(detailUserView);
-            $(".delete").click(deleteUser);
-        }
-        ,
-        editUserView = function () {
-            var id = $(this).data("id");
-            loadView()
+                    $(".edit").click(editUserView);
+                    $(".detail").click(detailUserView);
+                    $(".delete").click(deleteUser);
+                }
+                ,
+                editUserView = function () {
+                    var id = $(this).data("id");
+                    loadView()
 
-        },
-        detailUserView = function () {
-            var id = $(this).data("id");
+                },
+                detailUserView = function () {
+                    var id = $(this).data("id");
 
-        },
-         deleteUser = function () {
-            var id = $(this).data("id");
-         }
-        ;
+                },
+                deleteUser = function () {
+                    var id = $(this).data("id");
+                }
+                ;
 
-        $('#users').dataTable({
+        $('#roles').dataTable({
             "ordering": false,
             "serverSide": true,
             "ajax": {
-                "url": "/user/list/data"
+                "url": "/role/list",
+                "type":"POST"
             },
             "columns": [
-                {"data": "no"},
-                {"data": "loginName"},
-                {"data": "mobile"},
-                {"data": "email"},
-                {"data": "department"},
-                {"data": "major"},
-                {"data": "roleNames"},
-                {"data": "operations"},
+                {"data": "name"},
+                {"data": "englishName"},
+                {"data": "roleType"},
+                {"data": "useAble"},
+                {"data": "operations"}
             ],
             "drawCallback": bindOperationsEvent
         });

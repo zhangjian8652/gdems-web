@@ -2,6 +2,7 @@ package com.sword.gdems.web.directive;
 
 import com.sword.gdems.common.directive.DirectiveUtils;
 import com.sword.gdems.web.entity.Role;
+import com.sword.gdems.web.request.entity.DatatableCondition;
 import com.sword.gdems.web.response.DataTablePage;
 import com.sword.gdems.web.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,13 @@ public class RoleDirective extends AbstractDirective<Role> {
 
     @Override
     protected DataTablePage<Role> page(Map map) throws Exception {
-        return null;
+        String searchValue =  DirectiveUtils.getString("searchValue", map);
+        int offset =  DirectiveUtils.getInt("offset", map);
+        int limit =  DirectiveUtils.getInt("limit", map);
+        int draw =  DirectiveUtils.getInt("draw", map);
+
+        DatatableCondition condition = new DatatableCondition(offset, limit, searchValue, draw);
+        return roleService.page(condition);
     }
 
     @Override

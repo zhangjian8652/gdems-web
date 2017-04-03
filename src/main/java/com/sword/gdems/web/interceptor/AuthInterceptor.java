@@ -1,6 +1,7 @@
 package com.sword.gdems.web.interceptor;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sword.gdems.common.json.JSonUtil;
 import com.sword.gdems.web.config.ErrorCodeConfig;
 import com.sword.gdems.web.entity.User;
 import com.sword.gdems.web.request.util.RequestUtil;
@@ -40,9 +41,9 @@ public class AuthInterceptor implements HandlerInterceptor {
         if (RequestUtil.isXMLHttpRequest(httpServletRequest)) {
             JsonResponse<Object> jsonResponse =
                     new JsonResponse<Object>(ErrorCodeConfig.NOT_AUTHORIZED, ErrorCodeConfig.getMessage(ErrorCodeConfig.NOT_AUTHORIZED));
-
-       //     ObjectMapper objectMapper = new ObjectMapper()
-
+            httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            httpServletResponse.getWriter().write(JSonUtil.getJsonString(jsonResponse));
+            return false;
         }
 
         if (cookie != null) {

@@ -24,7 +24,8 @@ var GlobalVariable = {
 
 
 var URIS = {
-    dashboard: "/dashboard"
+    dashboard: "/dashboard",
+    login: "/"
     };
 
 
@@ -73,10 +74,209 @@ $.ajaxSetup( {
     headers: { // 默认添加请求头
         "Authorization": "XXXXXXXX-XXXXXXX"
     } ,
-    dataFilter: function(data,type){ // 出错时默认的处理函数
-        console.log(data.code);
-    },
     complete:function(xhr,status){
-        console.log(xhr.responseText);
+        try {
+            var result = eval("(" + xhr.responseText + ")");
+            if(result.code == "403"){
+                location.href = URIS.login;
+                return false;
+            }
+        } catch (e) {
+
+        }
+
     }
 } );
+
+
+
+/**
+ * 给jquery绑定消息提示对象
+ */
+var allDefaultTimer = 3000;
+
+(function (factory) {
+    if (typeof define === "function" && define.amd) {
+        define(["jquery"], factory);
+    } else {
+        factory(jQuery);
+    }
+}(function ($) {
+    // 提示消息对象
+    //content：提示的信息类容
+    //type ：warn,success,info,error
+    function messager(settings) {
+
+        var defaultSettings = {
+            time: allDefaultTimer,
+            // tittle:"message-tittle",
+            message: "message-content"
+        }
+
+        if (settings != undefined && settings != null) {
+            defaultSettings = $.extend(defaultSettings, settings);
+        }
+        var $target = $(this);
+        //    var tittle = $target.attr(defaultSettings.tittle);
+        var message = $target.attr(defaultSettings.message);
+        var hideTimer;
+
+        var infoType = "INFO", errorType = "ERROR", warnType = "WARN", successType = "SUCCESS";
+
+        //普通消息提示消息（白色背景）
+        function info(content) {
+            beforeTip();
+            message = content != undefined && content != null ? content : message;
+            $target.html(getDefaultTemplate(infoType));
+            afterTip();
+        }
+
+        //错误提示消息（红色背景）
+        function error(content) {
+            beforeTip();
+            message = content != undefined && content != null ? content : message;
+            $target.html(getDefaultTemplate(errorType));
+            afterTip();
+        }
+
+        //成功提示消息（绿色背景）
+        function success(content) {
+            beforeTip();
+            message = content != undefined && content != null ? content : message;
+            $target.html(getDefaultTemplate(successType));
+            afterTip();
+        }
+
+        //警告提示消息（黄色）
+        function warn(content) {
+            beforeTip();
+            message = content != undefined && content != null ? content : message;
+            $target.html(getDefaultTemplate(warnType));
+            afterTip()
+        }
+
+        function hide() {
+            hideTimer = setTimeout(function () {
+                clear();
+            }, defaultSettings.time);
+        }
+
+        function beforeTip() {
+
+        }
+
+        function afterTip() {
+            $target.children("button").click(function () {
+                clear();
+            });
+            hide();
+        }
+
+        function clear() {
+            $target.html("");
+        }
+
+        function getDefaultTemplate(type) {
+
+            var content = "<div class='alert alert-{type} alert-dismissable'>"
+                + "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>"
+                + "<h4><i class='icon fa {icon}'></i>{tittle}</h4>"
+                + message
+                + "</div>";
+
+            switch (type) {
+                case errorType:
+                    return content.replace("{type}", "danger").replace("{icon}", "fa-ban").replace("{tittle}", "Alert");
+                case warnType:
+                    return content.replace("{type}", "warning").replace("{icon}", "fa-warning").replace("{tittle}", "Warning");
+                case successType:
+                    return content.replace("{type}", "success").replace("{icon}", "fa-check").replace("{tittle}", "Message");
+                case infoType:
+                    return content.replace("{type}", "info").replace("{icon}", "fa-info").replace("{tittle}", "Message");
+                default:
+                    return content.replace("{type}", "info").replace("{icon}", "fa-info").replace("{tittle}", "Message");
+            }
+
+        }
+
+        return {'info': info, 'warn': warn, 'error': error, 'success': success};
+
+    }
+
+    function loadContent(url) {
+
+        function getAjaxHtml(url) {
+            var resultData = "";
+            jQuery.ajax({
+                url: url,
+                //默认值: true。默认设置下，所有请求均为异步请求。如果需要发送同步请求，请将此选项设置为 false。
+                async: false,
+                beforeSend: function () {
+
+                },
+                complete: function () {
+
+                },
+                data: {},
+                success: function (data) {
+                    resultData = data;
+                },
+                error: function () {
+
+                },
+                type: 'GET',
+                dataType: "html"
+            });
+
+            return resultData;
+        }
+
+        var $contentElement = $(this);
+
+        function handleHtml(contentHtml) {
+            //console.log(contentHtml)
+            $contentElement.html(contentHtml);
+        }
+
+        var result = getAjaxHtml(url);
+
+        try {
+            var jsonData = JSON.parse(result);
+            handleJsonResult(jsonData);
+        } catch (e) {
+            handleHtml(result);
+        }
+
+        function handleJsonResult(jsonData) {
+            console.log(jsonData);
+        }
+
+
+    }
+
+
+    function modal() {
+        var $modalElement = $(this);
+
+        addCoverElement();
+
+        $modalElement.removeClass("hide");
+
+        $modalElement.find(".modal-close").click(function () {
+            $modalElement.addClass("hide");
+            $(".modal-cover").remove();
+            window.scrollHanlder.enableScroll();
+        });
+
+        function addCoverElement() {
+            $("body").append("<div class='modal-cover'></div>");
+            window.scrollHanlder.disableScroll();
+        }
+
+    }
+
+    var settings = {messager: messager, modal: modal, loadContent: loadContent};
+
+    $.fn.extend(settings);
+
+}));

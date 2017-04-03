@@ -9,4 +9,8 @@ import java.util.List;
  */
 public interface RoleService extends BaseService<Role> {
     List<Role> getByUserId(String userId) throws  Exception;
+
+    boolean exist(String name) throws Exception;
+
+    boolean save(Role role);
 }

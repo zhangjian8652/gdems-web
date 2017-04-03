@@ -1,5 +1,10 @@
 package com.sword.gdems.web.entity.common;
 
+import org.springframework.context.annotation.Primary;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Date;
 
 /**
@@ -17,6 +22,8 @@ public class BaseEntity {
     public static final String DEL_FLAG_DELETE = "1";
     public static final String DEL_FLAG_AUDIT = "2";
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY,generator = "UUID")
     private String id;
     protected String remarks;	// 备注
     protected String createBy;	// 创建者

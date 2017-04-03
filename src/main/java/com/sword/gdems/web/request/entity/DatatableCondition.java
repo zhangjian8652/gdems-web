@@ -1,17 +1,21 @@
 package com.sword.gdems.web.request.entity;
 
+
+
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.annotation.Nonnull;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by Joker on 2017/4/1.
  */
 public class DatatableCondition {
 
-    @NotEmpty
+    @NotNull
     private Integer start;
-    @NotEmpty
+    @NotNull
     private Integer length;
     private String searchValue;
     private Integer draw;

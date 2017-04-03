@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
         /**
          * 按照创建日期排序
          */
-        example.orderBy("createDate");
+        example.orderBy("createDate").desc();
 
         /**
          * 分页条件
@@ -74,5 +74,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> list(User user) throws Exception {
         return userMapper.select(user);
+    }
+
+    @Override
+    public boolean exist(String loginName) {
+        User user = new User();
+        user.setLoginName(loginName);
+        List<User> users = userMapper.select(user);
+        if(users == null || users.size() <=0) {
+            return false;
+        }
+        return true;
     }
 }

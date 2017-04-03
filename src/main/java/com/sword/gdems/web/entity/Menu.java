@@ -5,6 +5,7 @@ package com.sword.gdems.web.entity;
 
 
 import com.sword.gdems.web.entity.common.BaseEntity;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Table;
 
@@ -17,31 +18,32 @@ import javax.persistence.Table;
 public class Menu extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
-	private String parent;	// 父级菜单
-	private String parentIds; // 所有父级编号
+	private String parentId;	// 父级菜单
+
+	@NotEmpty
 	private String name; 	// 名称
 	private String href; 	// 链接
 	private String target; 	// 目标（ mainFrame、_blank、_self、_parent、_top）
 	private String icon; 	// 图标
 	private Integer sort; 	// 排序
+	@NotEmpty
 	private String isShow; 	// 是否在菜单中显示（1：显示；0：不显示）
+	@NotEmpty
 	private String permission; // 权限标识
+	private String isParent; // 权限标识
 
+	public static String IS_PARENT = "YES";
+	public static String IS_NOT_PARENT = "NO";
+	public static String NONE_PARENT_ID = "NO";
+	public static String IS_SHOW = "0";
+	public static String IS_HIDE = "1";
 
-	public String getParent() {
-		return parent;
+	public String getParentId() {
+		return parentId;
 	}
 
-	public void setParent(String parent) {
-		this.parent = parent;
-	}
-
-	public String getParentIds() {
-		return parentIds;
-	}
-
-	public void setParentIds(String parentIds) {
-		this.parentIds = parentIds;
+	public void setParentId(String parentId) {
+		this.parentId = parentId;
 	}
 
 	public String getName() {
@@ -100,4 +102,11 @@ public class Menu extends BaseEntity {
 		this.permission = permission;
 	}
 
+	public String getIsParent() {
+		return isParent;
+	}
+
+	public void setIsParent(String isParent) {
+		this.isParent = isParent;
+	}
 }

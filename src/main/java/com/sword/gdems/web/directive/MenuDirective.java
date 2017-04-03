@@ -32,17 +32,18 @@ public class MenuDirective extends AbstractDirective<Menu> {
     }
     @Override
     protected List<Menu> list(Map map) throws Exception{
-        String roleId =  DirectiveUtils.getString("roleId", map);
-        String userId =  DirectiveUtils.getString("userId", map);
-        if (!StringUtils.isEmpty(roleId)) {
-            return menuService.getByRoleId(roleId);
+        //如果时查询所有菜单节点则查询返回所有菜单节点
+        String queryAll =  DirectiveUtils.getString("all", map);
+        List<Menu> menusList;
+        if (!StringUtils.isEmpty(queryAll) && "YES".equalsIgnoreCase(queryAll)) {
+            menusList = menuService.list();
+            return menusList;
         }
 
-        if (!StringUtils.isEmpty(userId)) {
-            return menuService.getByUserId(userId);
-        }
-
-        return null;
+        //如果不是就根据父ID查询子菜单
+        String parentId =  DirectiveUtils.getString("parentId", map);
+        menusList =  menuService.getByParentId(parentId);
+        return menusList;
     }
 
     @Override
