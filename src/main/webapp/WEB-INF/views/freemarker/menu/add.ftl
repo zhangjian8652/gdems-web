@@ -136,10 +136,14 @@
 
         </div>
         <!--/.col (left) -->
-        [#include "icons.ftl"/]
+        <div class="col-md-6" id="menu-tree">
+
+       </div>
     </div>
     <!-- /.row -->
-
+    <div class="row">
+        [#include "icons.ftl"/]
+    </div>
 
 </section><!-- /.content -->
 
@@ -154,6 +158,10 @@
             loadView($(this).data("uri"));
         })
 
+        var loadMenuView = function(){
+            loadViewToBox("#menu-tree","/menu/tree");
+        }
+
         var $iChecks = $("input[type='radio']");
 
         $iChecks.iCheck({
@@ -162,6 +170,7 @@
             increaseArea: '20%'
         });
 
+        loadMenuView();
 
         /**
          * 添加用户表单
@@ -220,7 +229,8 @@
                     if (successCode === jsonData.code) {
                         $tipper.messager().success(jsonData.message);
                         //将所有输入框重置
-                        $("input").val("");
+                        $("input:text").val("");
+                        loadMenuView();
                         return;
                     }
 
@@ -243,5 +253,8 @@
 
 
     });
+
+
+
 
 </script>

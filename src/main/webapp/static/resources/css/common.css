@@ -29,3 +29,19 @@
     font-size: 20px;
     font-family: Verdana, Arial, Helvetica, AppleGothic, sans-serif;
 }
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: #00a65a;
+    border-color: #00a65a;
+    padding: 1px 10px;
+    color: #fff;
+}
+
+table.treetable {
+    border: none;
+    border-collapse: collapse;
+    font-size: 1.3em;
+    line-height: 1;
+    margin: .6em 0 1.8em 0;
+    width: 100%;
+}

@@ -40,6 +40,12 @@ public class MenuController {
     private MenuService menuService;
 
 
+    @RequestMapping(value = "/tree", method = RequestMethod.GET)
+    public String treeView() {
+        return "menu/tree";
+    }
+
+
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String listView() {
         return "menu/list";
@@ -68,7 +74,7 @@ public class MenuController {
             List<ObjectError> errors = result.getAllErrors();
             for (int i = 0; i < errors.size(); i++) {
                 ObjectError objectError = errors.get(i);
-                logger.error("Role add request param error:" + objectError.getDefaultMessage());
+                logger.error("Menu add request param error:" + objectError.getDefaultMessage());
             }
             throw new InvalidRequestException(ErrorCodeConfig.REUQUEST_CONDIRION_ERROR, ErrorCodeConfig.getMessage(ErrorCodeConfig.REUQUEST_CONDIRION_ERROR));
         }

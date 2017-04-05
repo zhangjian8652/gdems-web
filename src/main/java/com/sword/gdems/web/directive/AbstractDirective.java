@@ -35,11 +35,11 @@ public abstract class AbstractDirective<T> implements TemplateDirectiveModel {
         /**
          * TYPE 参数未LIST,ENTITY,PAGE
          */
-        String strType = DirectiveUtils.getString("type", map);
+        String strType = DirectiveUtils.getString("type", map).toUpperCase();
         if (StringUtils.isEmpty(strType)) {
             strType = "ENTITY";
         }
-        Type type = Type.valueOf(strType.toUpperCase());
+        Type type = Type.valueOf(strType);
         logger.debug("Direct type enum: " + type);
         //需要输出的变量
         Map<String, TemplateModel> params = new HashMap<String, TemplateModel>();

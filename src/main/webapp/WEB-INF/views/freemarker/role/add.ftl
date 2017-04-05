@@ -42,7 +42,7 @@
                                 </div>
                                 <!-- /.form-group -->
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">角色英文名:</label>
+                                    <label class="col-sm-2 control-label">英文名:</label>
 
                                     <div class="col-sm-4 input-group">
                                         <input type="text" class="form-control" name="email">
@@ -61,6 +61,14 @@
                                                 style="width: 100%;">
                                             <option value="NORMAL">普通角色</option>
                                         </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">拥有权限:</label>
+
+                                    <div class="col-sm-2 input-group">
+                                        <ul id="privilege-tree" class="ztree"></ul>
                                     </div>
                                 </div>
 
@@ -100,6 +108,8 @@
 </section><!-- /.content -->
 
 <script type="text/javascript">
+
+    var treeObj;
 
     $(function () {
 
@@ -167,7 +177,17 @@
 
                 }
 
-                $.ajax({url: requestPath, type: method, data: {}, success: callBack, error: callBack});
+                var zTreeCheckedNodes = ZTreeUtil.transferJSNodeToJAVANode(treeObj);
+                var datas = JSON.stringify({zTreeNodes:zTreeCheckedNodes});
+                $.ajax({
+                    url: requestPath,
+                    type: method,
+                    dataType :'json',
+                    contentType: "application/json; charset=utf-8",
+                    data: datas,
+                    success: callBack,
+                    error: callBack
+                });
 
             }
         }
@@ -182,5 +202,97 @@
 
 
     });
+
+
+    //权限选择列表
+
+    $(function(){
+        var url = $path + "/menu/list";
+
+        var setting = {
+            async: {
+                enable: true,
+                url:url,
+                type: "post",
+                autoParam:["id"],
+                otherParam:{"chk":"chk"},
+                dataFilter: dataFilter
+            },
+            check: {
+                enable: true,
+                autoCheckTrigger: true
+            },
+            data: {
+                simpleData: {
+                    enable: true
+                }
+            },
+            callback: {
+                onCheck: onCheck,
+                onAsyncSuccess: onAsyncSuccess,
+                beforeRemove: zTreeBeforeRemove,
+                onRemove: zTreeOnRemove,
+                onRename:zTreeOnRename
+            }
+        };
+        function dataFilter(treeId, parentNode, childNodes) {
+            if (parentNode.checkedEx === true) {
+                for(var i=0, l=childNodes.length; i<l; i++) {
+                    childNodes[i].checked = parentNode.checked;
+                    childNodes[i].halfCheck = false;
+                    childNodes[i].checkedEx = true;
+                }
+            }
+            return childNodes;
+        }
+        function onCheck(event, treeId, treeNode) {
+            cancelHalf(treeNode)
+            treeNode.checkedEx = true;
+        }
+        function onAsyncSuccess(event, treeId, treeNode, msg) {
+            cancelHalf(treeNode);
+        }
+        function cancelHalf(treeNode) {
+            if (treeNode.checkedEx) return;
+            var zTree = $.fn.zTree.getZTreeObj("privilege-tree");
+            treeNode.halfCheck = false;
+            zTree.updateNode(treeNode);
+        }
+
+        function zTreeBeforeRemove() {
+
+        }
+        function zTreeOnRemove(event, treeId, treeNode) {
+
+        }
+        function zTreeOnRename(event, treeId, treeNode, isCancel) {
+
+        };
+
+        var zNodes =
+                [
+                    [@menu parentId="" type="LIST";list]
+        [#if list?? && list?size > 0]
+        [#list list as menu]
+        [#if menu_index > 0]
+        ,
+        [/#if]
+        {
+            id:"${menu.id}",
+                    name:"${menu.name}",
+                halfCheck:true,
+                checked:false,
+                isParent:true
+        }
+        [/#list]
+        [/#if]
+
+        [/@menu]
+        ];
+
+        treeObj = $.fn.zTree.init($("#privilege-tree"), setting, zNodes);
+    });
+
+
 
 </script>

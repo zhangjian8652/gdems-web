@@ -39,7 +39,7 @@ public class RoleDirective extends AbstractDirective<Role> {
     protected List<Role> list(Map map) throws Exception {
         String userId = DirectiveUtils.getString("userId", map);
         if(!StringUtils.isEmpty(userId)){
-            roleService.getByUserId(userId);
+           return roleService.getByUserId(userId);
         }
         Role role = new Role();
         return roleService.list(role);

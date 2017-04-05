@@ -24,7 +24,14 @@
     </select>
 
 
+    <insert id="insertRoleMenuBatch" parameterType="java.util.List">
+        insert into sys_role_menu (role_id,menu_id)
+        values
+        <foreach collection="roleMenus" item="roleMenu" index="index" separator="," >
+            (#{roleMenu.roleId},#{roleMenu.menuId})
+        </foreach>
 
+    </insert>
 
 
 </mapper>

@@ -5,7 +5,10 @@ import com.sword.gdems.web.entity.User;
 import com.sword.gdems.web.request.entity.DatatableCondition;
 import com.sword.gdems.web.response.DataTablePage;
 import com.sword.gdems.web.service.UserService;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -17,6 +20,8 @@ public class UserDirective extends AbstractDirective<User> {
 
     @Autowired
     private UserService userService;
+
+    private Logger logger = LogManager.getLogger(UserDirective.class);
 
     @Override
     protected boolean isOk(Map map) {
@@ -38,11 +43,20 @@ public class UserDirective extends AbstractDirective<User> {
 
     @Override
     protected List<User> list(Map map) throws Exception{
-        return null;
+        return userService.all();
     }
 
     @Override
     protected User entity(Map map) throws Exception{
-        return null;
+        String userId =  DirectiveUtils.getString("userId", map);
+        logger.info("Directive to entity userId is ：" + userId);
+
+        if (StringUtils.isEmpty(userId)) {
+            return null;
+        }
+        User user = new User();
+        user.setId(userId);
+
+        return userService.entity(user);
     }
 }

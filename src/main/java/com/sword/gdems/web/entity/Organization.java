@@ -6,6 +6,7 @@ package com.sword.gdems.web.entity;
 
 import com.sword.gdems.web.entity.common.BaseEntity;
 import freemarker.template.TemplateModel;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Table;
 
@@ -22,8 +23,12 @@ public class Organization extends BaseEntity implements TemplateModel{
 	private String parentId;	// 父级编号
 	private String areaId;		// 归属区域
 	private String code; 	// 机构编码
+
+	@NotEmpty(message = "机构名称不能为空")
 	private String name; 	// 机构名称
 	private Integer sort;		// 排序
+
+	@NotEmpty(message = "机构类型不能为空")
 	private String type; 	// 机构类型（1：公司；2：部门；3：小组）
 	private String grade; 	// 机构等级（1：一级；2：二级；3：三级；4：四级）
 	private String address; // 联系地址
@@ -35,6 +40,8 @@ public class Organization extends BaseEntity implements TemplateModel{
 	private String useable;//是否可用
 	private String primaryPersonId;//主负责人
 	private String deputyPersonId;//副负责人
+
+	public static String NON_PARENT = "NO";
 
 
 	public String getParentId() {

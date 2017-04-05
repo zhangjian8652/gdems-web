@@ -3,10 +3,12 @@ package com.sword.gdems.web.controller;
 import com.sword.gdems.web.config.ErrorCodeConfig;
 import com.sword.gdems.web.entity.Role;
 import com.sword.gdems.web.entity.User;
+import com.sword.gdems.web.entity.ZTreeNode;
 import com.sword.gdems.web.entity.common.BaseEntity;
 import com.sword.gdems.web.entity.common.EntityUtil;
 import com.sword.gdems.web.exception.InvalidRequestException;
 import com.sword.gdems.web.request.entity.DatatableCondition;
+import com.sword.gdems.web.request.entity.ZTreeNodes;
 import com.sword.gdems.web.request.util.RequestUtil;
 import com.sword.gdems.web.response.JsonResponse;
 import com.sword.gdems.web.service.RoleService;
@@ -72,7 +74,7 @@ public class RoleController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public Object add(@Valid @ModelAttribute("form") Role role, BindingResult result,HttpServletRequest request) throws InvalidRequestException {
+    public Object add(@Valid @ModelAttribute Role role, BindingResult result,HttpServletRequest request,@RequestBody(required = false)  ZTreeNodes zTreeNodes) throws Exception {
         if (result.hasErrors()) {
             List<ObjectError> errors = result.getAllErrors();
             for (int i = 0; i < errors.size(); i++) {
@@ -82,11 +84,19 @@ public class RoleController {
             throw new InvalidRequestException(ErrorCodeConfig.REUQUEST_CONDIRION_ERROR, ErrorCodeConfig.getMessage(ErrorCodeConfig.REUQUEST_CONDIRION_ERROR));
         }
 
+        boolean exist = roleService.exist(role.getName());
+
+        if (exist) {
+            throw new InvalidRequestException(ErrorCodeConfig.ROLENAME_ALREADY_EXIST, ErrorCodeConfig.getMessage(ErrorCodeConfig.ROLENAME_ALREADY_EXIST));
+        }
+
+
+        //设置基本参数，并且添加角色
         User user = RequestUtil.getLoginUserFromSession(request);
-
         EntityUtil.setCommonValue(role, user);
+        boolean rst = roleService.add(role,zTreeNodes.getzTreeNodes());
 
-        boolean rst = roleService.save(role);
+
 
         if (!rst) {
             throw new InvalidRequestException(ErrorCodeConfig.INTERNAL_ERROR, ErrorCodeConfig.getMessage(ErrorCodeConfig.INTERNAL_ERROR));

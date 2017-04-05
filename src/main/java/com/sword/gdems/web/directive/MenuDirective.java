@@ -42,7 +42,15 @@ public class MenuDirective extends AbstractDirective<Menu> {
 
         //如果不是就根据父ID查询子菜单
         String parentId =  DirectiveUtils.getString("parentId", map);
-        menusList =  menuService.getByParentId(parentId);
+
+        //如果父id为空则返回顶级下单
+        if (StringUtils.isEmpty(parentId)) {
+            menusList =   menuService.getTop();
+        }else {
+            //否者才根据父节点查询菜单
+            menusList =  menuService.getByParentId(parentId);
+        }
+
         return menusList;
     }
 

@@ -86,4 +86,9 @@ public class UserServiceImpl implements UserService {
         }
         return true;
     }
+
+    @Override
+    public List<User> all() throws Exception {
+        return userMapper.selectAll();
+    }
 }

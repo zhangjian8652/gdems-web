@@ -56,7 +56,7 @@ public class MenuServiceImpl implements MenuService {
 
         //如果父菜单id位空则查顶级菜单
         if (StringUtils.isEmpty(parentId)) {
-            return getTopMenu();
+            return getTop();
         }
 
         //否则查出所有对应子集菜单
@@ -66,7 +66,7 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public List<Menu> getTopMenu() throws Exception {
+    public List<Menu> getTop() throws Exception {
         Menu menu = new Menu();
         menu.setParentId(Menu.NONE_PARENT_ID);
         return menuMapper.select(menu);

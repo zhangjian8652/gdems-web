@@ -11,7 +11,13 @@
 <link rel="stylesheet" href="${path!}/static/plugins/datatables/dataTables.bootstrap.css">
 <!-- ztree -->
 <link rel="stylesheet" href="${path!}/static/plugins//zTree-v3/css/metroStyle/metroStyle.css">
+<!-- JQuery Tree Table -->
+<link rel="stylesheet" href="${path!}/static/plugins/jquery-treetable/css/jquery.treetable.css">
+<link rel="stylesheet" href="${path!}/static/plugins/jquery-treetable/css/jquery.treetable.theme.default.css">
 
+
+
+<link rel="stylesheet" href="${path!}/static/plugins/spinner/jquery.spinner.css">
 
 <!-- Theme style -->
 <link rel="stylesheet" href="${path!}/static/plugins/admintle/css/AdminLTE.min.css">

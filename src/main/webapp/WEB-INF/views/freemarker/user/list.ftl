@@ -30,7 +30,7 @@
                             <th>电子邮件</th>
                             <th>院系</th>
                             <th>专业</th>
-                            <th>职位</th>
+                            <th>角色</th>
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -43,7 +43,7 @@
                             <th>电子邮件</th>
                             <th>院系</th>
                             <th>专业</th>
-                            <th>职位</th>
+                            <th>角色</th>
                             <th>操作</th>
                         </tr>
                         </tfoot>

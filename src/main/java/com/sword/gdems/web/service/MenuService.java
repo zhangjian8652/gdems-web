@@ -15,7 +15,7 @@ public interface MenuService extends BaseService<Menu> {
 
     List<Menu> getByParentId(String parentId) throws Exception;
 
-    List<Menu> getTopMenu() throws Exception;
+    List<Menu> getTop() throws Exception;
 
     List<Menu> list()  throws Exception;
 

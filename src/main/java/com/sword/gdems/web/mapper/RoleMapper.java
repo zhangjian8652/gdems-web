@@ -1,6 +1,8 @@
 package com.sword.gdems.web.mapper;
 
 import com.sword.gdems.web.entity.Role;
+import com.sword.gdems.web.entity.RoleMenu;
+import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
@@ -14,4 +16,6 @@ import java.util.List;
 public interface RoleMapper extends Mapper<Role> {
 
     List<Role> getByUserId(String userId);
+
+    int insertRoleMenuBatch(@Param("roleMenus") List<RoleMenu> roleMenus);
 }

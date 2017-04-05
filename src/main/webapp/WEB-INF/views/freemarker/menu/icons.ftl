@@ -1,4 +1,4 @@
-<div class="col-md-6">
+<div class="col-md-12">
     <!-- Form Element sizes -->
     <div class="box box-info">
         <div class="box-header with-border">

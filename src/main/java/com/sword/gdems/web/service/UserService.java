@@ -11,5 +11,7 @@ import java.util.List;
  */
 public interface UserService extends BaseService<User> {
 
-    boolean exist(String loginName);
+    boolean exist(String loginName) throws Exception;
+
+    List<User> all() throws Exception;
 }

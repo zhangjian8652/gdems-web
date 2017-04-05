@@ -1,6 +1,7 @@
 package com.sword.gdems.web.service;
 
 import com.sword.gdems.web.entity.Role;
+import com.sword.gdems.web.entity.ZTreeNode;
 
 import java.util.List;
 
@@ -12,5 +13,7 @@ public interface RoleService extends BaseService<Role> {
 
     boolean exist(String name) throws Exception;
 
-    boolean save(Role role);
+    boolean save(Role role)  throws Exception;
+
+    boolean add(Role role, List<ZTreeNode> permissions)  throws Exception;
 }

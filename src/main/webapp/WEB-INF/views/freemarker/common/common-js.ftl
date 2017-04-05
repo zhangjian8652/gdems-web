@@ -31,6 +31,11 @@
 <script src="${path}/static/plugins/zTree-v3/js/jquery.ztree.core.min.js"></script>
 <script src="${path}/static/plugins/zTree-v3/js/jquery.ztree.excheck.min.js"></script>
 <script src="${path}/static/plugins/zTree-v3/js/jquery.ztree.exedit.min.js"></script>
+<!-- JQuery Tree Table -->
+<script src="${path}/static/plugins/jquery-treetable/jquery.treetable.js"></script>
+
+<!-- spinner -->
+<script src="${path}/static/plugins/spinner/jquery.spinner.js"></script>
 
 <script src="${path}/static/resources/js/validation-extensions.js"></script>
 <script src="${path}/static/resources/js/common.js"></script>

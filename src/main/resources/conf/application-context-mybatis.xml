@@ -27,6 +27,12 @@
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
         <property name="basePackage" value="com.sword.gdems.*.mapper"/>
         <!--<property name="markerInterface" value="tk.mybatis.mapper.common.Mapper"/>-->
+        <property name="properties">
+            <value>
+                mappers=tk.mybatis.mapper.common.Mapper
+                ORDER=BEFORE
+            </value>
+        </property>
     </bean>
 
     <!-- 定义事务 -->

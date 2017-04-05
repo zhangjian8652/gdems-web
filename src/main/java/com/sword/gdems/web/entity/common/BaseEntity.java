@@ -23,7 +23,7 @@ public class BaseEntity {
     public static final String DEL_FLAG_AUDIT = "2";
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY,generator = "UUID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY,generator = "select uuid()")
     private String id;
     protected String remarks;	// 备注
     protected String createBy;	// 创建者

@@ -18,6 +18,7 @@ public class ErrorCodeConfig {
     private static Logger logger = LogManager.getLogger(ErrorCodeConfig.class);
 
 
+
     static {
         errorCodeProperties = new Properties();
         try {
@@ -41,6 +42,7 @@ public class ErrorCodeConfig {
     public static String REUQUEST_CONDIRION_ERROR = "100018";
     public static String INTERNAL_ERROR = "500";
     public static String NOT_AUTHORIZED = "403";
+    public static String ROLENAME_ALREADY_EXIST = "100019";
 
 
 }

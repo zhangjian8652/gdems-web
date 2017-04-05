@@ -1,5 +1,6 @@
 package com.sword.gdems.web.entity.common;
 
+import com.sword.gdems.web.entity.Organization;
 import com.sword.gdems.web.entity.User;
 
 import java.util.Date;
@@ -15,6 +16,12 @@ public class EntityUtil {
         entity.setUpdateBy(user.getLoginName());
         entity.setUpdateDate(new Date());
         entity.setDelFlag(BaseEntity.DEL_FLAG_NORMAL);
+        return;
+    }
+
+    public static void setCommonUpdateValue(BaseEntity entity, User user) {
+        entity.setUpdateBy(user.getLoginName());
+        entity.setUpdateDate(new Date());
         return;
     }
 }

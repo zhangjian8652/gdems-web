@@ -26,7 +26,7 @@ var GlobalVariable = {
 var URIS = {
     dashboard: "/dashboard",
     login: "/"
-    };
+};
 
 
 /**
@@ -38,18 +38,24 @@ $(function () {
         var uri = $(this).data("uri");
         loadView(uri);
     });
+
+
 });
 
 
 //发送请求获取页面视图
 var loadView = function (uri) {
+        loadViewToBox(GlobalVariable.containerId, uri);
+    },
+    loadViewToBox = function (id, uri) {
         var url = $path + uri;
         var callBack = function (html) {
-            $(GlobalVariable.containerId).html(html);
+            $(id).html(html);
         }
 
         $.get(url, callBack);
-    },
+    }
+    ,
 
 //获取操作栏按钮组,编辑，删除
     operations = function (data, type, full, meta) {
@@ -65,19 +71,19 @@ var loadView = function (uri) {
     getDeleteButton = function (id) {
         return "<button type='button' class='btn bg-olive margin-right delete' data-id " + id + ">删除</button>"
     }
-;
+    ;
 
 
 //设置AJAX的全局默认选项
-$.ajaxSetup( {
-    aysnc: false , // 默认同步加载
+$.ajaxSetup({
+    aysnc: false, // 默认同步加载
     headers: { // 默认添加请求头
         "Authorization": "XXXXXXXX-XXXXXXX"
-    } ,
-    complete:function(xhr,status){
+    },
+    complete: function (xhr, status) {
         try {
             var result = eval("(" + xhr.responseText + ")");
-            if(result.code == "403"){
+            if (result.code == "403") {
                 location.href = URIS.login;
                 return false;
             }
@@ -86,8 +92,7 @@ $.ajaxSetup( {
         }
 
     }
-} );
-
+});
 
 
 /**
@@ -280,3 +285,26 @@ var allDefaultTimer = 3000;
     $.fn.extend(settings);
 
 }));
+
+
+var ZTreeUtil = {
+    transferJSNodeToJAVANode: function (zTreeObject) {
+        var zTreeCheckedNodes = treeObj.getCheckedNodes();
+        var zTreeNodes = [];
+
+        for (var i = 0; i < zTreeCheckedNodes.length; i++) {
+            checkedNode = zTreeCheckedNodes[i];
+            zTreeNode = {
+                "id": checkedNode.id,
+                "name": checkedNode.name,
+                "isFirstNode": checkedNode.isFirstNode,
+                "isParent": checkedNode.isParent,
+                "open": checkedNode.open
+            }
+            zTreeNodes[i] = zTreeNode
+        }
+        return zTreeNodes;
+    }
+
+
+};
