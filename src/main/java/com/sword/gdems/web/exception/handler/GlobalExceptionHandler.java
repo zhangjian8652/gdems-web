@@ -3,6 +3,7 @@ package com.sword.gdems.web.exception.handler;
 
 import com.sword.gdems.web.exception.InvalidRequestException;
 import com.sword.gdems.web.exception.NotFoundException;
+import com.sword.gdems.web.exception.SwordException;
 import com.sword.gdems.web.response.JsonResponse;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -28,7 +29,17 @@ public class GlobalExceptionHandler extends Throwable{
         logger.debug("creste APIExceptionHandler bean.");
     }
 
-     @ExceptionHandler(InvalidRequestException.class)
+/*
+
+    @ExceptionHandler(SwordException.class)
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseBody
+    public Object handleInvalidRequestError(SwordException ex) {
+        return new JsonResponse(ex.getErrorCode(),ex.getMessage());
+    }
+
+
+    @ExceptionHandler(InvalidRequestException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     @ResponseBody
     public Object handleInvalidRequestError(InvalidRequestException ex) {
@@ -56,5 +67,20 @@ public class GlobalExceptionHandler extends Throwable{
     @ResponseBody
     public Object handleUnexpectedServerError(RuntimeException ex) {
         return new JsonResponse("500","internal server error : " + ex.getMessage());
+    }*/
+
+
+
+    @ExceptionHandler(NotFoundException.class)
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    public Object handleNotFoundException(Exception ex) {
+        if (ex instanceof SwordException) {
+            SwordException se = (SwordException) ex;
+            return new JsonResponse(se.getErrorCode(), ex.getMessage());
+        }else {
+            return new JsonResponse("500","internal server error : " + ex.getMessage());
+        }
+
     }
 }

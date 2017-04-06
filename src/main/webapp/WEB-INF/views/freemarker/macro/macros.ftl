@@ -98,12 +98,12 @@
 
         }
 
-        $(".operation").click();
+        $(".operation").click(operation);
     })
 </script>
 [/#macro]
 
-[#macro organizationTreeTableChildren parentId="" uriBase]
+[#macro organizationTreeTableChildren uriBase parentId=""]
     [@organization  parentId="${parentId!}"  type="LIST";list]
         [#if list?? && list?size > 0]
             [#list list as organization]
@@ -137,17 +137,17 @@
 [/#macro]
 
 [#macro editButton id uriBase]
-<button type='button' class='btn  bg-orange margin-right operation edit' data-id='${id!}' data-option="edit"
+<button type='button' class='btn  bg-orange margin-right operation edit' data-id='${id!}' data-operation="edit"
         data-uribase="${uriBase}">编辑
 </button>
 [/#macro]
-[#macro detailButton id]
-<button type='button' class='btn  bg-olive margin-right operation detail' data-id='${id!}' data-option="delete"
+[#macro detailButton id uriBase]
+<button type='button' class='btn  bg-olive margin-right operation detail' data-id='${id!}' data-operation="delete"
         data-uribase="${uriBase}">详情
 </button>
 [/#macro]
-[#macro deleteButton id]
-<button type='button' class='btn  bg-orange bg-maroon operation delete' data-id='${id!}' data-option="delete"
+[#macro deleteButton id uriBase]
+<button type='button' class='btn  bg-orange bg-maroon operation delete' data-id='${id!}' data-operation="delete"
         data-uribase="${uriBase}">删除
 </button>
 [/#macro]

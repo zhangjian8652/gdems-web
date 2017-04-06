@@ -180,16 +180,13 @@ $(function () {
                 callBack = function (data) {
 
                     var successCode = "100000", $tipper = $("#tipper");
-
-                    var jsonData = data;
-                    console.log(jsonData);
-
-                    if (successCode === jsonData.code) {
-                        $tipper.messager().success(jsonData.message);
+                    if (successCode === data.code) {
+                        $tipper.messager().success(data.message);
+                        return;
+                    }else{
+                        $tipper.messager().error(JSON.parse(data).message);
                         return;
                     }
-
-                    $tipper.messager().error(jsonData);
 
                 }
 
@@ -200,8 +197,7 @@ $(function () {
                     dataType :'json',
                     contentType: "application/json; charset=utf-8",
                     data: datas,
-                    success: callBack,
-                    error: callBack
+                    success: callBack
                 });
 
             }

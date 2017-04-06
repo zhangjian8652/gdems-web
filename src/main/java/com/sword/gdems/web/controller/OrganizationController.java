@@ -5,6 +5,7 @@ import com.sword.gdems.web.entity.Organization;
 import com.sword.gdems.web.entity.User;
 import com.sword.gdems.web.entity.common.EntityUtil;
 import com.sword.gdems.web.exception.InvalidRequestException;
+import com.sword.gdems.web.exception.SwordException;
 import com.sword.gdems.web.request.util.RequestUtil;
 import com.sword.gdems.web.response.JsonResponse;
 import com.sword.gdems.web.service.OrganizationService;
@@ -91,7 +92,7 @@ public class OrganizationController {
 
         boolean rest = organizationService.exist(organization.getName());
         if (rest) {
-            throw new InvalidRequestException(ErrorCodeConfig.INTERNAL_ERROR, "组织机构已经存在.");
+            throw new SwordException(ErrorCodeConfig.INTERNAL_ERROR, "组织机构已经存在.");
         }
 
         //这里没有做区域，暂时写死的

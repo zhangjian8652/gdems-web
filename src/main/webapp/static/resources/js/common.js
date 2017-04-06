@@ -111,8 +111,10 @@ var CommonUtil = {
             if (successCode === jsonData.code) {
                 $tipper.messager().success(jsonData.message);
                 return;
+            }else{
+                $tipper.messager().error(JSON.parse(data).message);
+                return;
             }
-            $tipper.messager().error(jsonData);
 
         }
 
