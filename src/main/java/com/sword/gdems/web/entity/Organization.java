@@ -24,11 +24,10 @@ public class Organization extends BaseEntity implements TemplateModel{
 	private String areaId;		// 归属区域
 	private String code; 	// 机构编码
 
-	@NotEmpty(message = "机构名称不能为空")
+	@NotEmpty(message = "机构名称不能为空。")
 	private String name; 	// 机构名称
 	private Integer sort;		// 排序
-
-	@NotEmpty(message = "机构类型不能为空")
+	@NotEmpty(message = "机构类型必须选择。")
 	private String type; 	// 机构类型（1：公司；2：部门；3：小组）
 	private String grade; 	// 机构等级（1：一级；2：二级；3：三级；4：四级）
 	private String address; // 联系地址

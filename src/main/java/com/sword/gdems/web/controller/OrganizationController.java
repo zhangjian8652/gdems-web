@@ -74,6 +74,16 @@ public class OrganizationController {
             throw new InvalidRequestException(ErrorCodeConfig.REUQUEST_CONDIRION_ERROR, result.getAllErrors().get(0).getDefaultMessage());
 
         }
+
+
+        boolean rest = organizationService.exist(organization);
+        if (rest) {
+            throw new InvalidRequestException(ErrorCodeConfig.INTERNAL_ERROR, "组织机构已经存在.");
+        }
+
+        //这里没有做区域，暂时写死的
+        organization.setAreaId("temp");
+
         User user = RequestUtil.getLoginUserFromSession(request);
         //设置baseentity属性，比如createDate,createBy
         EntityUtil.setCommonValue(organization, user);
@@ -92,7 +102,7 @@ public class OrganizationController {
     }
 
 
-    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    @RequestMapping(value = "/edit", method = RequestMethod.GET)
     public String editView(HttpServletRequest request) {
         return "organization/edit";
     }
@@ -109,18 +119,22 @@ public class OrganizationController {
             throw new InvalidRequestException(ErrorCodeConfig.REUQUEST_CONDIRION_ERROR, result.getAllErrors().get(0).getDefaultMessage());
 
         }
-        User user = RequestUtil.getLoginUserFromSession(request);
-        //设置baseentity属性，比如createDate,createBy
-        EntityUtil.setCommonUpdateValue(organization, user);
-
 
         Organization organization1 = organizationService.getById(organization.getId());
 
 
+        if (organization1 == null) {
+            throw new InvalidRequestException(ErrorCodeConfig.INTERNAL_ERROR, "更新机构失败，该机构不存在。");
+        }
+
         organization1.setName(organization.getName());
         organization1.setSort(organization.getSort());
         organization1.setMaster(organization.getMaster());
-        organization1.setType(organization.getType());
+
+
+        User user = RequestUtil.getLoginUserFromSession(request);
+        //设置baseentity属性，比如createDate,createBy
+        EntityUtil.setCommonUpdateValue(organization, user);
 
         //保存菜单
         boolean rst = organizationService.save(organization);
@@ -131,7 +145,6 @@ public class OrganizationController {
 
         return new JsonResponse<User>(ErrorCodeConfig.SUCCESS, "更新机构成功");
     }
-
 
 
     @RequestMapping(value = "/exist", method = RequestMethod.POST)

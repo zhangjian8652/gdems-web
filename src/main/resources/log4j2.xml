@@ -35,7 +35,7 @@
                     <AppenderRef ref="File"/>
           </Logger>-->
 
-        <Root level="debug">
+        <Root name="com.sword" level="debug">
             <AppenderRef ref="Console"/>
         </Root>
     </Loggers>
