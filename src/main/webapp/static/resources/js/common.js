@@ -6,16 +6,15 @@ var GlobalVariable = {
         errorClass: "error", //默认为错误的样式类为：error
         errorPlacement: function (error, element) { //把错误信息放在验证的元素后面
             element.parent().removeClass("has-success").addClass("has-error");
-            if("select" != element.get().tagName){
+            if(!element.is("select")){
                 element.parent().children("span").eq(0).removeClass("glyphicon-ok").addClass("glyphicon-remove");
                 element.parent().children("span").eq(1).removeClass("glyphicon-ok").addClass("glyphicon-remove");
             }
-
             error.appendTo(element.parent());
         },
         success: function (label,element) {
             label.parent().addClass("has-success").removeClass("has-error");
-            if("select" != element.get().tagName) {
+            if(!$(element).is("select")) {
                 label.parent().children("span").eq(0).removeClass("glyphicon-remove").addClass("glyphicon-ok");
                 label.parent().children("span").eq(1).removeClass("glyphicon-remove").addClass("glyphicon-ok");
             }
@@ -98,6 +97,28 @@ $.ajaxSetup({
 
     }
 });
+
+
+var CommonUtil = {
+    ajaxCallback:function(data) {
+        callBack = function (data) {
+
+            var successCode = "100000", $tipper = $("#tipper");
+
+            var jsonData = data;
+            console.log(jsonData);
+
+            if (successCode === jsonData.code) {
+                $tipper.messager().success(jsonData.message);
+                return;
+            }
+            $tipper.messager().error(jsonData);
+
+        }
+
+    }
+}
+
 
 
 /**
@@ -196,15 +217,15 @@ var allDefaultTimer = 3000;
 
             switch (type) {
                 case errorType:
-                    return content.replace("{type}", "danger").replace("{icon}", "fa-ban").replace("{tittle}", "Alert");
+                    return content.replace("{type}", "danger").replace("{icon}", "fa-ban").replace("{tittle}", "错误");
                 case warnType:
-                    return content.replace("{type}", "warning").replace("{icon}", "fa-warning").replace("{tittle}", "Warning");
+                    return content.replace("{type}", "warning").replace("{icon}", "fa-warning").replace("{tittle}", "警告");
                 case successType:
-                    return content.replace("{type}", "success").replace("{icon}", "fa-check").replace("{tittle}", "Message");
+                    return content.replace("{type}", "success").replace("{icon}", "fa-check").replace("{tittle}", "提示");
                 case infoType:
-                    return content.replace("{type}", "info").replace("{icon}", "fa-info").replace("{tittle}", "Message");
+                    return content.replace("{type}", "info").replace("{icon}", "fa-info").replace("{tittle}", "提示");
                 default:
-                    return content.replace("{type}", "info").replace("{icon}", "fa-info").replace("{tittle}", "Message");
+                    return content.replace("{type}", "info").replace("{icon}", "fa-info").replace("{tittle}", "提示");
             }
 
         }

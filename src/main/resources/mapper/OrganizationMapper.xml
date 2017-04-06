@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sword.gdems.web.mapper.UserMapper">
+
+    <sql id="allColumns">
+    	u.id,
+    	u.department_id,
+    	u.major_id ,
+    	u.login_name ,
+    	u.password,
+    	u.no,
+		u.name,
+		u.email,
+		u.phone,
+		u.mobile,
+		u.user_type ,
+		u.login_ip ,
+		u.login_date ,
+		u.remarks,
+		u.login_flag,
+		u.photo,
+		u.create_by ,
+		u.create_date,
+		u.update_by,
+		u.update_date ,
+		u.del_flag,
+		d.name as department_name,
+		m.name as major_name
+    </sql>
+
+   <sql id="joinColumns">
+       LEFT OUTER JOIN sys_organization d ON (u.department_id = d.id)
+       LEFT OUTER JOIN sys_organization m ON (u.major_id = m.id)
+   </sql>
+    
+    
+
+
+</mapper>
+
+

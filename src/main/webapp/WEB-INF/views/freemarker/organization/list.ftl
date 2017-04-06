@@ -21,7 +21,12 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body no-padding">
-                    [@macro.organizationTreeTable /]
+                    <div class="row">
+                        <div class="col-md-12" id="tipper">
+
+                        </div>
+                    </div>
+                    [@macro.organizationTreeTable uriBase="organization"/]
                 </div>
                 <!-- /.box-body -->
 
@@ -32,4 +37,3 @@
         </div>
     </div>
 </section><!-- /.content -->
-

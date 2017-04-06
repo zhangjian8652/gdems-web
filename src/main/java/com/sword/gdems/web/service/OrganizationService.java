@@ -17,7 +17,11 @@ public interface OrganizationService extends BaseService<Organization> {
 
     boolean save(Organization organization) throws Exception;
 
-    boolean exist(Organization organization1) throws Exception;
+    boolean exist(String name) throws Exception;
 
     Organization getById(String id)  throws Exception;
+
+    List<Organization> getByUserId(String id) throws Exception;
+
+    boolean delete(String id) throws Exception;
 }

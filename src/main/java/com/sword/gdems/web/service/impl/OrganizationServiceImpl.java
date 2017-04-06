@@ -75,8 +75,11 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
 
     @Override
-    public boolean exist(Organization organization1) throws Exception {
-        return organizationMapper.selectOne(organization1) != null;
+    public boolean exist(String name) throws Exception {
+
+        Organization organization = new Organization();
+        organization.setName(name);
+        return organizationMapper.selectOne(organization) != null;
     }
 
     @Override
@@ -85,6 +88,21 @@ public class OrganizationServiceImpl implements OrganizationService {
         organization.setId(id);
 
         return organizationMapper.selectByPrimaryKey(organization);
+    }
+
+    @Override
+    public List<Organization> getByUserId(String id) throws Exception {
+
+        return organizationMapper.getByUserId(id);
+    }
+
+    @Override
+    public boolean delete(String id) throws Exception {
+        Example example = new Example(Organization.class);
+        example.or().andEqualTo("id", id);
+        example.or().andEqualTo("parentId", id);
+        int result = organizationMapper.deleteByExample(example);
+        return result > 0;
     }
 
 }

@@ -12,11 +12,11 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 public class UserInfo {
 
-    @NotEmpty(message = "100016")
-    @Length(min = 4, max = 20,message = "100017")
+    @NotEmpty(message = "用户名不能为空。")
+    @Length(min = 4, max = 20,message = "用户名长度必须为4到20位。")
     private String username;
-    @NotEmpty(message = "100015")
-    @Length(min = 4,max = 20,message = "100014")
+    @NotEmpty(message = "用密码不能为空")
+    @Length(min = 4,max = 20,message = "用户密码必须为4到20位。")
     private String password;
 
     private String code;

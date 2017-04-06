@@ -1,13 +1,13 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        用户管理
-        <small>系统用户</small>
+        机构管理
+        <small>系统机构</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i>主页</a></li>
-        <li><a href="#">用户管理</a></li>
-        <li class="active">添加用户</li>
+        <li><a href="#">机构管理</a></li>
+        <li class="active">添加机构</li>
     </ol>
 </section>
 
@@ -19,7 +19,7 @@
             <!-- Form Element sizes -->
             <div class="box box-success">
                 <div class="box-header with-border">
-                    <h3 class="box-title">添加用户</h3>
+                    <h3 class="box-title">添加机构</h3>
                 </div>
                 <div class="box-body">
                     <div class="row">
@@ -29,120 +29,73 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            [@user userId="${userId!''}" type="ENTITY";entity/]
-                                [#if entity??]
-                                    [#asssign loginName="${entity.loginName}"/]
-                                    [#asssign email="${entity.email}"/]
-                                    [#asssign mobile="${entity.mobile}"/]
-                                    [#asssign loginName="${entity.loginName}"/]
-
-                                    [@role type="LIST";list]
-                                        [#assing roles = list/]
-                                    [/@role]
-
-                                    [@organization organizationType="department" type="ENTITY";entity]
-                                         [#assing department = entity/]
-                                    [/@organization]
-                                    [@organization organizationType="major" type="ENTITY";entity]
-                                        [#assing major = entity/]
-                                    [/@organization]
-                                [/#if]
-
-                            <form id="user-edit-form" action="/user/add" method="post" class="form-horizontal">
+                            [@organization id="${id}" type="ENTITY";entity]
+                            <form id="organization-edit-form" action="/organization/edit" method="post" class="form-horizontal">
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">用户名:</label>
+                                    <label class="col-sm-2 control-label">机构名:</label>
 
                                     <div class="col-sm-4 input-group">
-                                        <input type="text" class="form-control" name="loginName" id="loginName" value="${loginName!}">
+                                        <input type="text" class="form-control" name="name" id="name" value="${entity.name!}">
                                         <span class="glyphicon glyphicon-user form-control-feedback"></span>
                                     </div>
                                     <!-- /.input group -->
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">邮箱:</label>
-
-                                    <div class="col-sm-4 input-group">
-                                        <input type="text" class="form-control" name="email">
-                                        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                                    </div>
-                                    <!-- /.input group -->
-                                </div>
+                                <!-- /.form-group -->
 
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">手机号:</label>
+                                    <label class="col-sm-2 control-label">类型:</label>
 
-                                    <div class="col-sm-4 input-group">
-                                        <input type="text" class="form-control" name="mobile">
-                                        <span class="glyphicon glyphicon-phone form-control-feedback"></span>
-                                    </div>
-                                    <!-- /.input group -->
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">密码:</label>
-
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" name="password">
-                                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                                    <div class="col-sm-6 input-group">
+                                        <select class="select2" name="type"
+                                                data-placeholder="选择用户角色"
+                                                style="width: 200px;" id="type" value="${entity.type!}">
+                                            <option value="department">学院</option>
+                                            <option value="major">专业</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <!-- /.form-group -->
 
-
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">角色</label>
+                                    <label class="col-sm-2 control-label">负责人:</label>
 
-                                    <div class="col-sm-6 input-group">
-                                        <select class="select2" multiple="multiple" name="roles"
-                                                data-placeholder="选择用户角色"
-                                                style="width: 100%;">
-                                            [@role type="LIST";list]
+                                    <div class="input-group">
+                                        <select class="select2"  name="master"
+                                                data-placeholder="选择负责人" id="master"
+                                                style="width: 150%;">
+                                            [@user type="LIST";list]
                                             [#if list?? && list?size > 0]
-                                            [#list list as role]
-                                            <option>${role.name}</option>
+                                            [#list list as user]
+                                            <option value="${user.id!}">${user.loginName!}</option>
                                             [/#list]
                                             [/#if]
-                                            [/@role]
+                                            [/@user]
                                         </select>
                                     </div>
                                 </div>
+                                <!-- /.form-group -->
 
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">院系</label>
+                                    <label class="col-sm-2 control-label">排序值:</label>
 
-                                    <div class="col-sm-6 input-group">
-                                        <select class="select2" multiple="multiple" name="department"
-                                                data-placeholder="选择用户角色"
-                                                style="width: 100%;">
-                                            [@role type="LIST";list]
-                                            [#if list?? && list?size > 0]
-                                            [#list list as role]
-                                            <option>${role.name}</option>
-                                            [/#list]
-                                            [/#if]
-                                            [/@role]
-                                        </select>
+                                    <div class="col-sm-4 input-group ">
+                                        <input type="text" class="form-control spinner" name="type" id="sort" value="${entity.sort!}">
                                     </div>
+                                    <!-- /.input group -->
                                 </div>
+
+                                <!-- /.form-group -->
+
 
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">专业</label>
+                                    <label class="col-sm-2 control-label">父机构</label>
 
                                     <div class="col-sm-6 input-group">
-                                        <select class="select2" multiple="multiple" name="major"
-                                                data-placeholder="选择用户角色"
-                                                style="width: 100%;">
-                                            [@role type="LIST";list]
-                                            [#if list?? && list?size > 0]
-                                            [#list list as role]
-                                            <option>${role.name}</option>
-                                            [/#list]
-                                            [/#if]
-                                            [/@role]
-                                        </select>
+                                        <ul id="privilege-tree" class="ztree">
+
+                                        </ul>
                                     </div>
                                 </div>
-
                                 <!-- /.form-group -->
 
                                 <div class="form-group">
@@ -153,7 +106,7 @@
                                     </div>
                                 </div>
                             </form>
-                            [/@user]
+                            [/@organization]
                         </div>
                     </div>
                 </div>
@@ -168,84 +121,40 @@
 </section><!-- /.content -->
 
 <script type="text/javascript">
-
     $(function () {
+
+        var parentObjTree;
 
         //Initialize Select2 Elements
         $(".select2").select2();
 
-        var $roleCheckboxes = $(".role-checkbox");
 
-        $roleCheckboxes.iCheck({
-            checkboxClass: 'icheckbox_square-blue',
-            radioClass: 'iradio_square-blue',
-            increaseArea: '20%'
-        });
-
-        $roleCheckboxes.on('ifChecked', function () {
-            $(this).attr("checked", "on");
-        });
-
-
-        /**
-         * 添加用户表单
-         */
-
+        $(".spinner").spinner();
 
         //登录表单验证开始
         var userAddFormRules = {
             rules: {
-                loginName: {
+                name: {
                     required: true,
-                    username: true,
-                    minlength: 4,
+                    minlength: 2,
                     maxlength: 20,
                     remote: {
                         type: "POST",
-                        url: "/user/exist",             //servlet
+                        url: "/organization/exist",             //servlet
                         data: {
-                            loginName: function () {
-                                return $("#loginName").val();
+                            name: function () {
+                                return $("#name").val();
                             }
                         }
                     }
-                },
-                email: {
-                    required: true,
-                    email: true,
-                    minlength: 4,
-                    maxlength: 20
-                },
-                mobile:{
-                    mobileCN:true
-                },
-                password: {
-                    required: true,
-                    minlength: 4,
-                    maxlength: 20
                 }
             },
             messages: {
-                loginName: {
-                    required: "用户名必须填写"
-                    , username: "用户名必须为字母数字下划线组成"
-                    , minlength: "用户名长度必须大于{0}"
-                    , maxlength: "用户名长度不能大于{0}"
-                    , remote: "用户名已经存在"
-                },
-                email: {
-                    required: "邮箱地址必须填写",
-                    email: "邮箱地址格式不正确",
-                    minlength: 3,
-                    maxlength: 30
-                },
-                mobile:{
-                    mobileCN:"手机号格式不正确"
-                },
-                password: {
-                    required: "密码必须填写"
-                    , minlength: "密码长度必须大于{0}"
-                    , maxlength: "密码长度不能大于{0}"
+                name: {
+                    required: "机构名必须填写"
+                    , minlength: "机构名长度必须大于{0}"
+                    , maxlength: "机构名长度不能大于{0}"
+                    , remote: "机构名已经存在"
                 }
             },
             submitHandler: function (form) {   //表单提交句柄,为一回调函数，带一个参数：form
@@ -255,44 +164,158 @@
                 $form = $(form);
                 requestPath = $path + $form.attr("action");
                 method = $form.attr("method");
-                var username = $("#username").val();
-                var password = $("#password").val();
-                var remember = $("#remember").attr("checked");
+                var name = $("#name").val()
+                        , type = $("#type").val()
+                        , checkedNodes = parentObjTree.getCheckedNodes()
+                        , parentId = (checkedNodes.length > 0?checkedNodes[0].id:"")
+                        , sort = $("#sort").val()
+                        , master = $("#master").val()
 
                 requestData = {
-                    username: username,
-                    password: password,
-                    remember: remember
+                    name: name,
+                    parentId: parentId,
+                    master: master,
+                    sort: sort,
+                    type:type
                 }
 
                 callBack = function (data) {
+
                     var successCode = "100000", $tipper = $("#tipper");
 
                     var jsonData = data;
+                    console.log(jsonData);
 
                     if (successCode === jsonData.code) {
-                        $tipper.messager.success(jsonData.message);
+                        $tipper.messager().success(jsonData.message);
                         return;
                     }
 
-                    $tipper.messager.error(jsonData.message);
+                    $tipper.messager().error(jsonData);
 
                 }
 
-                $.ajax({url: requestPath, type: method, data: requestData, success: callBack, error: callBack});
+                var datas = JSON.stringify(requestData);
+                $.ajax({
+                    url: requestPath,
+                    type: method,
+                    dataType :'json',
+                    contentType: "application/json; charset=utf-8",
+                    data: datas,
+                    success: callBack,
+                    error: callBack
+                });
 
             }
         }
 
         $.extend(userAddFormRules, GlobalVariable.formBaseRules);
 
-        var $userAddForm = $("#user-edit-form");
+        var $userAddForm = $("#organization-edit-form");
 
         if ($userAddForm.length > 0) {
             $userAddForm.validate(userAddFormRules);
         }
 
 
+        //机构树开始
+        var url = $path + "/organization/checkedList";
+
+        var setting = {
+            async: {
+                enable: true,
+                url:url,
+                type: "post",
+                autoParam:["id"],
+                otherParam:{"chk":"chk"},
+                dataFilter: dataFilter
+            },
+//        edit:{
+//            enable:true,
+//            showRemoveBtn:true,
+//            showRenameBtn:true,
+//            renameTittle:"编辑",
+//            removeTittle:"删除",
+//        },
+//            view: {
+//                fontCss:""
+//            },
+            check: {
+                enable: true,
+                autoCheckTrigger: true
+            },
+            data: {
+                simpleData: {
+                    enable: true
+                }
+            },
+            callback: {
+                onCheck: onCheck,
+                onAsyncSuccess: onAsyncSuccess,
+                beforeRemove: zTreeBeforeRemove,
+                onRemove: zTreeOnRemove,
+                onRename:zTreeOnRename
+            }
+        };
+        function dataFilter(treeId, parentNode, childNodes) {
+            if (parentNode.checkedEx === true) {
+                for(var i=0, l=childNodes.length; i<l; i++) {
+                    childNodes[i].checked = parentNode.checked;
+                    childNodes[i].halfCheck = false;
+                    childNodes[i].checkedEx = true;
+                }
+            }
+            return childNodes;
+        }
+        function onCheck(event, treeId, treeNode) {
+            cancelHalf(treeNode)
+            treeNode.checkedEx = true;
+        }
+        function onAsyncSuccess(event, treeId, treeNode, msg) {
+            cancelHalf(treeNode);
+        }
+        function cancelHalf(treeNode) {
+            if (treeNode.checkedEx) return;
+            var zTree = $.fn.zTree.getZTreeObj("privilege-tree");
+            treeNode.halfCheck = false;
+            zTree.updateNode(treeNode);
+        }
+
+        function zTreeBeforeRemove() {
+
+        }
+        function zTreeOnRemove(event, treeId, treeNode) {
+
+        }
+        function zTreeOnRename(event, treeId, treeNode, isCancel) {
+
+        };
+
+        var zNodes =
+                [
+                    [@organization parentId="" type="LIST";list]
+        [#if list?? && list?size > 0]
+        [#list list as organization]
+        [#if organization_index > 0]
+        ,
+        [/#if]
+        {
+            id:"${organization.id!}",
+                    name:"${organization.name!}",
+                halfCheck:true,
+                checked:false,
+                isParent:true
+        }
+        [/#list]
+        [/#if]
+        [/@organization]
+        ];
+
+        parentObjTree = $.fn.zTree.init($("#privilege-tree"), setting, zNodes);
+
+
     });
+
+
 
 </script>

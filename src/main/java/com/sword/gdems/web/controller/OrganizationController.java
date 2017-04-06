@@ -56,6 +56,20 @@ public class OrganizationController {
         return "organization/data/list";
     }
 
+    @RequestMapping(value = "/checkdList", method = RequestMethod.POST)
+    public String checkedListData(HttpServletRequest request, @RequestParam(name = "id", required = false) String id) throws Exception {
+
+        if (StringUtils.isEmpty(id)) {
+            throw new InvalidRequestException(ErrorCodeConfig.REUQUEST_CONDIRION_ERROR, ErrorCodeConfig.getMessage(ErrorCodeConfig.REUQUEST_CONDIRION_ERROR));
+        }
+        request.setAttribute("id", id);
+
+        User user = RequestUtil.getLoginUserFromSession(request);
+
+        List<Organization> ownOrganizations = organizationService.getByUserId(user.getId());
+        return "organization/data/cheked-list";
+    }
+
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String addView(HttpServletRequest request) {
@@ -64,7 +78,7 @@ public class OrganizationController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public Object add(@Valid @ModelAttribute("form") Organization organization, BindingResult result, HttpServletRequest request) throws Exception {
+    public Object add(@Valid @RequestBody Organization organization, BindingResult result, HttpServletRequest request) throws Exception {
         if (result.hasErrors()) {
             List<ObjectError> errors = result.getAllErrors();
             for (int i = 0; i < errors.size(); i++) {
@@ -75,8 +89,7 @@ public class OrganizationController {
 
         }
 
-
-        boolean rest = organizationService.exist(organization);
+        boolean rest = organizationService.exist(organization.getName());
         if (rest) {
             throw new InvalidRequestException(ErrorCodeConfig.INTERNAL_ERROR, "组织机构已经存在.");
         }
@@ -154,14 +167,29 @@ public class OrganizationController {
         boolean result;
         //当为false时JQuery验证不用过
         if (!StringUtils.isEmpty(organization.getName())) {
-            Organization organization1 = new Organization();
-            organization1.setName(organization1.getName());
-            result = organizationService.exist(organization1);
+            result = organizationService.exist(organization.getName());
             //当用户名称已经存在则返回false,这里用户service存在返回true，不存在返回false
             return !result;
         }
 
         return true;
     }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse<Boolean> delete(@ModelAttribute Organization organization) throws Exception {
+
+        Organization dbOrganization = organizationService.getById(organization.getId());
+
+        if (dbOrganization == null) {
+            throw new InvalidRequestException(ErrorCodeConfig.INTERNAL_ERROR, "该组织机构不存在");
+        }
+
+        organizationService.delete(organization.getId());
+
+        return new JsonResponse<Boolean>(ErrorCodeConfig.SUCCESS,"删除组织机构成功");
+
+    }
+
 
 }

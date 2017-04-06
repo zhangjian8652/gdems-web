@@ -47,7 +47,7 @@
                                     <div class="col-sm-6 input-group">
                                         <select class="select2" name="type"
                                                 data-placeholder="选择用户角色"
-                                                style="width: 200px;">
+                                                style="width: 200px;" id="type">
                                                 <option value="department">学院</option>
                                                 <option value="major" selected>专业</option>
                                         </select>
@@ -60,12 +60,12 @@
 
                                     <div class="input-group">
                                         <select class="select2"  name="master"
-                                                data-placeholder="选择负责人" id="name"
+                                                data-placeholder="选择负责人" id="master"
                                                 style="width: 150%;">
                                         [@user type="LIST";list]
                                             [#if list?? && list?size > 0]
                                                 [#list list as user]
-                                                    <option>${user.loginName!}</option>
+                                                    <option value="${user.id!}">${user.loginName!}</option>
                                                 [/#list]
                                             [/#if]
                                         [/@user]
@@ -145,9 +145,6 @@ $(function () {
                             }
                         }
                     }
-                },
-                type:{
-                    required:true
                 }
             },
             messages: {
@@ -156,9 +153,6 @@ $(function () {
                     , minlength: "机构名长度必须大于{0}"
                     , maxlength: "机构名长度不能大于{0}"
                     , remote: "机构名已经存在"
-                },
-                type:{
-                    required:"类型必须选择"
                 }
             },
             submitHandler: function (form) {   //表单提交句柄,为一回调函数，带一个参数：form
@@ -168,11 +162,12 @@ $(function () {
                 $form = $(form);
                 requestPath = $path + $form.attr("action");
                 method = $form.attr("method");
-                var name = $("#name").val();
-                var type = $("#type").val();
-                var parentId = $("#parentId").val();
-                var sort = $("#sort").val();
-                var master = $("#master").val();
+                var name = $("#name").val()
+                , type = $("#type").val()
+                , checkedNodes = parentObjTree.getCheckedNodes()
+                , parentId = (checkedNodes.length > 0?checkedNodes[0].id:"")
+                , sort = $("#sort").val()
+                , master = $("#master").val()
 
                 requestData = {
                     name: name,
@@ -183,16 +178,18 @@ $(function () {
                 }
 
                 callBack = function (data) {
+
                     var successCode = "100000", $tipper = $("#tipper");
 
                     var jsonData = data;
+                    console.log(jsonData);
 
                     if (successCode === jsonData.code) {
-                        $tipper.messager.success(jsonData.message);
+                        $tipper.messager().success(jsonData.message);
                         return;
                     }
 
-                    $tipper.messager().error(jsonData.message);
+                    $tipper.messager().error(jsonData);
 
                 }
 
@@ -231,13 +228,13 @@ $(function () {
             otherParam:{"chk":"chk"},
             dataFilter: dataFilter
         },
-        edit:{
-            enable:true,
-            showRemoveBtn:true,
-            showRenameBtn:true,
-            renameTittle:"编辑",
-            removeTittle:"删除",
-        },
+//        edit:{
+//            enable:true,
+//            showRemoveBtn:true,
+//            showRenameBtn:true,
+//            renameTittle:"编辑",
+//            removeTittle:"删除",
+//        },
 //            view: {
 //                fontCss:""
 //            },
@@ -297,19 +294,18 @@ $(function () {
             [@organization parentId="" type="LIST";list]
                 [#if list?? && list?size > 0]
                     [#list list as organization]
-                        [#if menu_index > 0]
+                        [#if organization_index > 0]
                             ,
                         [/#if]
                         {
-                            id:"${organization.id}",
-                            name:"${organization.name}",
+                            id:"${organization.id!}",
+                            name:"${organization.name!}",
                             halfCheck:true,
                             checked:false,
                             isParent:true
                         }
                     [/#list]
                 [/#if]
-
             [/@organization]
             ];
 

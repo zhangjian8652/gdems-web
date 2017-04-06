@@ -39,10 +39,10 @@ public class OrganizationDirective extends AbstractDirective<Organization> {
 
         //如果时查询所有菜单节点则查询返回所有菜单节点
         String queryAll =  DirectiveUtils.getString("all", map);
-        List<Organization> menusList;
+        List<Organization> OrganizationList;
         if (!StringUtils.isEmpty(queryAll) && "YES".equalsIgnoreCase(queryAll)) {
-            menusList = organizationService.list();
-            return menusList;
+            OrganizationList = organizationService.list();
+            return OrganizationList;
         }
 
         //如果不是就根据父ID查询
@@ -50,13 +50,13 @@ public class OrganizationDirective extends AbstractDirective<Organization> {
 
         //如果父id为空则返回顶级
         if (StringUtils.isEmpty(parentId)) {
-            menusList =   organizationService.getTop();
+            OrganizationList =   organizationService.getTop();
         }else {
             //否者才根据父节点查询
-            menusList =  organizationService.getByParentId(parentId);
+            OrganizationList =  organizationService.getByParentId(parentId);
         }
 
-        return menusList;
+        return OrganizationList;
     }
 
     @Override

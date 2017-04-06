@@ -8,5 +8,8 @@
     <div>
     </div>
         404
+  <form>
+      <input type="submit">
+  </form>
   </body>
 </html>
