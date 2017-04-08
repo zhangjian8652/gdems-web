@@ -41,7 +41,7 @@
                                     <!-- /.input group -->
                                 </div>
                                 <!-- /.form-group -->
-                                <div class="form-group">
+                                <div class="form-group" style="display: none;">
                                     <label class="col-sm-2 control-label">英文名:</label>
 
                                     <div class="col-sm-4 input-group">
@@ -52,7 +52,7 @@
                                 </div>
                                 <!-- /.form-group -->
 
-                                <div class="form-group">
+                                <div class="form-group" style="display: none;">
                                     <label class="col-sm-2 control-label">角色类型:</label>
 
                                     <div class="col-sm-2 input-group">
@@ -64,7 +64,7 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group" style="display: none;">
                                     <label class="col-sm-2 control-label">拥有权限:</label>
 
                                     <div class="col-sm-2 input-group">

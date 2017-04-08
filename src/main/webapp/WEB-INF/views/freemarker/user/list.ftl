@@ -33,8 +33,6 @@
                             <th>用户名</th>
                             <th>手机号</th>
                             <th>电子邮件</th>
-                            <th>院系</th>
-                            <th>专业</th>
                             <th>角色</th>
                             <th>操作</th>
                         </tr>
@@ -46,8 +44,6 @@
                             <th>用户名</th>
                             <th>手机号</th>
                             <th>电子邮件</th>
-                            <th>院系</th>
-                            <th>专业</th>
                             <th>角色</th>
                             <th>操作</th>
                         </tr>
@@ -104,10 +100,8 @@
                 {"data": "loginName"},
                 {"data": "mobile"},
                 {"data": "email"},
-                {"data": "department"},
-                {"data": "major"},
                 {"data": "roleNames"},
-                {"data": "operations"},
+                {"data": "operations"}
             ],
             "drawCallback": function(){
                 $(".operation").click(operation);

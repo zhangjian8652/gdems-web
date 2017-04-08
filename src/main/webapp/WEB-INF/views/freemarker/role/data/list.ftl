@@ -33,12 +33,10 @@
                 "useAble": "冻结",
                 [/#if]
                 [#assign operations = ""/]
-                [#if edit]
+          [#--      [#if edit]
                     [#assign operations = "<button type='button' class='btn  bg-orange margin-right operation edit' data-id='${role.id!}' data-uribase='role' data-operation='edit'>编辑</button>"/]
-                [/#if]
-                [#if delete]
+                [/#if]--]
                     [#assign operations = operations + "<button type='button' class='btn bg-maroon margin-right operation delete' data-id='${role.id!}' data-uribase='role' data-operation='delete'>删除</button>"/]
-                [/#if]
             "operations": "${operations!}"
             }
             [/#list]

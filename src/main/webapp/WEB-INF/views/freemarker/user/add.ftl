@@ -88,7 +88,7 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group" style="display: none;">
                                     <label class="col-sm-2 control-label">院系</label>
 
                                     <div class="col-sm-6 input-group">
@@ -106,7 +106,7 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group" style="display: none;">
                                     <label class="col-sm-2 control-label">专业</label>
 
                                     <div class="col-sm-6 input-group">

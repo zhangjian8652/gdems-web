@@ -25,18 +25,6 @@
             "loginName": "${user.loginName!}",
             "mobile": "${user.mobile!}",
             "email": "${user.email!}",
-                [@organization id="${user.departmentId!}" type="ENTITY";entity]
-                    [#if entity??]
-                        [#assign department = "${entity.name}"]
-                    [/#if]
-                "department": "${department!}",
-                [/@organization]
-                [@organization id="${user.majorId!}" type="ENTITY";entity]
-                    [#if entity??]
-                        [#assign major = "${entity.name}"]
-                    [/#if]
-                "major": "${major!}",
-                [/@organization]
                 [@role userId="${user.id}" type="LIST";list]
                     [#assign roleNames = ""]
                     [#list list as role]
@@ -49,12 +37,10 @@
                 "roleNames": "${roleNames!}",
                 [/@role]
                 [#assign operations = ""/]
-                [#if edit]
+         [#--       [#if edit]
                 [#assign operations = "<button type='button' class='btn  bg-orange margin-right operation edit' data-id='${user.id}' data-uribase='user' data-operation='edit'>编辑</button>"/]
-                [/#if]
-                [#if delete]
+                [/#if]--]
                     [#assign operations = operations + "<button type='button' class='btn bg-maroon margin-right operation delete' data-id='${user.id}' data-uribase='user' data-operation='delete'>删除</button>"/]
-                [/#if]
                 "operations": "${operations!}"
             }
             [/#list]
