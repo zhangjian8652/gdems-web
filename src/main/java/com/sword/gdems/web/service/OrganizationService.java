@@ -24,4 +24,6 @@ public interface OrganizationService extends BaseService<Organization> {
     List<Organization> getByUserId(String id) throws Exception;
 
     boolean delete(String id) throws Exception;
+
+    List<Organization> getByType(String type) throws Exception;
 }

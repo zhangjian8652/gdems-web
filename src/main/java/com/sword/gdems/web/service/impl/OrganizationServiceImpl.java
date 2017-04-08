@@ -105,4 +105,11 @@ public class OrganizationServiceImpl implements OrganizationService {
         return result > 0;
     }
 
+    @Override
+    public List<Organization> getByType(String type) throws Exception {
+        Organization organization = new Organization();
+        organization.setType(type);
+        return organizationMapper.select(organization);
+    }
+
 }

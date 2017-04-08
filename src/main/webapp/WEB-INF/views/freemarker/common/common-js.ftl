@@ -12,6 +12,7 @@
 <script src="${path!}/static/plugins/bootstrap/js/bootstrap.min.js"></script>
 <!-- Select2 -->
 <script src="${path!}/static/plugins/select2/select2.full.min.js"></script>
+<script src="${path!}/static/plugins/select2/i18n/zh-CN.js"></script>
 <!-- DataTables -->
 <script src="${path!}/static/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="${path!}/static/plugins/datatables/dataTables.bootstrap.min.js"></script>

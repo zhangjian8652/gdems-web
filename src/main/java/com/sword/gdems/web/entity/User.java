@@ -2,6 +2,7 @@ package com.sword.gdems.web.entity;
 
 
 import com.sword.gdems.web.entity.common.BaseEntity;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Table;
 import java.util.Date;

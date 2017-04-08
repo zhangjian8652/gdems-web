@@ -7,7 +7,7 @@
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i>主页</a></li>
         <li><a href="#">角色管理</a></li>
-        <li class="active">添加角色</li>
+        <li class="active">更新角色</li>
     </ol>
 </section>
 
@@ -19,7 +19,7 @@
             <!-- Form Element sizes -->
             <div class="box box-success">
                 <div class="box-header with-border">
-                    <h3 class="box-title">添加角色</h3>
+                    <h3 class="box-title">更新角色</h3>
                 </div>
                 <div class="box-body">
                     <div class="row">
@@ -35,7 +35,7 @@
                                     <label class="col-sm-2 control-label">角色名:</label>
 
                                     <div class="col-sm-4 input-group">
-                                        <input type="text" class="form-control" name="name" id="name">
+                                        <input type="text" class="form-control" name="name" id="name" readonly>
                                         <span class="glyphicon glyphicon-user form-control-feedback"></span>
                                     </div>
                                     <!-- /.input group -->
@@ -132,30 +132,6 @@
 
         //登录表单验证开始
         var roleAddFormRules = {
-            rules: {
-                name: {
-                    required: true,
-                    minlength: 2,
-                    maxlength: 40,
-                    remote: {
-                        type: "POST",
-                        url: "/role/exist",             //servlet
-                        data: {
-                            name: function () {
-                                return $("#name").val();
-                            }
-                        }
-                    }
-                }
-            },
-            messages: {
-                name: {
-                    required: "角色名必须填写"
-                    , minlength: "角色名长度必须大于{0}"
-                    , maxlength: "角色名长度不能大于{0}"
-                    , remote: "角色名已经存在"
-                }
-            },
             submitHandler: function (form) {   //表单提交句柄,为一回调函数，带一个参数：form
 
                 var $form, requestPath, method, requestData, callBack;

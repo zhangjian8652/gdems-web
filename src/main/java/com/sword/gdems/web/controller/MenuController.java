@@ -119,5 +119,9 @@ public class MenuController {
         return true;
     }
 
+    @RequestMapping(value = "/selecttree",method = RequestMethod.GET)
+    public String selectTree() {
+        return "menu/tree-select";
+    }
 
 }

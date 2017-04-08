@@ -116,18 +116,50 @@ public class RoleServiceImpl implements RoleService {
             throw new SwordException(ErrorCodeConfig.INTERNAL_ERROR,"add role failed,pls check role params");
         }
 
+        if (permissions.size() == 0) {
+            return true;
+        }
+
         logger.info("start add role permissions :"  + result);
         List<RoleMenu> roleMenus = new ArrayList();
+        List<Menu> firstMenus = new ArrayList<Menu>();
         for (int i = 0; i < permissions.size(); i++) {
             ZTreeNode zTreeNode = permissions.get(i);
             //如果该节点已经打开则添加用户选择的节点
             RoleMenu roleMenu = new RoleMenu(zTreeNode.getId(), role.getId());
             roleMenus.add(roleMenu);
-            if (!zTreeNode.isOpen()) {
-                //如果没有打开，则默认勾选所子节点
-                addChildrenNodes(roleMenus, zTreeNode.getId(), role.getId());
-            }
+            Menu menu = new Menu();
+            menu.setIsParent(zTreeNode.getId());
+            logger.debug("add selected menus.:" + zTreeNode.getName());
         }
+
+
+        List<Menu> childrenMenus = getChildren(firstMenus);
+
+
+        for (int i = 0; i < childrenMenus.size(); i++) {
+            Menu menu = childrenMenus.get(i);
+            logger.debug("start to match menu  :" + menu.getId());
+            boolean hasThisMenu = false;
+            for (int j = 0; j < firstMenus.size(); j++) {
+                Menu menu1 =  firstMenus.get(j);
+                logger.debug(" matched menu : " + menu1.getId());
+                if(menu.getId().equalsIgnoreCase(menu1.getId())) {
+                    logger.debug(" matched menu : " + menu.getId() + menu1.getId());
+                    hasThisMenu = true;
+                    break;
+                }
+            }
+
+            if (!hasThisMenu) {
+                logger.debug("not matched menu: " + menu.getId());
+                RoleMenu roleMenu = new RoleMenu(menu.getId(), role.getId());
+                roleMenus.add(roleMenu);
+            }
+
+        }
+        
+
         result = roleMapper.insertRoleMenuBatch(roleMenus) >0;
 
         logger.info("end add role permissions :"  + result);
@@ -139,24 +171,26 @@ public class RoleServiceImpl implements RoleService {
         return result;
     }
 
-    private void addChildrenNodes(List<RoleMenu> roleMenus, String menuId,String roleId) {
+    private List<Menu> getChildren(List<Menu> pMenus) {
 
-        Menu menu = new Menu();
-        menu.setParentId(menuId);
-        List<Menu> menus = menuMapper.select(menu);
+        List<Menu> menus = new ArrayList<Menu>();
 
-        //如果子菜单为空,则直接放回不做操作
-        if (menus == null || menus.size() == 0) {
-            return;
+        //将所有子菜单读出来放入menus
+        for (int i = 0; i < pMenus.size(); i++) {
+            Menu pmennu =  pMenus.get(i);
+            Menu cmenu = new Menu();
+            cmenu.setParentId(pmennu.getId());
+            List<Menu> tMenus = menuMapper.select(cmenu);
+            menus.addAll(tMenus);
         }
 
-        //如果子菜单权限部位空，则加给角色，并继续添加子菜单的子菜单
-        for (int i = 0; i < menus.size(); i++) {
-            Menu menu1 = menus.get(i);
-            RoleMenu roleMenu = new RoleMenu(menu1.getId(),roleId);
-            roleMenus.add(roleMenu);
-            addChildrenNodes(roleMenus,menu1.getId(),roleId);
+        //将所有子菜单的子菜单读处来放入menus
+        if(menus.size() > 0){
+            List<Menu> cMenus = getChildren(menus);
+            menus.addAll(cMenus);
         }
 
+        return menus;
     }
+
 }

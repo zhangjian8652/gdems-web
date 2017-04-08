@@ -42,6 +42,18 @@
                                 <!-- /.form-group -->
 
                                 <div class="form-group">
+                                    <label class="col-sm-2 control-label">父机构</label>
+                                    <div class="col-sm-4 input-group">
+                                        <input type="text" class="form-control" name="parentName" id="parentName" readonly>
+                                        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                                        <input type="text" name="parentId" id="parentId" value="" style="display: none;">
+                                    </div>
+                                </div>
+                                <!-- /.form-group -->
+
+
+
+                                <div class="form-group">
                                     <label class="col-sm-2 control-label">类型:</label>
 
                                     <div class="col-sm-6 input-group">
@@ -78,7 +90,7 @@
                                     <label class="col-sm-2 control-label">排序值:</label>
 
                                     <div class="col-sm-4 input-group ">
-                                        <input type="text" class="form-control spinner" name="type" id="sort">
+                                        <input type="text" class="form-control spinner" name="sort" id="sort">
                                     </div>
                                     <!-- /.input group -->
                                 </div>
@@ -86,22 +98,12 @@
                                 <!-- /.form-group -->
 
 
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">父机构</label>
-
-                                    <div class="col-sm-6 input-group">
-                                        <ul id="privilege-tree" class="ztree">
-
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- /.form-group -->
 
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">&nbsp;</label>
                                     <div class="col-sm-4 input-group">
-                                        <button type="button" class="btn  btn-info btn-lg  margin">取消添加</button>
-                                        <button type="submit" class="btn  btn-success btn-lg margin">确定添加</button>
+                                        <button type="button" class="btn  btn-info btn-lg  margin" onclick="CommonUtil.loadView('/organization/list');">取消</button>
+                                        <button type="submit" class="btn  btn-success btn-lg margin">确定</button>
                                     </div>
                                 </div>
                             </form>
@@ -116,12 +118,38 @@
         <!--/.col (left) -->
     </div>
     <!-- /.row -->
+    <div class="tree-select-modal hide">
+        <div class="modal modal-info">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title">选择父机构</h4>
+                    </div>
+                    <div class="modal-body" id="tree-select-area">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal" id="cancel">取消</button>
+                        <button type="button" class="btn btn-primary" id="confirm">确定</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+
+    </div>
+
+
 </section><!-- /.content -->
 
 <script type="text/javascript">
-$(function () {
 
-        var parentObjTree;
+
+$(function () {
 
         //Initialize Select2 Elements
         $(".select2").select2();
@@ -158,16 +186,15 @@ $(function () {
             submitHandler: function (form) {   //表单提交句柄,为一回调函数，带一个参数：form
 
                 var $form, requestPath, method, requestData, callBack;
-
                 $form = $(form);
                 requestPath = $path + $form.attr("action");
                 method = $form.attr("method");
+
                 var name = $("#name").val()
                 , type = $("#type").val()
-                , checkedNodes = parentObjTree.getCheckedNodes()
-                , parentId = (checkedNodes.length > 0?checkedNodes[0].id:"")
                 , sort = $("#sort").val()
                 , master = $("#master").val()
+                , parentId =document.getElementById("parentId").value;
 
                 requestData = {
                     name: name,
@@ -175,22 +202,23 @@ $(function () {
                     master: master,
                     sort: sort,
                     type:type
-                }
+                };
 
-                callBack = function (data) {
-
+              callBack = function (data) {
                     var successCode = "100000", $tipper = $("#tipper");
                     if (successCode === data.code) {
                         $tipper.messager().success(data.message);
+                        $("input").val("");
                         return;
                     }else{
-                        $tipper.messager().error(JSON.parse(data).message);
+                        $tipper.messager().error(data.message);
                         return;
                     }
 
                 }
 
                 var datas = JSON.stringify(requestData);
+
                 $.ajax({
                     url: requestPath,
                     type: method,
@@ -211,104 +239,40 @@ $(function () {
             $userAddForm.validate(userAddFormRules);
         }
 
+        $("#parentName").click(function () {
+            CommonUtil.loadViewToBox("#tree-select-area","/organization/selecttree");
+            currentSelectId = "#parentId";
+            currentSelectValueId = "#parentName";
+            showSelect();
+        });
 
-    //机构树开始
-    var url = $path + "/organization/list";
-
-    var setting = {
-        async: {
-            enable: true,
-            url:url,
-            type: "post",
-            autoParam:["id"],
-            otherParam:{"chk":"chk"},
-            dataFilter: dataFilter
-        },
-//        edit:{
-//            enable:true,
-//            showRemoveBtn:true,
-//            showRenameBtn:true,
-//            renameTittle:"编辑",
-//            removeTittle:"删除",
-//        },
-//            view: {
-//                fontCss:""
-//            },
-        check: {
-            enable: true,
-            autoCheckTrigger: true
-        },
-        data: {
-            simpleData: {
-                enable: true
-            }
-        },
-        callback: {
-            onCheck: onCheck,
-            onAsyncSuccess: onAsyncSuccess,
-            beforeRemove: zTreeBeforeRemove,
-            onRemove: zTreeOnRemove,
-            onRename:zTreeOnRename
-        }
-    };
-    function dataFilter(treeId, parentNode, childNodes) {
-        if (parentNode.checkedEx === true) {
-            for(var i=0, l=childNodes.length; i<l; i++) {
-                childNodes[i].checked = parentNode.checked;
-                childNodes[i].halfCheck = false;
-                childNodes[i].checkedEx = true;
-            }
-        }
-        return childNodes;
-    }
-    function onCheck(event, treeId, treeNode) {
-        cancelHalf(treeNode)
-        treeNode.checkedEx = true;
-    }
-    function onAsyncSuccess(event, treeId, treeNode, msg) {
-        cancelHalf(treeNode);
-    }
-    function cancelHalf(treeNode) {
-        if (treeNode.checkedEx) return;
-        var zTree = $.fn.zTree.getZTreeObj("privilege-tree");
-        treeNode.halfCheck = false;
-        zTree.updateNode(treeNode);
-    }
-
-    function zTreeBeforeRemove() {
-
-    }
-    function zTreeOnRemove(event, treeId, treeNode) {
-
-    }
-    function zTreeOnRename(event, treeId, treeNode, isCancel) {
-
-    };
-
-    var zNodes =
-            [
-            [@organization parentId="" type="LIST";list]
-                [#if list?? && list?size > 0]
-                    [#list list as organization]
-                        [#if organization_index > 0]
-                            ,
-                        [/#if]
-                        {
-                            id:"${organization.id!}",
-                            name:"${organization.name!}",
-                            halfCheck:true,
-                            checked:false,
-                            isParent:true
-                        }
-                    [/#list]
-                [/#if]
-            [/@organization]
-            ];
-
-            parentObjTree = $.fn.zTree.init($("#privilege-tree"), setting, zNodes);
-
+        $(".close").click(hideSelect);
+        $("#cancel").click(hideSelect);
+        $("#confirm").click(setSelectedValue);
 
     });
+
+
+var selectedNode={};
+var currentSelectId,currentSelectValueId;
+
+function setSelectedValue(){
+    if(selectedNode != undefined) {
+        $(currentSelectId).val(selectedNode.id);
+        $(currentSelectValueId).val(selectedNode.name);
+    }
+    hideSelect();
+}
+
+
+function showSelect(){
+    $(".tree-select-modal").removeClass("hide");
+}
+
+function hideSelect(){
+    $(".tree-select-modal").addClass("hide");
+}
+
 
 
 

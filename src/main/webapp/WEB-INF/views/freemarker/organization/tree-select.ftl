@@ -1,35 +1,16 @@
-<div class="box box-success">
-            <div class="box-header">
-                <i class="fa fa-th"></i>
-                <h3 class="box-title">菜单树列表</h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-                <div class="row">
-                    <div class="col-sm-6 ">
-                        <div style="min-height: 400px;">
-                            <ul id="privilege-tree" class="ztree"></ul>
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
-            <!-- /.box-body -->
-            <div class="box-footer">
-            </div>
-            <!-- /.box-footer -->
-        </div>
-        <!-- /.box -->
-
+<div id="tree" class="ztree">
+</div>
 
 <script type="text/javascript">
-
-
-    $(function(){
-        var url = $path + "/menu/list";
+  $(function(){
+        //机构树开始
+        var url = $path + "/organization/list";
 
         var setting = {
+            view:{
+                selectedMulti:false,
+                dblClickExpand:true
+            },
             async: {
                 enable: true,
                 url:url,
@@ -38,18 +19,18 @@
                 otherParam:{"chk":"chk"},
                 dataFilter: dataFilter
             },
-            edit:{
-                enable:true,
-                showRemoveBtn:true,
-                showRenameBtn:true,
-                renameTittle:"编辑",
-                removeTittle:"删除",
-            },
+//        edit:{
+//            enable:true,
+//            showRemoveBtn:true,
+//            showRenameBtn:true,
+//            renameTittle:"编辑",
+//            removeTittle:"删除",
+//        },
 //            view: {
 //                fontCss:""
 //            },
             check: {
-                enable: true,
+                enable: false,
                 autoCheckTrigger: true
             },
             data: {
@@ -62,9 +43,20 @@
                 onAsyncSuccess: onAsyncSuccess,
                 beforeRemove: zTreeBeforeRemove,
                 onRemove: zTreeOnRemove,
-                onRename:zTreeOnRename
+                onRename:zTreeOnRename,
+            //    onDblClick:zTreeOnDblClick,
+                onClick:zTreeOnClick,
             }
         };
+
+        function zTreeOnDblClick(event, treeId, treeNode) {
+            selectedNode = treeNode;
+            setSelectedValue()
+        }
+      function zTreeOnClick(event, treeId, treeNode) {
+            selectedNode = treeNode;
+        }
+
         function dataFilter(treeId, parentNode, childNodes) {
             if (parentNode.checkedEx === true) {
                 for(var i=0, l=childNodes.length; i<l; i++) {
@@ -84,7 +76,7 @@
         }
         function cancelHalf(treeNode) {
             if (treeNode.checkedEx) return;
-            var zTree = $.fn.zTree.getZTreeObj("privilege-tree");
+            var zTree = $.fn.zTree.getZTreeObj("tree");
             treeNode.halfCheck = false;
             zTree.updateNode(treeNode);
         }
@@ -101,27 +93,28 @@
 
         var zNodes =
                 [
-                    [@menu parentId="" type="LIST";list]
+                    [@organization parentId="" type="LIST";list]
         [#if list?? && list?size > 0]
-        [#list list as menu]
-        [#if menu_index > 0]
+        [#list list as organization]
+        [#if organization_index > 0]
         ,
         [/#if]
         {
-            id:"${organization.id}",
-                    name:"${organization.name}",
+            id:"${organization.id!}",
+                    name:"${organization.name!}",
                 halfCheck:true,
                 checked:false,
                 isParent:true
         }
         [/#list]
         [/#if]
-
-        [/@menu]
+        [/@organization]
         ];
 
-        $.fn.zTree.init($("#privilege-tree"), setting, zNodes);
-    });
+        if(zNodes.length > 0){
+            treeObj = $.fn.zTree.init($("#tree"), setting, zNodes);
+        }
 
+    });
 
 </script>

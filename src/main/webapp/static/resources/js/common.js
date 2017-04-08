@@ -76,7 +76,7 @@ var loadView = function (uri) {
         return "<button type='button' class='btn bg-olive margin-right delete' data-id " + id + ">删除</button>"
     }
     ;
-
+var successCodePrefix = "20";
 
 //设置AJAX的全局默认选项
 $.ajaxSetup({
@@ -95,30 +95,24 @@ $.ajaxSetup({
 
         }
 
+    },
+    error:function() {
+        $("#tipper").messager().error("系统错误，请稍后再试！");
     }
 });
 
 
 var CommonUtil = {
     ajaxCallback:function(data) {
-        callBack = function (data) {
-
-            var successCode = "100000", $tipper = $("#tipper");
-
-            var jsonData = data;
-            console.log(jsonData);
-
-            if (successCode === jsonData.code) {
-                $tipper.messager().success(jsonData.message);
+            if (data.code.startsWith(successCodePrefix)) {
+                $tipper.messager().success(data.message);
                 return;
             }else{
-                $tipper.messager().error(JSON.parse(data).message);
+                $tipper.messager().error(data.message);
                 return;
             }
-
-        }
-
-    }
+    },loadViewToBox:loadViewToBox,
+    loadView:loadView
 }
 
 
@@ -316,7 +310,7 @@ var allDefaultTimer = 3000;
 
 
 var ZTreeUtil = {
-    transferJSNodeToJAVANode: function (zTreeObject) {
+    transferJSNodeToJAVANode: function (treeObj) {
         var zTreeCheckedNodes = treeObj.getCheckedNodes();
         var zTreeNodes = [];
 

@@ -1,20 +1,29 @@
 package com.sword.gdems.web.service.impl;
 
+import com.sword.gdems.common.encrypt.util.EncryptUtil;
 import com.sword.gdems.web.config.ErrorCodeConfig;
-import com.sword.gdems.web.entity.User;
+import com.sword.gdems.web.config.GlobalConfig;
+import com.sword.gdems.web.entity.*;
 import com.sword.gdems.web.exception.InvalidRequestException;
+import com.sword.gdems.web.exception.SwordException;
+import com.sword.gdems.web.mapper.OrganizationMapper;
 import com.sword.gdems.web.mapper.RoleMapper;
 import com.sword.gdems.web.mapper.UserMapper;
 import com.sword.gdems.web.request.entity.DatatableCondition;
 import com.sword.gdems.web.response.DataTablePage;
 import com.sword.gdems.web.service.UserService;
 import org.apache.ibatis.session.RowBounds;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
+
 
 /**
  * Created by Joker on 2017/4/2.
@@ -22,8 +31,16 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
 
+    private static Logger logger = LogManager.getLogger(UserServiceImpl.class);
+
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private RoleMapper roleMapper;
+
+    @Autowired
+    private OrganizationMapper organizationMapper;
 
     @Override
     public DataTablePage<User> page(DatatableCondition condition) throws Exception {
@@ -90,5 +107,104 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> all() throws Exception {
         return userMapper.selectAll();
+    }
+
+    @Override
+    public boolean save(User user) throws Exception {
+        user.setPassword(EncryptUtil.SHA_1(user.getPassword(), GlobalConfig.PASSWORD_SALT));
+        return userMapper.insert(user) > 0;
+    }
+
+    @Override
+    @Transactional
+    public boolean save(User user, String roleId) throws Exception {
+
+        if (!StringUtils.isEmpty(user.getDepartmentId())) {
+            Organization department = new Organization();
+            department.setId(user.getDepartmentId());
+            Organization departmentFromDB = organizationMapper.selectByPrimaryKey(department);
+            if (departmentFromDB == null) {
+                throw new SwordException(HttpStatus.INTERNAL_SERVER_ERROR + "", "学院不存在，找不到。");
+            }
+        }else {
+            user.setDepartmentId(null);
+        }
+
+        if (!StringUtils.isEmpty(user.getMajorId())) {
+            Organization major = new Organization();
+            major.setId(user.getMajorId());
+            Organization majorFromDB = organizationMapper.selectByPrimaryKey(major);
+            if (majorFromDB == null) {
+                throw new SwordException(HttpStatus.INTERNAL_SERVER_ERROR + "", "专业不存在，找不到。");
+            }
+        }else {
+            user.setMajorId(null);
+        }
+
+        user.setPassword(EncryptUtil.SHA_1(user.getPassword(), GlobalConfig.PASSWORD_SALT));
+       int count =  userMapper.insert(user);
+
+        if (!StringUtils.isEmpty(roleId)) {
+            Role role = new Role();
+            role.setId(roleId);
+            Role roleFromDB = roleMapper.selectByPrimaryKey(role);
+            if (roleFromDB == null) {
+                throw new SwordException(HttpStatus.INTERNAL_SERVER_ERROR + "", "角色不存在，找不到。");
+            }else {
+                UserRole userRole = new UserRole(user.getId(), roleId);
+                 count = userMapper.insertUserRole(userRole);
+                if (count <= 0) {
+                    throw new SwordException(HttpStatus.INTERNAL_SERVER_ERROR + "", "添加角色失败，请联系管理员。");
+                }
+            }
+        }
+
+
+        if (count <= 0) {
+            throw new SwordException(HttpStatus.INTERNAL_SERVER_ERROR + "", "添加用户失败，请联系管理员。");
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean deleteById(String id) throws Exception {
+        User user = new User();
+        user.setId(id);
+        int result = userMapper.deleteByPrimaryKey(user);
+        return result > 0;
+    }
+
+    @Override
+    public User getUserById(String id) throws Exception {
+        User user = new User();
+        user.setId(id);
+        User result = userMapper.selectByPrimaryKey(user);
+        logger.debug("get user by id : " + result.toString());
+        return result;
+    }
+
+    @Override
+    @Transactional
+    public boolean updateUser(User userFromDB,String roleId) throws Exception {
+
+        if (!StringUtils.isEmpty(roleId)) {
+            Role role = new Role();
+            role.setId(roleId);
+            Role roleFromDB = roleMapper.selectByPrimaryKey(role);
+            if (roleFromDB == null) {
+                throw new SwordException(HttpStatus.INTERNAL_SERVER_ERROR + "", "更新角色不存在，找不到。");
+            }else {
+                UserRole userRole = new UserRole(userFromDB.getId(),roleFromDB.getId());
+              int  count = userMapper.updateUserRole(userRole);
+                if (count <= 0) {
+                    throw new SwordException(HttpStatus.INTERNAL_SERVER_ERROR + "", "更新角色失败，请联系管理员。");
+                }
+            }
+        }
+
+        int result = userMapper.updateByPrimaryKey(userFromDB);
+        logger.debug("update user info result:" + result);
+        return result > 0;
     }
 }

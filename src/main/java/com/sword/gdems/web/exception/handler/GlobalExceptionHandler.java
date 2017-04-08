@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.NoHandlerFoundException;
+import tk.mybatis.mapper.entity.Example;
 
 /**
  * @Author zhangjian
@@ -71,7 +72,7 @@ public class GlobalExceptionHandler extends Throwable{
 
 
 
-    @ExceptionHandler(NotFoundException.class)
+    @ExceptionHandler(Exception.class)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
     public Object handleNotFoundException(Exception ex) {

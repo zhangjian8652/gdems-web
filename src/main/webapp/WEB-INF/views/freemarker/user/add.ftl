@@ -43,7 +43,7 @@
                                     <label class="col-sm-2 control-label">邮箱:</label>
 
                                     <div class="col-sm-4 input-group">
-                                        <input type="text" class="form-control" name="email">
+                                        <input type="text" class="form-control" name="email" id="email">
                                         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                                     </div>
                                     <!-- /.input group -->
@@ -53,7 +53,7 @@
                                     <label class="col-sm-2 control-label">手机号:</label>
 
                                     <div class="col-sm-4 input-group">
-                                        <input type="text" class="form-control" name="mobile">
+                                        <input type="text" class="form-control" name="mobile" id="mobile">
                                         <span class="glyphicon glyphicon-phone form-control-feedback"></span>
                                     </div>
                                     <!-- /.input group -->
@@ -62,8 +62,8 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">密码:</label>
 
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" name="password">
+                                    <div class="col-sm-4 input-group">
+                                        <input type="password" class="form-control" name="password" id="password">
                                         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                                     </div>
                                 </div>
@@ -74,13 +74,13 @@
                                     <label class="col-sm-2 control-label">角色</label>
 
                                     <div class="col-sm-6 input-group">
-                                        <select class="select2" multiple="multiple" name="roles"
+                                        <select class="select2" name="roles" id="role"
                                                 data-placeholder="选择用户角色"
-                                                style="width: 100%;">
+                                                style="width: 50%;">
                                             [@role type="LIST";list]
                                             [#if list?? && list?size > 0]
                                             [#list list as role]
-                                            <option>${role.name}</option>
+                                            <option value="${role.id}">${role.name}</option>
                                             [/#list]
                                             [/#if]
                                             [/@role]
@@ -92,16 +92,16 @@
                                     <label class="col-sm-2 control-label">院系</label>
 
                                     <div class="col-sm-6 input-group">
-                                        <select class="select2" multiple="multiple" name="department"
-                                                data-placeholder="选择用户角色"
-                                                style="width: 100%;">
-                                            [@role type="LIST";list]
+                                        <select class="select2"  name="department" id="department"
+                                                data-placeholder="选择学院"
+                                                style="width: 50%;">
+                                            [@organization typeType="department" type="list";list]
                                             [#if list?? && list?size > 0]
-                                            [#list list as role]
-                                            <option>${role.name}</option>
+                                            [#list list as organization]
+                                            <option value="${organization.id}">${organization.name}</option>
                                             [/#list]
                                             [/#if]
-                                            [/@role]
+                                            [/@organization]
                                         </select>
                                     </div>
                                 </div>
@@ -110,16 +110,10 @@
                                     <label class="col-sm-2 control-label">专业</label>
 
                                     <div class="col-sm-6 input-group">
-                                        <select class="select2" multiple="multiple" name="major"
-                                                data-placeholder="选择用户角色"
-                                                style="width: 100%;">
-                                            [@role type="LIST";list]
-                                            [#if list?? && list?size > 0]
-                                            [#list list as role]
-                                            <option>${role.name}</option>
-                                            [/#list]
-                                            [/#if]
-                                            [/@role]
+                                        <select class="select2" name="major" id="major"
+                                                data-placeholder="选择专业"
+                                                style="width: 50%;">
+
                                         </select>
                                     </div>
                                 </div>
@@ -129,7 +123,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">&nbsp;</label>
                                     <div class="col-sm-4 input-group">
-                                        <button type="button" class="btn  btn-info btn-lg  margin">取消添加</button>
+                                        <button type="button" class="btn  btn-info btn-lg  margin" onclick="CommonUtil.loadView('/user/list')">取消添加</button>
                                         <button type="submit" class="btn  btn-success btn-lg margin">确定添加</button>
                                     </div>
                                 </div>
@@ -152,7 +146,9 @@
     $(function () {
 
         //Initialize Select2 Elements
-        $(".select2").select2();
+        var $role = $("#role").select2();
+        var $department = $("#department").select2();
+        var $major= $("#major").select2();
 
         var $roleCheckboxes = $(".role-checkbox");
 
@@ -166,6 +162,13 @@
             $(this).attr("checked", "on");
         });
 
+        $('#department').on("select2:select",function(){
+            var url = $path + "/organization/options?parentId=" + $department.val();
+            $.get(url,function(data){
+                $("#major").html(data);
+                $major = $("#major").select2();
+            });
+        });
 
         /**
          * 添加用户表单
@@ -173,7 +176,7 @@
 
 
         //登录表单验证开始
-        var userAddFormRules = {
+        var rules = {
             rules: {
                 loginName: {
                     required: true,
@@ -228,48 +231,59 @@
                     , maxlength: "密码长度不能大于{0}"
                 }
             },
-            submitHandler: function (form) {   //表单提交句柄,为一回调函数，带一个参数：form
+            submitHandler: function (form) {   //表单提交句柄,为一回调函数,带一个参数：form
 
                 var $form, requestPath, method, requestData, callBack;
 
                 $form = $(form);
                 requestPath = $path + $form.attr("action");
                 method = $form.attr("method");
-                var username = $("#username").val();
+                var loginName = $("#loginName").val();
+                var email = $("#email").val();
+                var mobile = $("#mobile").val();
                 var password = $("#password").val();
-                var remember = $("#remember").attr("checked");
+                var role = $role.val();
+                var department = $department.val();
+                var major = $major.val();
 
-                requestData = {
-                    username: username,
-                    password: password,
-                    remember: remember
-                }
+                requestData = JSON.stringify({
+                    loginName : loginName,
+                    email :email,
+                    mobile :mobile,
+                    password :password,
+                    departmentId : department,
+                    majorId :major,
+                 });
+
+                requestPath += "?roleId=" + role;
 
                 callBack = function (data) {
-                    var successCode = "100000", $tipper = $("#tipper");
-
-                    var jsonData = data;
-
-                    if (successCode === jsonData.code) {
-                        $tipper.messager.success(jsonData.message);
+                    $tipper = $("#tipper");
+                    if (data.code.startsWith(successCodePrefix)) {
+                        $tipper.messager().success(data.message);
+                        $("input").val("");
                         return;
                     }
-
-                    $tipper.messager.error(jsonData.message);
-
+                    $tipper.messager().error(data.message);
                 }
 
-                $.ajax({url: requestPath, type: method, data: requestData, success: callBack, error: callBack});
+                $.ajax({
+                    url: requestPath,
+                    type: method,
+                    dataType :'json',
+                    contentType: "application/json; charset=utf-8",
+                    data: requestData,
+                    success: callBack});
 
             }
         }
 
-        $.extend(userAddFormRules, GlobalVariable.formBaseRules);
+        $.extend(rules, GlobalVariable.formBaseRules);
 
         var $userAddForm = $("#user-add-form");
 
         if ($userAddForm.length > 0) {
-            $userAddForm.validate(userAddFormRules);
+            $userAddForm.validate(rules);
         }
 
 

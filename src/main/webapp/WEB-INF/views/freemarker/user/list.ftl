@@ -21,6 +21,11 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-12" id="tipper">
+
+                        </div>
+                    </div>
                     <table id="users" class="table table-bordered table-hover">
                         <thead>
                         <tr>
@@ -61,26 +66,31 @@
 <script type="text/javascript">
 
     $(function () {
+        var operation = function () {
+            var $this = $(this),
+                    uriBase = $this.data("uribase"),
+                    operation = $this.data("operation"),
+                    id = $this.data("id"),
+                    url = "/" + uriBase + "/" + operation + "?id=" + id;
+            if(operation == "delete"){
+                $.get(url, function(data) {
+                   $tipper = $("#tipper");
+                    if (data.code.startsWith(successCodePrefix)) {
+                        $tipper.messager().success(data.message);
+                        setTimeout(function() {
+                            loadView("/user/list");
+                        },3000);
+                        return;
+                    }else{
+                        $tipper.messager().error(data.message);
+                        return;
+                    }
+                });
+            }else{
+                CommonUtil.loadView(url);
+            }
 
-        var bindOperationsEvent = function () {
-            $(".edit").click(editUserView);
-            $(".detail").click(detailUserView);
-            $(".delete").click(deleteUser);
         }
-        ,
-        editUserView = function () {
-            var id = $(this).data("id");
-            loadView()
-
-        },
-        detailUserView = function () {
-            var id = $(this).data("id");
-
-        },
-         deleteUser = function () {
-            var id = $(this).data("id");
-         }
-        ;
 
         $('#users').dataTable({
             "ordering": false,
@@ -99,7 +109,9 @@
                 {"data": "roleNames"},
                 {"data": "operations"},
             ],
-            "drawCallback": bindOperationsEvent
+            "drawCallback": function(){
+                $(".operation").click(operation);
+            }
         });
 
 

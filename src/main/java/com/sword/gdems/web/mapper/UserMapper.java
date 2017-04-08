@@ -1,6 +1,7 @@
 package com.sword.gdems.web.mapper;
 
 import com.sword.gdems.web.entity.User;
+import com.sword.gdems.web.entity.UserRole;
 import com.sword.gdems.web.response.entity.DataTableUser;
 import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.common.Mapper;
@@ -19,4 +20,9 @@ public interface UserMapper extends Mapper<User> {
 
      long getDatableUsersTotalCount(@Param("searchValue")String searchValue);
 
+     int insertUserRole(@Param("userRole") UserRole userRole);
+
+     int insertUserRoleBatch(@Param("userRoles") List<UserRole> userRoles);
+
+     int updateUserRole(@Param("userRole") UserRole userRole);
 }

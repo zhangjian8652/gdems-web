@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * @Author zhangjian
@@ -28,13 +29,12 @@ import javax.servlet.http.HttpServletResponse;
  * @Describe:
  */
 @Controller
-@RequestMapping("/login")
 public class AuthController {
 
     @Autowired
     private UserAuthor userAuthor;
 
-    @RequestMapping(value = "",method = RequestMethod.POST)
+    @RequestMapping(value = "/login",method = RequestMethod.POST)
     @ResponseBody
     public Object doLogin(@Validated @ModelAttribute("form") UserInfo userInfo, BindingResult result, HttpServletRequest request) throws Exception {
 
@@ -68,6 +68,11 @@ public class AuthController {
     }
 
 
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        RequestUtil.setLoginUserToSession(request, null);
+        response.sendRedirect("/");
+    }
 
     private void rememberMe(HttpServletResponse response,String userId){
 

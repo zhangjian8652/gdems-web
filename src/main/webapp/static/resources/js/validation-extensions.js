@@ -9,7 +9,7 @@ $(function(){
     }, "用户名必须为字母数字下划线组成");
 
     $.validator.addMethod("mobileCN", function(value, element) {
-        return this.optional( element ) || /^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\\d{8}$/.test(value);
+        return this.optional( element ) || /^0?(13|14|15|18)[0-9]{9}$/.test(value);
     }, "用户名必须为字母数字下划线组成");
 
     $.validator.addMethod("fixedMobileCN", function(value, element) {

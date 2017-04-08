@@ -45,3 +45,27 @@ table.treetable {
     margin: .6em 0 1.8em 0;
     width: 100%;
 }
+.content{
+    position: relative;
+}
+
+.tree-select-modal .modal {
+    background: transparent !important;
+}
+
+.tree-select-modal .modal {
+    position: absolute;
+    display: block;
+}
+
+.tree-select-modal .ztree{
+    height: 240px;
+    overflow-y: scroll;
+}
+.tree-select-modal   .modal-dialog {
+    width: 350px;
+}
+
+.input-group button{
+    float: right;
+}

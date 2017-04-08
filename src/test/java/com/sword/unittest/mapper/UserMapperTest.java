@@ -3,7 +3,10 @@ package com.sword.unittest.mapper;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.sword.gdems.common.encrypt.util.EncryptUtil;
+import com.sword.gdems.web.config.GlobalConfig;
 import com.sword.gdems.web.entity.User;
+import com.sword.gdems.web.entity.common.EntityUtil;
 import com.sword.gdems.web.mapper.UserMapper;
 import com.sword.unittest.common.SpringTest;
 import org.junit.Test;
@@ -59,6 +62,12 @@ public class UserMapperTest extends SpringTest{
     }
 
 
+    @Test
+    public void testDelete() {
+        User user = new User();
+        user.setId("4");
+        System.out.println(userMapper.deleteByPrimaryKey(user));
+    }
 
 
 }

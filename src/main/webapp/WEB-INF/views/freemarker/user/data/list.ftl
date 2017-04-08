@@ -21,21 +21,21 @@
                 [#if user_index > 0]
                 ,
                 [/#if]
-            {"no": "${user.no!}",
+            {"no": "${user_index + 1!}",
             "loginName": "${user.loginName!}",
             "mobile": "${user.mobile!}",
             "email": "${user.email!}",
-                [@organization id="${user.departmentId}" type="ENTITY";entity]
+                [@organization id="${user.departmentId!}" type="ENTITY";entity]
                     [#if entity??]
-                        [#assign organizationName = "${entity.name}"]
+                        [#assign department = "${entity.name}"]
                     [/#if]
-                "department": "${organizationName!}",
+                "department": "${department!}",
                 [/@organization]
-                [@organization id="${user.majorId}" type="ENTITY";entity]
+                [@organization id="${user.majorId!}" type="ENTITY";entity]
                     [#if entity??]
-                        [#assign organizationName = "${entity.name}"]
+                        [#assign major = "${entity.name}"]
                     [/#if]
-                "major": "${organizationName!}",
+                "major": "${major!}",
                 [/@organization]
                 [@role userId="${user.id}" type="LIST";list]
                     [#assign roleNames = ""]
@@ -50,13 +50,10 @@
                 [/@role]
                 [#assign operations = ""/]
                 [#if edit]
-                    [#assign operations = "<button type='button' class='btn  bg-orange margin-right edit' data-id='${user.id}' >编辑</button>"/]
-                [/#if]
-                [#if detail]
-                    [#assign operations = operations + "<button type='button' class='btn bg-olive margin-right detail' data-id='${user.id}' >详情</button>"/]
+                [#assign operations = "<button type='button' class='btn  bg-orange margin-right operation edit' data-id='${user.id}' data-uribase='user' data-operation='edit'>编辑</button>"/]
                 [/#if]
                 [#if delete]
-                    [#assign operations = operations + "<button type='button' class='btn bg-maroon margin-right delete' data-id='${user.id}' >删除</button>"/]
+                    [#assign operations = operations + "<button type='button' class='btn bg-maroon margin-right operation delete' data-id='${user.id}' data-uribase='user' data-operation='delete'>删除</button>"/]
                 [/#if]
                 "operations": "${operations!}"
             }

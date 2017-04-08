@@ -47,13 +47,16 @@ public class OrganizationDirective extends AbstractDirective<Organization> {
 
         //如果不是就根据父ID查询
         String parentId =  DirectiveUtils.getString("parentId", map);
+        String type =  DirectiveUtils.getString("typeType", map);
 
         //如果父id为空则返回顶级
-        if (StringUtils.isEmpty(parentId)) {
-            OrganizationList =   organizationService.getTop();
-        }else {
-            //否者才根据父节点查询
+        if (!StringUtils.isEmpty(parentId)) {
             OrganizationList =  organizationService.getByParentId(parentId);
+
+        }else if(!StringUtils.isEmpty(type)){
+            OrganizationList =  organizationService.getByType(type);
+        }else {
+            OrganizationList =   organizationService.getTop();
         }
 
         return OrganizationList;

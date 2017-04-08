@@ -15,7 +15,7 @@
 <section class="content">
     <div class="row">
         <!-- left column -->
-        <div class="col-md-6">
+        <div class="col-md-12">
             <!-- Form Element sizes -->
             <div class="box box-success">
                 <div class="box-header with-border">
@@ -29,7 +29,7 @@
                     </div>
                     <!-- /.row -->
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <form id="menu-add-form" action="/menu/add" method="post" class="form-horizontal">
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">菜单名称:</label>
@@ -45,31 +45,11 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">父菜单</label>
 
-                                    <div class="col-sm-6 input-group">
-                                        <select class="select2"  name="parentId"
-                                                data-placeholder="选择父菜单"
-                                                style="width: 100%;">
-                                            <option value="NO">无</option>
-                                            [@menu type="LIST" all="YES";list]
-                                            [#if list?? && list?size > 0]
-                                            [#list list as menu]
-                                            <option value="${menu.id}"><b>${menu.name}</b> [${menu.permission}] -- ${menu.href}</option>
-                                            [/#list]
-                                            [/#if]
-                                            [/@menu]
-                                        </select>
-                                    </div>
-                                </div>
-                                <!-- /.form-group -->
-
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">排序编号:</label>
-
                                     <div class="col-sm-4 input-group">
-                                        <input type="text" class="form-control" name="sort" placeholder="数值越大越前">
-                                        <span class="glyphicon glyphicon-sort-by-attributes-alt form-control-feedback"></span>
+                                        <input type="text" class="form-control" name="parentName" id="parentName" readonly>
+                                        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                                        <input type="text" name="parentId" id="parentId" value="" style="display: none;">
                                     </div>
-                                    <!-- /.input group -->
                                 </div>
                                 <!-- /.form-group -->
 
@@ -117,12 +97,25 @@
                                 </div>
                                 <!-- /.form-group -->
 
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">排序值:</label>
+
+                                    <div class="col-sm-4 input-group ">
+                                        <input type="text" class="form-control spinner" name="sort" id="sort">
+                                    </div>
+                                    <!-- /.input group -->
+                                </div>
+
+                                <!-- /.form-group -->
+
+
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">&nbsp;</label>
 
                                     <div class="col-sm-6 input-group">
-                                            <button type="button" class="btn  btn-info btn-lg  margin" id="cancel" data-uri="/menu/list">取消添加</button>
-                                            <button type="submit" class="btn  btn-success btn-lg margin">确定添加</button>
+                                            <button type="button" class="btn  btn-info btn-lg  margin" onclick="CommonUtil.loadView('/menu/list')">取消</button>
+                                            <button type="submit" class="btn  btn-success btn-lg margin">确定</button>
                                     </div>
                                 </div>
                             </form>
@@ -136,11 +129,33 @@
 
         </div>
         <!--/.col (left) -->
-        <div class="col-md-6" id="menu-tree">
-
-       </div>
     </div>
     <!-- /.row -->
+
+    <div class="tree-select-modal hide">
+        <div class="modal modal-info">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title">选择父菜单</h4>
+                    </div>
+                    <div class="modal-body" id="tree-select-area">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal" id="cancel">取消</button>
+                        <button type="button" class="btn btn-primary" id="confirm">确定</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+
+    </div>
     <div class="row">
         [#include "icons.ftl"/]
     </div>
@@ -154,13 +169,7 @@
         //Initialize Select2 Elements
         $(".select2").select2();
 
-        $("#cancel").click(function(){
-            loadView($(this).data("uri"));
-        })
-
-        var loadMenuView = function(){
-            loadViewToBox("#menu-tree","/menu/tree");
-        }
+        $(".spinner").spinner();
 
         var $iChecks = $("input[type='radio']");
 
@@ -169,8 +178,6 @@
             radioClass: 'iradio_square-blue',
             increaseArea: '20%'
         });
-
-        loadMenuView();
 
         /**
          * 添加用户表单
@@ -251,8 +258,40 @@
             $menuddForm.validate(menuAddFormRules);
         }
 
+        ///树选择弹出框
+        $("#parentName").click(function () {
+            CommonUtil.loadViewToBox("#tree-select-area","/menu/selecttree");
+            currentSelectId = "#parentId";
+            currentSelectValueId = "#parentName";
+            showSelect();
+        });
+
+        $(".close").click(hideSelect);
+        $("#cancel").click(hideSelect);
+        $("#confirm").click(setSelectedValue);
 
     });
+
+
+    var selectedNode={};
+    var currentSelectId,currentSelectValueId;
+
+    function setSelectedValue(){
+        if(selectedNode != undefined) {
+            $(currentSelectId).val(selectedNode.id);
+            $(currentSelectValueId).val(selectedNode.name);
+        }
+        hideSelect();
+    }
+
+
+    function showSelect(){
+        $(".tree-select-modal").removeClass("hide");
+    }
+
+    function hideSelect(){
+        $(".tree-select-modal").addClass("hide");
+    }
 
 
 

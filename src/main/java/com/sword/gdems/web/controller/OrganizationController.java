@@ -91,6 +91,7 @@ public class OrganizationController {
         }
 
         boolean rest = organizationService.exist(organization.getName());
+
         if (rest) {
             throw new SwordException(ErrorCodeConfig.INTERNAL_ERROR, "组织机构已经存在.");
         }
@@ -115,15 +116,22 @@ public class OrganizationController {
         return new JsonResponse<User>(ErrorCodeConfig.SUCCESS, "添加机构成功");
     }
 
+    @RequestMapping(value = "/detail", method = RequestMethod.GET)
+    public String detailView(HttpServletRequest request) {
+        request.setAttribute("id", request.getParameter("id"));
+        return "organization/detail";
+    }
+
 
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
     public String editView(HttpServletRequest request) {
+        request.setAttribute("id", request.getParameter("id"));
         return "organization/edit";
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     @ResponseBody
-    public Object edit(@Valid @ModelAttribute("form") Organization organization, BindingResult result, HttpServletRequest request) throws Exception {
+    public Object edit(@Valid @RequestBody Organization organization, BindingResult result, HttpServletRequest request) throws Exception {
         if (result.hasErrors()) {
             List<ObjectError> errors = result.getAllErrors();
             for (int i = 0; i < errors.size(); i++) {
@@ -144,6 +152,7 @@ public class OrganizationController {
         organization1.setName(organization.getName());
         organization1.setSort(organization.getSort());
         organization1.setMaster(organization.getMaster());
+        organization1.setType(organization.getType());
 
 
         User user = RequestUtil.getLoginUserFromSession(request);
@@ -151,7 +160,7 @@ public class OrganizationController {
         EntityUtil.setCommonUpdateValue(organization, user);
 
         //保存菜单
-        boolean rst = organizationService.save(organization);
+        boolean rst = organizationService.save(organization1);
 
         if (!rst) {
             throw new InvalidRequestException(ErrorCodeConfig.INTERNAL_ERROR, "更新机构失败，请联系管理员");
@@ -192,5 +201,24 @@ public class OrganizationController {
 
     }
 
+
+    @RequestMapping(value = "/selecttree",method = RequestMethod.GET)
+    public String selectTree() {
+        return "organization/tree-select";
+    }
+
+
+    @RequestMapping(value = "/options",method = RequestMethod.GET)
+    public String options(@RequestParam(name = "parentId",required = false) String parentId,HttpServletRequest request) throws Exception {
+
+        List<Organization> organizations;
+        if (StringUtils.isEmpty(parentId)) {
+            organizations = organizationService.getTop();
+        }else {
+            organizations = organizationService.getByParentId(parentId);
+        }
+        request.setAttribute("organizations", organizations);
+        return "organization/data/options";
+    }
 
 }

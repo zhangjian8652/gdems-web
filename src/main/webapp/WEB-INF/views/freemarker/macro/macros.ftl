@@ -3,8 +3,7 @@
 <table class="table table-condensed" id="menu-table">
     <tbody>
     <tr>
-        <th style="width:200px">#</th>
-        <th style="width:200px">名称</th>
+        <th style="width:250px">名称</th>
         <th style="width:200px">访问链接</th>
         <th style="width:200px">权限</th>
         <th style="width:200px">图标
@@ -16,16 +15,15 @@
                 [#list list as menu]
                     [#if menu??]
                     <tr data-tt-id="${menu.id!}">
-                        <td style="widtd: 60px">${menu_index + 1}</td>
                         <td>${menu.name!}</td>
                         <td>${menu.href!}</td>
                         <td>${menu.permission!}</td>
                         <td>${menu.icon!}</td>
                         <td>
-                            [@macro.operationButtons id="${menu.id}"/]
+                            [@macro.operationButtons id="${menu.id}" uriBase="menu"/]
                         </td>
                     </tr>
-                        [@macro.menuTreeTableChildren parentId="${menu.id}"/]
+                        [@macro.menuTreeTableChildren parentId="${menu.id}" uriBase="menu"/]
                     [/#if]
                 [/#list]
             [/#if]
@@ -41,21 +39,20 @@
 </script>
 [/#macro]
 
-[#macro menuTreeTableChildren parentId]
+[#macro menuTreeTableChildren parentId uriBase]
     [@menu parentId="${parentId!}" type="LIST";list]
         [#if list?? && list?size>0]
             [#list list as menu]
             <tr data-tt-id="${menu.id}" data-tt-parent-id="${parentId!}">
-                <td style="widtd: 60px">${menu_index + 1}</td>
                 <td>${menu.name!}</td>
                 <td>${menu.href!}</td>
                 <td>${menu.permission!}</td>
                 <td>${menu.icon!}</td>
                 <td>
-                    [@macro.operationButtons id="${menu.id}"/]
+                    [@macro.operationButtons id="${menu.id}"  uriBase=uriBase/]
                 </td>
             </tr>
-                [@macro.menuTreeTableChildren parentId="${menu.id}"/]
+                [@macro.menuTreeTableChildren parentId="${menu.id}" uriBase=uriBase/]
             [/#list]
         [/#if]
     [/@menu]
@@ -68,7 +65,7 @@
 <table class="table table-condensed" id="organization-table">
     <tbody>
     <tr>
-        <th style="width:200px">名称</th>
+        <th style="width:300px">名称</th>
         <th style="width:200px">类型</th>
         <th style="width:200px">排序值</th>
         <th style="width:200px">负责人
@@ -94,7 +91,11 @@
                     id = $this.data("id"),
                     url = "/" + uriBase + "/" + operation + "?id=" + id;
 
-            $.get(url, CommonUtil.ajaxCallback);
+            if(operation == "delete"){
+                $.get(url, CommonUtil.ajaxCallback);
+            }else{
+                CommonUtil.loadView(url);
+            }
 
         }
 
@@ -116,12 +117,19 @@
                     <td>${organization.name!}</td>
                     <td>${organization.type!}</td>
                     <td>${organization.sort!}</td>
-                    <td>${organization.master!}</td>
+
+                    [@user userId=organization.master type="entity";entity]
+                        [#if entity??]
+                            <td>${entity.name!}</td>
+                        [#else]
+                            <td></td>
+                        [/#if]
+                    [/@user]
                     <td>
-                        [@macro.operationButtons id="${organization.id}" uriBase="${uriBase}"/]
+                        [@macro.operationButtons id="${organization.id!}" uriBase="${uriBase!}"/]
                     </td>
                 </tr>
-                    [@macro.organizationTreeTableChildren parentId="${organization.id}" uriBase="${uriBase}"/]
+                    [@macro.organizationTreeTableChildren parentId="${organization.id!}" uriBase="${uriBase!}"/]
                 [/#if]
             [/#list]
         [/#if]
@@ -131,9 +139,9 @@
 [#--织机构树形结构table结束--]
 
 [#macro operationButtons id uriBase]
-    [@macro.editButton id="${id}" uriBase="${uriBase}"/]
-    [@macro.detailButton id="${id}" uriBase="${uriBase}"/]
-    [@macro.deleteButton id="${id}" uriBase="${uriBase}"/]
+    [@macro.editButton id=id uriBase=uriBase/]
+[#--    [@macro.detailButton id=id uriBase=uriBase/]--]
+    [@macro.deleteButton id=id uriBase=uriBase/]
 [/#macro]
 
 [#macro editButton id uriBase]
@@ -142,7 +150,7 @@
 </button>
 [/#macro]
 [#macro detailButton id uriBase]
-<button type='button' class='btn  bg-olive margin-right operation detail' data-id='${id!}' data-operation="delete"
+<button type='button' class='btn  bg-olive margin-right operation detail' data-id='${id!}' data-operation="detail"
         data-uribase="${uriBase}">详情
 </button>
 [/#macro]

@@ -9,6 +9,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import tk.mybatis.mapper.entity.Example;
 
@@ -80,9 +81,23 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
+    @Transactional
     public boolean save(Menu menu) throws Exception {
+        if (StringUtils.isEmpty(menu.getParentId())) {
+            menu.setParentId(Menu.NONE_PARENT_ID);
+        }else {
+           Menu parent = getById(menu.getParentId());
+            parent.setIsParent(Menu.IS_PARENT);
+            menuMapper.updateByPrimaryKey(parent);
+        }
         updateMenuToParent(menu);
         return menuMapper.insert(menu) > 0;
+    }
+
+    private Menu getById(String parentId) {
+        Menu menu = new Menu();
+        menu.setId(parentId);
+        return menuMapper.selectByPrimaryKey(menu);
     }
 
     @Override

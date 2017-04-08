@@ -67,6 +67,24 @@
 		</if>
     </select>
 
+	<insert id="insertUserRole" parameterType="com.sword.gdems.web.entity.UserRole">
+		insert into sys_user_role (user_id,role_id)
+		value(#{userRole.userId},#{userRole.roleId})
+	</insert>
+
+	<insert id="updateUserRole" parameterType="com.sword.gdems.web.entity.UserRole">
+		UPDATE sys_user_role
+		SET role_id = #{userRole.roleId}
+		WHERE user_id = #{userRole.userId}
+	</insert>
+
+	<insert id="insertUserRoleBatch" parameterType="com.sword.gdems.web.entity.UserRole">
+		insert into sys_user_role (user_id,role_id)
+		values
+		<foreach collection="userRoles" item="userRole" index="index" separator="," >
+		(#{userRole.userId},#{userRole.roleId})
+		</foreach>
+	</insert>
 </mapper>
 
 
