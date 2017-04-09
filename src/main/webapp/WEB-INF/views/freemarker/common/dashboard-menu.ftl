@@ -74,6 +74,8 @@
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
+                    <li><a href="#"><i class="fa fa-circle-o"></i>选题列表</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i>添加选题</a></li>
                     <li><a href="#"><i class="fa fa-circle-o"></i>我的毕业设计</a></li>
                     <li><a href="#"><i class="fa fa-circle-o"></i>学生的毕业设计</a></li>
                 </ul>
