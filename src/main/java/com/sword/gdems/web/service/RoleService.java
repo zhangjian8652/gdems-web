@@ -16,4 +16,10 @@ public interface RoleService extends BaseService<Role> {
     boolean save(Role role)  throws Exception;
 
     boolean add(Role role, List<ZTreeNode> permissions)  throws Exception;
+
+    Role getById(String id) throws Exception;
+
+    boolean update(Role role, List<ZTreeNode> zTreeNodes)  throws Exception;
+
+    boolean delete(Role role) throws Exception;
 }

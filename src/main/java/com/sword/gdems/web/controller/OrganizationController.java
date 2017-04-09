@@ -12,6 +12,7 @@ import com.sword.gdems.web.service.OrganizationService;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
@@ -197,7 +198,7 @@ public class OrganizationController {
 
         organizationService.delete(organization.getId());
 
-        return new JsonResponse<Boolean>(ErrorCodeConfig.SUCCESS,"删除组织机构成功");
+        return new JsonResponse<Boolean>(HttpStatus.OK + "","删除组织机构成功");
 
     }
 

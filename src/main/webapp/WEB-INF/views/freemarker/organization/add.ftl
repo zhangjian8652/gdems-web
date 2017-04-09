@@ -208,7 +208,7 @@ $(function () {
                     var successCode = "100000", $tipper = $("#tipper");
                     if (successCode === data.code) {
                         $tipper.messager().success(data.message);
-                        $("input").val("");
+                        $("#name,#master").val("");
                         return;
                     }else{
                         $tipper.messager().error(data.message);

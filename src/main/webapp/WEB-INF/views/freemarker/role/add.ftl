@@ -45,7 +45,7 @@
                                     <label class="col-sm-2 control-label">英文名:</label>
 
                                     <div class="col-sm-4 input-group">
-                                        <input type="text" class="form-control" name="email">
+                                        <input type="text" class="form-control" name="englishName" id="english-name">
                                         <span class="glyphicon glyphicon-pencil form-control-feedback"></span>
                                     </div>
                                     <!-- /.input group -->

@@ -30,12 +30,13 @@
 
                     <div class="row">
                         <div class="col-md-6">
-                            <form id="role-add-form" action="/role/add" method="post" class="form-horizontal">
+                            <form id="role-edit-form" action="/role/edit" method="post" class="form-horizontal">
+                                <input type="hidden" name="id" id="id" value="${role.id!}">
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">角色名:</label>
 
                                     <div class="col-sm-4 input-group">
-                                        <input type="text" class="form-control" name="name" id="name" readonly>
+                                        <input type="text" class="form-control" name="name" id="name" readonly value="${role.name!}">
                                         <span class="glyphicon glyphicon-user form-control-feedback"></span>
                                     </div>
                                     <!-- /.input group -->
@@ -45,7 +46,7 @@
                                     <label class="col-sm-2 control-label">英文名:</label>
 
                                     <div class="col-sm-4 input-group">
-                                        <input type="text" class="form-control" name="email">
+                                        <input type="text" class="form-control" name="englishName" id="english-name" value="${role.englishName!}">
                                         <span class="glyphicon glyphicon-pencil form-control-feedback"></span>
                                     </div>
                                     <!-- /.input group -->
@@ -56,7 +57,7 @@
                                     <label class="col-sm-2 control-label">角色类型:</label>
 
                                     <div class="col-sm-2 input-group">
-                                        <select class="select2" name="roleType"
+                                        <select class="select2" name="roleType" id="roleType"
                                                 data-placeholder="选择角色类型"
                                                 style="width: 100%;">
                                             <option value="NORMAL">普通角色</option>
@@ -89,8 +90,8 @@
                                     <label class="col-sm-2 control-label">&nbsp;</label>
 
                                     <div class="col-sm-4 input-group">
-                                            <button type="button" class="btn  btn-info btn-lg  margin">取消添加</button>
-                                            <button type="submit" class="btn  btn-success btn-lg margin">确定添加</button>
+                                            <button type="button" class="btn  btn-info btn-lg  margin" onclick="loadView('/role/list')">取消</button>
+                                            <button type="submit" class="btn  btn-success btn-lg margin">确定</button>
                                     </div>
                                 </div>
                             </form>
@@ -171,7 +172,7 @@
 
         $.extend(roleAddFormRules, GlobalVariable.formBaseRules);
 
-        var $roleAddForm = $("#role-add-form");
+        var $roleAddForm = $("#role-edit-form");
 
         if ($roleAddForm.length > 0) {
             $roleAddForm.validate(roleAddFormRules);
@@ -184,7 +185,7 @@
     //权限选择列表
 
     $(function(){
-        var url = $path + "/menu/list";
+        var url = $path + "/menu/list/selected";
 
         var setting = {
             async: {
@@ -192,7 +193,7 @@
                 url:url,
                 type: "post",
                 autoParam:["id"],
-                otherParam:{"chk":"chk"},
+                otherParam:{"roleId":"${role.id!}"},
                 dataFilter: dataFilter
             },
             check: {
@@ -258,7 +259,19 @@
             id:"${menu.id}",
                     name:"${menu.name}",
                 halfCheck:true,
-                checked:false,
+                [#if selectedMenus?? && selectedMenus?size > 0]
+                    [#list selectedMenus as sMenu]
+                        [#if sMenu?? && sMenu.id?? && sMenu.id == menu.id]
+                            [#assign selected = true/]
+                        [/#if]
+                    [/#list]
+                [/#if]
+                [#if selected?? && selected]
+                    checked:true,
+                    [#assign selected = false/]
+                [#else]
+                    checked:false,
+                [/#if]
                 isParent:true
         }
         [/#list]

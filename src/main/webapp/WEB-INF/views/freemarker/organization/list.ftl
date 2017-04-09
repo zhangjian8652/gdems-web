@@ -14,18 +14,19 @@
 <!-- Main content -->
 <section class="content">
     <div class="row">
+
         <div class="col-md-12">
             <div class="box">
                 <div class="box-header">
                     <h3 class="box-title">菜单列表</h3>
-                </div>
-                <!-- /.box-header -->
-                <div class="box-body no-padding">
                     <div class="row">
                         <div class="col-md-12" id="tipper">
 
                         </div>
                     </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body no-padding">
                     [@macro.organizationTreeTable uriBase="organization"/]
                 </div>
                 <!-- /.box-body -->

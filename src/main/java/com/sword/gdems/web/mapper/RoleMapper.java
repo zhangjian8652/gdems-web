@@ -18,4 +18,6 @@ public interface RoleMapper extends Mapper<Role> {
     List<Role> getByUserId(String userId);
 
     int insertRoleMenuBatch(@Param("roleMenus") List<RoleMenu> roleMenus);
+
+    int deleteRoleMenuByRoleId(@Param("roleId") String roleId);
 }

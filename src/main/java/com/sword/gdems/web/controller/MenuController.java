@@ -62,6 +62,26 @@ public class MenuController {
     }
 
 
+    @RequestMapping(value = "/list/selected", method = RequestMethod.POST)
+    public String listSelectedData(HttpServletRequest request, @RequestParam(name = "id", required = false) String id,@RequestParam(name = "roleId", required = false) String roleId) throws Exception {
+
+        if (StringUtils.isEmpty(id)) {
+            throw new InvalidRequestException(ErrorCodeConfig.REUQUEST_CONDIRION_ERROR, ErrorCodeConfig.getMessage(ErrorCodeConfig.REUQUEST_CONDIRION_ERROR));
+        }
+        request.setAttribute("id", id);
+
+        if (!StringUtils.isEmpty(roleId)) {
+            List<Menu> menus = menuService.getByRoleId(roleId);
+            if (menus != null && menus.size() > 0) {
+                request.setAttribute("selectedMenus",menus);
+            }
+        }
+
+        return "menu/data/list-selected";
+    }
+
+
+
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String addView(HttpServletRequest request) {
         return "menu/add";

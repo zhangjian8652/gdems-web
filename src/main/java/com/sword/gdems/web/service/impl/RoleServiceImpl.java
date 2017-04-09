@@ -19,6 +19,8 @@ import org.springframework.util.StringUtils;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -40,7 +42,7 @@ public class RoleServiceImpl implements RoleService {
         /**
          * 此处查询条件给控制器处理，这里要求必须传递
          */
-        if (StringUtils.isEmpty(condition.getDraw()) || StringUtils.isEmpty(condition.getStart())  || StringUtils.isEmpty(condition.getLength())) {
+        if (StringUtils.isEmpty(condition.getDraw()) || StringUtils.isEmpty(condition.getStart()) || StringUtils.isEmpty(condition.getLength())) {
             throw new InvalidRequestException(ErrorCodeConfig.REUQUEST_CONDIRION_ERROR, ErrorCodeConfig.getMessage(ErrorCodeConfig.REUQUEST_CONDIRION_ERROR));
         }
 
@@ -49,7 +51,7 @@ public class RoleServiceImpl implements RoleService {
          */
         Example example = new Example(User.class);
 
-        if(!StringUtils.isEmpty(condition.getSearchValue())){
+        if (!StringUtils.isEmpty(condition.getSearchValue())) {
             example.or().andLike("name", "%" + condition.getSearchValue() + "%");
             example.or().andLike("englishName", "%" + condition.getSearchValue() + "%");
         }
@@ -94,7 +96,7 @@ public class RoleServiceImpl implements RoleService {
         Role role = new Role();
         role.setName(name);
         List<Role> roles = roleMapper.select(role);
-        if(roles == null || roles.size() <=0) {
+        if (roles == null || roles.size() <= 0) {
             return false;
         }
         return true;
@@ -109,64 +111,86 @@ public class RoleServiceImpl implements RoleService {
     @Transactional
     public boolean add(Role role, List<ZTreeNode> permissions) throws Exception {
 
-        boolean result =  roleMapper.insert(role) > 0;
+        boolean result = roleMapper.insert(role) > 0;
 
         logger.info("add role resullt :" + result);
-        if(!result){
-            throw new SwordException(ErrorCodeConfig.INTERNAL_ERROR,"add role failed,pls check role params");
+        if (!result) {
+            throw new SwordException(ErrorCodeConfig.INTERNAL_ERROR, "add role failed,pls check role params");
         }
 
         if (permissions.size() == 0) {
             return true;
         }
 
-        logger.info("start add role permissions :"  + result);
+        logger.info("start add role permissions :" + result);
         List<RoleMenu> roleMenus = new ArrayList();
-        List<Menu> firstMenus = new ArrayList<Menu>();
-        for (int i = 0; i < permissions.size(); i++) {
-            ZTreeNode zTreeNode = permissions.get(i);
-            //如果该节点已经打开则添加用户选择的节点
-            RoleMenu roleMenu = new RoleMenu(zTreeNode.getId(), role.getId());
-            roleMenus.add(roleMenu);
-            Menu menu = new Menu();
-            menu.setIsParent(zTreeNode.getId());
-            logger.debug("add selected menus.:" + zTreeNode.getName());
+
+
+        List<Menu> menus = getAddMenusByPermissions(permissions);
+
+        for (int i = 0; i < menus.size(); i++) {
+            Menu menu = menus.get(i);
+            RoleMenu rm = new RoleMenu(menu.getId(), role.getId());
+            roleMenus.add(rm);
         }
 
+        result = roleMapper.insertRoleMenuBatch(roleMenus) > 0;
 
-        List<Menu> childrenMenus = getChildren(firstMenus);
-
-
-        for (int i = 0; i < childrenMenus.size(); i++) {
-            Menu menu = childrenMenus.get(i);
-            logger.debug("start to match menu  :" + menu.getId());
-            boolean hasThisMenu = false;
-            for (int j = 0; j < firstMenus.size(); j++) {
-                Menu menu1 =  firstMenus.get(j);
-                logger.debug(" matched menu : " + menu1.getId());
-                if(menu.getId().equalsIgnoreCase(menu1.getId())) {
-                    logger.debug(" matched menu : " + menu.getId() + menu1.getId());
-                    hasThisMenu = true;
-                    break;
-                }
-            }
-
-            if (!hasThisMenu) {
-                logger.debug("not matched menu: " + menu.getId());
-                RoleMenu roleMenu = new RoleMenu(menu.getId(), role.getId());
-                roleMenus.add(roleMenu);
-            }
-
-        }
-        
-
-        result = roleMapper.insertRoleMenuBatch(roleMenus) >0;
-
-        logger.info("end add role permissions :"  + result);
+        logger.info("end add role permissions :" + result);
 
         if (!result) {
-            throw new SwordException(ErrorCodeConfig.INTERNAL_ERROR,"add role permissions failed,pls check role permission params");
+            throw new SwordException(ErrorCodeConfig.INTERNAL_ERROR, "add role permissions failed,pls check role permission params");
         }
+
+        return result;
+    }
+
+    @Override
+    public Role getById(String id) throws Exception {
+        Role role = new Role();
+        role.setId(id);
+        role = roleMapper.selectByPrimaryKey(role);
+        return role;
+    }
+
+    @Override
+    @Transactional
+    public boolean update(Role role, List<ZTreeNode> zTreeNodes) throws Exception {
+
+        //将role更新
+        Role role1 = roleMapper.selectByPrimaryKey(role);
+        role1.setName(role.getName());
+        role1.setUseable(role.getUseable());
+        role1.setUpdateDate(role.getUpdateDate());
+        role1.setUpdateBy(role.getUpdateBy());
+        role1.setRoleType(role.getRoleType());
+        role1.setEnglishName(role.getEnglishName());
+        roleMapper.updateByPrimaryKey(role1);
+
+        //将原来得权限删除
+        roleMapper.deleteRoleMenuByRoleId(role1.getId());
+
+        //插入新得权限
+        List<RoleMenu> roleMenus = new ArrayList();
+        List<Menu> menus = getAddMenusByPermissions(zTreeNodes);
+
+        for (int i = 0; i < menus.size(); i++) {
+            Menu menu = menus.get(i);
+            RoleMenu rm = new RoleMenu(menu.getId(), role.getId());
+            roleMenus.add(rm);
+        }
+
+        boolean result = roleMapper.insertRoleMenuBatch(roleMenus) > 0;
+
+        return result;
+    }
+
+    @Override
+    @Transactional
+    public boolean delete(Role role) throws Exception {
+        boolean result = false;
+        result = roleMapper.deleteByPrimaryKey(role) > 0;
+        roleMapper.deleteRoleMenuByRoleId(role.getId());
 
         return result;
     }
@@ -177,7 +201,7 @@ public class RoleServiceImpl implements RoleService {
 
         //将所有子菜单读出来放入menus
         for (int i = 0; i < pMenus.size(); i++) {
-            Menu pmennu =  pMenus.get(i);
+            Menu pmennu = pMenus.get(i);
             Menu cmenu = new Menu();
             cmenu.setParentId(pmennu.getId());
             List<Menu> tMenus = menuMapper.select(cmenu);
@@ -185,7 +209,7 @@ public class RoleServiceImpl implements RoleService {
         }
 
         //将所有子菜单的子菜单读处来放入menus
-        if(menus.size() > 0){
+        if (menus.size() > 0) {
             List<Menu> cMenus = getChildren(menus);
             menus.addAll(cMenus);
         }
@@ -193,4 +217,54 @@ public class RoleServiceImpl implements RoleService {
         return menus;
     }
 
+
+    private List<Menu> getAddMenusByPermissions(List<ZTreeNode> zTreeNodes) {
+
+        List<Menu> permissionMenus = getPermissionMenus(zTreeNodes);
+
+        List<Menu> resultMenus = new ArrayList<Menu>();
+
+        for (int i = 0; i < permissionMenus.size(); i++) {
+            Menu menu = permissionMenus.get(i);
+            resultMenus.add(menu);
+            if (Menu.IS_PARENT.equalsIgnoreCase(menu.getIsParent())) {
+                boolean hasChildren = hasChilren(permissionMenus, menu);
+                if (!hasChildren) {
+                    resultMenus.addAll(getChilren(menu));
+                }
+            }
+        }
+
+        return resultMenus;
+    }
+
+    public List<Menu> getChilren(Menu menu) {
+
+        Menu menu1 = new Menu();
+        menu1.setParentId(menu.getId());
+        return menuMapper.select(menu1);
+    }
+
+    private boolean hasChilren(List<Menu> permissionMenus, Menu menu) {
+
+        for (int i = 0; i < permissionMenus.size(); i++) {
+            Menu menu1 = permissionMenus.get(i);
+            if (menu1.getParentId().equalsIgnoreCase(menu.getId())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private List<Menu> getPermissionMenus(List<ZTreeNode> zTreeNodes) {
+        List<String> menuIds = new LinkedList<String>();
+        for (int i = 0; i < zTreeNodes.size(); i++) {
+            ZTreeNode zTreeNode = zTreeNodes.get(i);
+            menuIds.add(zTreeNode.getId());
+        }
+
+        Example example = new Example(Menu.class);
+        example.createCriteria().andIn("id", menuIds);
+        return menuMapper.selectByExample(example);
+    }
 }

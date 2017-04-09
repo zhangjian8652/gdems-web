@@ -93,6 +93,9 @@
 
             if(operation == "delete"){
                 $.get(url, CommonUtil.ajaxCallback);
+                setTimeout(function(){
+                    CommonUtil.loadView("/" + uriBase + "/list");
+                },3000)
             }else{
                 CommonUtil.loadView(url);
             }
