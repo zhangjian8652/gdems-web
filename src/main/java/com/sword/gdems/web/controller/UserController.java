@@ -175,10 +175,17 @@ public class UserController {
         Organization major = organizationService.getById(user.getMajorId());
         List<Organization> majors = organizationService.getByParentId(department.getId());
 
-        logger.debug("edit user department:" + department.toString());
-        logger.debug("edit user major:" + major.toString());
-        request.setAttribute("department", department);
-        request.setAttribute("major",major);
+        if (department != null) {
+            logger.debug("edit user department:" + department.toString());
+            request.setAttribute("department", department);
+        }
+        if (major != null) {
+
+            logger.debug("edit user major:" + major.toString());
+            request.setAttribute("major",major);
+        }
+
+
         request.setAttribute("majors",majors);
 
         List<Role> roles = roleService.getByUserId(user.getId());
