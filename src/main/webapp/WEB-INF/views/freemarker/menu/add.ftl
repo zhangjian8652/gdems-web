@@ -35,7 +35,7 @@
                                     <label class="col-sm-2 control-label">菜单名称:</label>
 
                                     <div class="col-sm-4 input-group">
-                                        <input type="text" class="form-control" name="name" id="name">
+                                        <input type="text" class="form-control clean" name="name" id="name">
                                         <span class="glyphicon glyphicon-user form-control-feedback"></span>
                                     </div>
                                     <!-- /.input group -->
@@ -46,9 +46,9 @@
                                     <label class="col-sm-2 control-label">父菜单</label>
 
                                     <div class="col-sm-4 input-group">
-                                        <input type="text" class="form-control" name="parentName" id="parentName" readonly>
+                                        <input type="text" class="form-control clean" name="parentName" id="parentName" readonly>
                                         <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                                        <input type="text" name="parentId" id="parentId" value="" style="display: none;">
+                                        <input type="text" name="parentId" id="parentId" value="" class="clean" style="display: none;">
                                     </div>
                                 </div>
                                 <!-- /.form-group -->
@@ -57,7 +57,7 @@
                                     <label class="col-sm-2 control-label">访问链接:</label>
 
                                     <div class="col-sm-4 input-group">
-                                        <input type="text" class="form-control" name="href" placeholder="访问链接">
+                                        <input type="text" class="form-control clean" name="href" placeholder="访问链接">
                                         <span class="glyphicon glyphicon-link form-control-feedback"></span>
                                     </div>
                                     <!-- /.input group -->
@@ -68,7 +68,7 @@
                                     <label class="col-sm-2 control-label">图标样式:</label>
 
                                     <div class="col-sm-4 input-group">
-                                        <input type="text" class="form-control" name="icon" placeholder="图标样式">
+                                        <input type="text" class="form-control clean" name="icon" placeholder="图标样式" readonly>
                                         <span class="glyphicon glyphicon-bookmark form-control-feedback"></span>
                                     </div>
                                     <!-- /.input group -->
@@ -79,7 +79,7 @@
                                     <label class="col-sm-2 control-label">权限名:</label>
 
                                     <div class="col-sm-4 input-group">
-                                        <input type="text" class="form-control" name="permission" id="permission" placeholder="例如：sys:menu:add">
+                                        <input type="text" class="form-control clean" name="permission" id="permission" placeholder="例如：sys:menu:add">
                                         <span class="glyphicon glyphicon-sunglasses form-control-feedback"></span>
                                     </div>
                                     <!-- /.input group -->
@@ -236,7 +236,7 @@
                     if (successCode === jsonData.code) {
                         $tipper.messager().success(jsonData.message);
                         //将所有输入框重置
-                        $("input:text").val("");
+                        $(".clean").val("");
                         loadMenuView();
                         return;
                     }

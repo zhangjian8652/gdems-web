@@ -119,8 +119,12 @@ public class MenuServiceImpl implements MenuService {
             Menu condition = new Menu();
             condition.setParentId(menu.getParentId());
             Menu parentMenu = menuMapper.selectByPrimaryKey(condition);
-            if (parentMenu == null || parentMenu.getIsParent() == null || Menu.IS_NOT_PARENT.equalsIgnoreCase(parentMenu.getIsParent())) {
-                logger.debug("update parent menu :" + parentMenu.getName());
+            if (parentMenu == null) {
+                logger.debug("parent menu is null, does not need to update.");
+                return;
+            }
+            if (parentMenu.getIsParent() == null || Menu.IS_NOT_PARENT.equalsIgnoreCase(parentMenu.getIsParent())) {
+                logger.debug("paren is not parent , it is updated : parent menu :" + parentMenu != null ? parentMenu.getName() : null);
                 parentMenu.setIsParent(Menu.IS_PARENT);
                 menuMapper.updateByPrimaryKey(parentMenu);
             }
