@@ -87,8 +87,11 @@ public class MenuServiceImpl implements MenuService {
             menu.setParentId(Menu.NONE_PARENT_ID);
         }else {
            Menu parent = getById(menu.getParentId());
-            parent.setIsParent(Menu.IS_PARENT);
-            menuMapper.updateByPrimaryKey(parent);
+            if (parent != null) {
+                parent.setIsParent(Menu.IS_PARENT);
+                menuMapper.updateByPrimaryKey(parent);
+            }
+
         }
         updateMenuToParent(menu);
         return menuMapper.insert(menu) > 0;
@@ -116,8 +119,8 @@ public class MenuServiceImpl implements MenuService {
             Menu condition = new Menu();
             condition.setParentId(menu.getParentId());
             Menu parentMenu = menuMapper.selectByPrimaryKey(condition);
-            logger.debug("update parent menu :" + parentMenu.getName());
-            if (parentMenu.getIsParent() == null || Menu.IS_NOT_PARENT.equalsIgnoreCase(parentMenu.getIsParent())) {
+            if (parentMenu == null || parentMenu.getIsParent() == null || Menu.IS_NOT_PARENT.equalsIgnoreCase(parentMenu.getIsParent())) {
+                logger.debug("update parent menu :" + parentMenu.getName());
                 parentMenu.setIsParent(Menu.IS_PARENT);
                 menuMapper.updateByPrimaryKey(parentMenu);
             }

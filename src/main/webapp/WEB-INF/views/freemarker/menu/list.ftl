@@ -18,6 +18,11 @@
             <div class="box">
                 <div class="box-header">
                     <h3 class="box-title">菜单列表</h3>
+                    <div class="row">
+                        <div class="col-md-12" id="tipper">
+
+                        </div>
+                    </div>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body no-padding">

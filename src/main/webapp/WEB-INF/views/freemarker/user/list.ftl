@@ -18,14 +18,14 @@
             <div class="box">
                 <div class="box-header">
                     <h3 class="box-title">用户列表</h3>
-                </div>
-                <!-- /.box-header -->
-                <div class="box-body">
                     <div class="row">
                         <div class="col-md-12" id="tipper">
 
                         </div>
                     </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
                     <table id="users" class="table table-bordered table-hover">
                         <thead>
                         <tr>

@@ -185,7 +185,7 @@ public class RoleController {
         roleService.delete(role);
         request.setAttribute("role", role);
 
-        return "role/edit";
+        return new JsonResponse<Object>(HttpStatus.OK + "", "删除成功");
     }
 
 

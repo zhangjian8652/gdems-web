@@ -76,6 +76,7 @@ public class GlobalExceptionHandler extends Throwable{
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
     public Object handleNotFoundException(Exception ex) {
+        ex.printStackTrace();
         if (ex instanceof SwordException) {
             SwordException se = (SwordException) ex;
             return new JsonResponse(se.getErrorCode(), ex.getMessage());
