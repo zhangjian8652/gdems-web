@@ -22,4 +22,6 @@ public interface MenuService extends BaseService<Menu> {
     boolean save(Menu menu) throws Exception;
 
     boolean exist(Menu menu) throws Exception;
+
+    Menu getById(String id) throws Exception;
 }

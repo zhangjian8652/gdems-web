@@ -35,6 +35,26 @@
     $(function () {
         $("#menu-table").treetable({expandable: true});
         $("#menu-table tr:nth-child(2) td:first-child a").click();
+
+        var operation = function () {
+            var $this = $(this),
+                    uriBase = $this.data("uribase"),
+                    operation = $this.data("operation"),
+                    id = $this.data("id"),
+                    url = "/" + uriBase + "/" + operation + "?id=" + id;
+
+            if(operation == "delete"){
+                $.get(url, CommonUtil.ajaxCallback);
+                setTimeout(function(){
+                    CommonUtil.loadView("/" + uriBase + "/list");
+                },3000)
+            }else{
+                CommonUtil.loadView(url);
+            }
+
+        }
+
+        $(".operation").click(operation);
     })
 </script>
 [/#macro]

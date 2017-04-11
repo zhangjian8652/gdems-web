@@ -97,9 +97,9 @@ public class MenuServiceImpl implements MenuService {
         return menuMapper.insert(menu) > 0;
     }
 
-    private Menu getById(String parentId) {
+    public Menu getById(String id) throws Exception{
         Menu menu = new Menu();
-        menu.setId(parentId);
+        menu.setId(id);
         return menuMapper.selectByPrimaryKey(menu);
     }
 

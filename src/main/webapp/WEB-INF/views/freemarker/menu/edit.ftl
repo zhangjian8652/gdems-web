@@ -30,12 +30,13 @@
                     <!-- /.row -->
                     <div class="row">
                         <div class="col-md-6">
-                            <form id="menu-add-form" action="/menu/add" method="post" class="form-horizontal">
+                            <form id="menu-edit-form" action="/menu/edit" method="post" class="form-horizontal">
+                                <input type="hidden" value="${menu.id!}" name="id" id="id">
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">菜单名称:</label>
 
                                     <div class="col-sm-4 input-group">
-                                        <input type="text" class="form-control clean" name="name" id="name">
+                                        <input type="text" class="form-control clean" name="name" id="name" value="${menu.name!}">
                                         <span class="glyphicon glyphicon-user form-control-feedback"></span>
                                     </div>
                                     <!-- /.input group -->
@@ -46,9 +47,18 @@
                                     <label class="col-sm-2 control-label">父菜单</label>
 
                                     <div class="col-sm-4 input-group">
-                                        <input type="text" class="form-control clean" name="parentName" id="parentName" readonly>
+                                        [#if parentMenu??]
+                                            [#if parentMenu.name??]
+                                            [#assign pname = parentMenu.name/]
+                                            [/#if]
+                                            [#if parentMenu.id??]
+                                            [#assign pid = parentMenu.id/]
+                                            [/#if]
+                                        [/#if]
+                                        <input type="text" class="form-control clean" name="parentName" id="parentName" readonly value="${pname!}">
                                         <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                                        <input type="text" name="parentId" id="parentId" value="" class="clean" style="display: none;">
+                                        <input type="text" name="parentId" id="parentId" value="${pid!}" class="clean" style="display: none;">
+
                                     </div>
                                 </div>
                                 <!-- /.form-group -->
@@ -57,7 +67,7 @@
                                     <label class="col-sm-2 control-label">访问链接:</label>
 
                                     <div class="col-sm-4 input-group">
-                                        <input type="text" class="form-control clean" name="href" placeholder="访问链接">
+                                        <input type="text" class="form-control clean" name="href" placeholder="访问链接" value="${menu.href!}">
                                         <span class="glyphicon glyphicon-link form-control-feedback"></span>
                                     </div>
                                     <!-- /.input group -->
@@ -68,7 +78,7 @@
                                     <label class="col-sm-2 control-label">图标样式:</label>
 
                                     <div class="col-sm-4 input-group">
-                                        <input type="text" class="form-control clean" name="icon" placeholder="图标样式" readonly>
+                                        <input type="text" class="form-control clean" name="icon" placeholder="图标样式" readonly value="${menu.icon!}">
                                         <span class="glyphicon glyphicon-bookmark form-control-feedback"></span>
                                     </div>
                                     <!-- /.input group -->
@@ -79,7 +89,7 @@
                                     <label class="col-sm-2 control-label">权限名:</label>
 
                                     <div class="col-sm-4 input-group">
-                                        <input type="text" class="form-control clean" name="permission" id="permission" placeholder="例如：sys:menu:add">
+                                        <input type="text" class="form-control clean" name="permission" id="permission" placeholder="例如：sys:menu:add" value="${menu.permission!}">
                                         <span class="glyphicon glyphicon-sunglasses form-control-feedback"></span>
                                     </div>
                                     <!-- /.input group -->
@@ -90,8 +100,14 @@
                                     <label class="col-sm-2 control-label">是否展示:</label>
                                     <div class="col-sm-4 input-group">
                                         <label class="col-sm-12" style="padding-top: 7px;">
-                                            展示：<input type="radio" name="isShow" class="flat-red" value="0" checked>
-                                            隐藏：<input type="radio" name="isShow" class="flat-red" value="1">
+                                            [#if menu.isShow == "0"]
+                                                展示：<input type="radio" name="isShow" class="flat-red" value="0" checked>
+                                                隐藏：<input type="radio" name="isShow" class="flat-red" value="1">
+                                            [#else]
+                                                展示：<input type="radio" name="isShow" class="flat-red" value="0">
+                                                隐藏：<input type="radio" name="isShow" class="flat-red" value="1" checked>
+                                            [/#if]
+
                                         </label>
                                     </div>
                                 </div>
@@ -102,7 +118,7 @@
                                     <label class="col-sm-2 control-label">排序值:</label>
 
                                     <div class="col-sm-4 input-group ">
-                                        <input type="text" class="form-control spinner" name="sort" id="sort">
+                                        <input type="text" class="form-control spinner" name="sort" id="sort" value="${menu.sort!}">
                                     </div>
                                     <!-- /.input group -->
                                 </div>
@@ -190,27 +206,10 @@
                 name: {
                     required: true,
                     minlength: 2,
-                    maxlength: 40,
-                    remote: {
-                        type: "POST",
-                        url: "/menu/exist",             //servlet
-                        data: {
-                            name: function () {
-                                return $("#name").val();
-                            }
-                        }
-                    }
+                    maxlength: 40
                 },
                 permission:{
-                    required:true,
-                    remote: {
-                          type: "POST",
-                                  url: "/menu/exist",             //servlet
-                                  data: {permission: function () {
-                                  return $("#permission").val();
-                              }
-                          }
-                    }
+                    required:true
                 }
             },
             messages: {
@@ -218,11 +217,9 @@
                     required: "菜单名必须填写"
                     , minlength: "菜单名长度必须大于{0}"
                     , maxlength: "菜单名长度不能大于{0}"
-                    , remote: "菜单名已经存在"
                 },
                 permission:{
-                    required:"权限名必须填写"
-                    , remote: "该权限已经存在"
+                    required:"权限必须填写"
                 }
             },
             submitHandler: function (form) {   //表单提交句柄,为一回调函数，带一个参数：form
@@ -239,8 +236,7 @@
 
                     if (successCode === jsonData.code) {
                         $tipper.messager().success(jsonData.message);
-                        //将所有输入框重置
-                        $(".clean").val("");
+                        CommonUtil.loadView("/menu/list");
                         return;
                     }
 
@@ -255,7 +251,7 @@
 
         $.extend(menuAddFormRules, GlobalVariable.formBaseRules);
 
-        var $menuddForm = $("#menu-add-form");
+        var $menuddForm = $("#menu-edit-form");
 
         if ($menuddForm.length > 0) {
             $menuddForm.validate(menuAddFormRules);

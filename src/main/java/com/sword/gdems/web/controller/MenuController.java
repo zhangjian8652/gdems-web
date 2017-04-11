@@ -2,18 +2,16 @@ package com.sword.gdems.web.controller;
 
 import com.sword.gdems.web.config.ErrorCodeConfig;
 import com.sword.gdems.web.entity.Menu;
-import com.sword.gdems.web.entity.Role;
 import com.sword.gdems.web.entity.User;
 import com.sword.gdems.web.entity.common.EntityUtil;
 import com.sword.gdems.web.exception.InvalidRequestException;
-import com.sword.gdems.web.request.entity.DatatableCondition;
 import com.sword.gdems.web.request.util.RequestUtil;
 import com.sword.gdems.web.response.JsonResponse;
 import com.sword.gdems.web.service.MenuService;
-import com.sword.gdems.web.service.RoleService;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
@@ -113,6 +111,44 @@ public class MenuController {
 
         return new JsonResponse<User>(ErrorCodeConfig.SUCCESS, ErrorCodeConfig.getMessage(ErrorCodeConfig.SUCCESS));
     }
+
+
+
+    @RequestMapping(value = "/edit", method = RequestMethod.GET)
+    public String editView(HttpServletRequest request,@RequestParam(name = "id") String id) throws Exception {
+
+        Menu menu =  menuService.getById(id);
+
+        if (menu == null) {
+            throw new InvalidRequestException(HttpStatus.BAD_REQUEST + "", "该ID的菜单不存在");
+        }
+        Menu parentMenu = menuService.getById(menu.getParentId());
+
+        request.setAttribute("menu", menu);
+        request.setAttribute("parentMenu", parentMenu);
+        return "menu/edit";
+    }
+
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    @ResponseBody
+    public Object edit(@Valid @ModelAttribute("form") Menu menu, BindingResult result, HttpServletRequest request) throws Exception {
+
+
+        String id = menu.getId();
+
+        if (StringUtils.isEmpty(id)) {
+            throw new InvalidRequestException(HttpStatus.BAD_REQUEST + "", "请求更新菜单id不存在");
+        }
+
+
+        menuService.getById(id);
+
+        Menu newMenu = new Menu();
+
+        return null;
+    }
+
+
 
     @RequestMapping(value = "/exist", method = RequestMethod.POST)
     @ResponseBody
