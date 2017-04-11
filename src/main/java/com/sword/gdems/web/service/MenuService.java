@@ -24,4 +24,6 @@ public interface MenuService extends BaseService<Menu> {
     boolean exist(Menu menu) throws Exception;
 
     Menu getById(String id) throws Exception;
+
+    boolean update(Menu menuFromDB) throws Exception;
 }

@@ -104,6 +104,12 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
+    public boolean update(Menu menuFromDB) throws Exception {
+        int result = menuMapper.updateByPrimaryKey(menuFromDB);
+        return result > 0;
+    }
+
+    @Override
     public boolean exist(Menu menu) throws Exception {
         return menuMapper.select(menu).size() > 0;
     }

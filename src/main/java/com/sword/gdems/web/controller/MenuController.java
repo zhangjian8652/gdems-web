@@ -5,6 +5,7 @@ import com.sword.gdems.web.entity.Menu;
 import com.sword.gdems.web.entity.User;
 import com.sword.gdems.web.entity.common.EntityUtil;
 import com.sword.gdems.web.exception.InvalidRequestException;
+import com.sword.gdems.web.exception.SwordException;
 import com.sword.gdems.web.request.util.RequestUtil;
 import com.sword.gdems.web.response.JsonResponse;
 import com.sword.gdems.web.service.MenuService;
@@ -141,11 +142,23 @@ public class MenuController {
         }
 
 
-        menuService.getById(id);
+        Menu menuFromDB = menuService.getById(id);
+        menuFromDB.setName(menu.getName());
+        menuFromDB.setParentId(menu.getParentId());
+        menuFromDB.setHref(menu.getHref());
+        menuFromDB.setIsShow(menu.getIsShow());
+        menuFromDB.setPermission(menu.getPermission());
+        menuFromDB.setSort(menu.getSort());
 
-        Menu newMenu = new Menu();
+        EntityUtil.setCommonUpdateValue(menuFromDB, RequestUtil.getLoginUserFromSession(request));
 
-        return null;
+        boolean rst = menuService.update(menuFromDB);
+        if (!rst) {
+            throw new SwordException(HttpStatus.INTERNAL_SERVER_ERROR + "", "更新菜单失败，请联系管理员。");
+        }
+
+
+        return new JsonResponse<Object>(HttpStatus.ACCEPTED + "", "更新菜单成功");
     }
 
 
