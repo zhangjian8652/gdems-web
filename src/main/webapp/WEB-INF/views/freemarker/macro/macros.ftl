@@ -182,3 +182,6 @@
         data-uribase="${uriBase}">删除
 </button>
 [/#macro]
+
+
+[#-- 用户的权限菜单 --]

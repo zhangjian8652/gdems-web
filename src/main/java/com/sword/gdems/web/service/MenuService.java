@@ -26,4 +26,8 @@ public interface MenuService extends BaseService<Menu> {
     Menu getById(String id) throws Exception;
 
     boolean update(Menu menuFromDB) throws Exception;
+
+    List<Menu> getByUserIdAndParentId(String userId, String parentId) throws Exception;
+
+    List<Menu> getTopByUserId(String userId)  throws Exception;
 }

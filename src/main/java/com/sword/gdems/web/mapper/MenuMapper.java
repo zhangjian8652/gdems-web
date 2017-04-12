@@ -15,4 +15,8 @@ public interface MenuMapper extends Mapper<Menu> {
     List<Menu> getByUserId(@Param("userId") String userId);
 
     List<Menu> getByPermissionAndUserId(@Param("permission") String permission,@Param("userId") String userId);
+
+    List<Menu> getByUserIdAndParentId(@Param("userId") String userId,@Param("parentId") String parentId);
+
+    List<Menu> getTopByUserId(@Param("userId") String userId);
 }

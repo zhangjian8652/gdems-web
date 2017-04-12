@@ -2,11 +2,8 @@ package com.sword.gdems.web.directive;
 
 import com.sword.gdems.common.directive.DirectiveUtils;
 import com.sword.gdems.web.entity.Menu;
-import com.sword.gdems.web.entity.User;
-import com.sword.gdems.web.request.entity.DatatableCondition;
 import com.sword.gdems.web.response.DataTablePage;
 import com.sword.gdems.web.service.MenuService;
-import com.sword.gdems.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
@@ -40,18 +37,41 @@ public class MenuDirective extends AbstractDirective<Menu> {
             return menusList;
         }
 
+
+
+
         //如果不是就根据父ID查询子菜单
         String parentId =  DirectiveUtils.getString("parentId", map);
+        String userId =  DirectiveUtils.getString("userId", map);
 
-        //如果父id为空则返回顶级下单
-        if (StringUtils.isEmpty(parentId)) {
+        if (StringUtils.isEmpty(parentId) && StringUtils.isEmpty(userId)) {
             menusList =   menuService.getTop();
-        }else {
-            //否者才根据父节点查询菜单
-            menusList =  menuService.getByParentId(parentId);
+            return menusList;
         }
 
+        if (StringUtils.isEmpty(parentId) && !StringUtils.isEmpty(userId)) {
+            menusList =  menuService.getTopByUserId(userId);
+            return menusList;
+        }
+
+
+        if (!StringUtils.isEmpty(parentId) && StringUtils.isEmpty(userId)) {
+            menusList =  menuService.getByParentId(parentId);
+            return menusList;
+        }
+
+        if (!StringUtils.isEmpty(parentId) && !StringUtils.isEmpty(userId)) {
+            //根据用户id和parentId获取菜单列
+            menusList =  menuService.getByUserIdAndParentId(userId,parentId);
+            return menusList;
+        }
+
+
+
+        menusList = menuService.getTop();
         return menusList;
+
+
     }
 
     @Override

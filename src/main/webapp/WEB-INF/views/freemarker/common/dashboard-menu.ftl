@@ -21,77 +21,24 @@
                     <i class="fa fa-dashboard"></i> <span>主面板</span>
                 </a>
             </li>
-            <li class="header">系统设置</li>
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa  fa-users"></i>
-                    <span>用户管理</span>
-                    <span class="label label-primary pull-right">4</span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="javascript:void(0);" class="page-button" data-uri="/user/list"><i class="fa  fa-list-ol"></i> 用户列表</a></li>
-                    <li><a href="javascript:void(0);" class="page-button" data-uri="/user/add"><i class="fa   fa-user-plus"></i> 增加用户</a></li>
-                </ul>
-            </li>
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-user"></i>
-                    <span>角色管理</span>
-                    <i class="fa fa-angle-left pull-right"></i>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="javascript:void(0);" class="page-button" data-uri="/role/list"><i class="fa fa-list-ol"></i> 角色列表</a></li>
-                    <li><a href="javascript:void(0)" class="page-button" data-uri="/role/add"><i class="fa fa-circle-o"></i> 角色添加</a></li>
-                </ul>
-            </li>
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-user-secret"></i>
-                    <span>机构管理</span>
-                    <i class="fa fa-angle-left pull-right"></i>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="javascript:void(0);" class="page-button" data-uri="/organization/list"><i class="fa fa-circle-o"></i> 机构列表</a></li>
-                    <li><a href="javascript:void(0);" class="page-button" data-uri="/organization/add"><i class="fa fa-circle-o"></i> 机构添加</a></li>
-                </ul>
-            </li>
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-user-secret"></i>
-                    <span>菜单管理</span>
-                    <i class="fa fa-angle-left pull-right"></i>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="javascript:void(0);" class="page-button" data-uri="/menu/list"><i class="fa fa-circle-o"></i> 菜单列表</a></li>
-                    <li><a href="javascript:void(0);" class="page-button" data-uri="/menu/add"><i class="fa fa-circle-o"></i> 添加菜单</a></li>
-                </ul>
-            </li>
-
-
-            <li class="header">毕业设计</li>
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-edit"></i> <span>毕业设计管理</span>
-                    <i class="fa fa-angle-left pull-right"></i>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o"></i>毕业设计</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i>毕业设计</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i> 毕业设计</a></li>
-                </ul>
-            </li>
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-edit"></i> <span>我的毕业设计</span>
-                    <i class="fa fa-angle-left pull-right"></i>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o"></i> 毕业设计</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i> 毕业设计</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i> 毕业设计</a></li>
-                </ul>
-            </li>
-
+            [@menu type="list" parentId="";list]
+                [#list list as menu]
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa  fa-users"></i>
+                        <span>${menu.name!}</span>
+                        <span class="label label-primary pull-right">4</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        [@menu type="list" parentId="${menu.id!}";list2]
+                            [#list list2 as menu2]
+                                <li><a href="javascript:void(0);" class="page-button" data-uri="${menu2.href!}"><i class="fa  ${menu2.icon!'fa-list-ol'}"></i> ${menu2.name}</a></li>
+                            [/#list]
+                        [/@menu]
+                    </ul>
+                </li>
+                [/#list]
+            [/@menu]
         </ul>
     </section>
     <!-- /.sidebar -->

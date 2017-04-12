@@ -110,6 +110,16 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
+    public List<Menu> getByUserIdAndParentId(String userId, String parentId) throws Exception {
+        return menuMapper.getByUserIdAndParentId(userId,parentId);
+    }
+
+    @Override
+    public List<Menu> getTopByUserId(String userId) throws Exception {
+        return menuMapper.getTopByUserId(userId);
+    }
+
+    @Override
     public boolean exist(Menu menu) throws Exception {
         return menuMapper.select(menu).size() > 0;
     }
