@@ -1,6 +1,5 @@
 package com.sword.gdems.web.interceptor;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sword.gdems.common.json.JSonUtil;
 import com.sword.gdems.web.config.ErrorCodeConfig;
 import com.sword.gdems.web.entity.User;
@@ -47,11 +46,11 @@ public class AuthInterceptor implements HandlerInterceptor {
         }
 
         if (cookie != null) {
-            httpServletResponse.sendRedirect("/autoLogin");
+            httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/autoLogin");
             return false;
         }
 
-        httpServletResponse.sendRedirect("/");
+        httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/");
         return false;
 
 

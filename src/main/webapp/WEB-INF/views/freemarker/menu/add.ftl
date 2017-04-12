@@ -219,6 +219,10 @@
                     , minlength: "菜单名长度必须大于{0}"
                     , maxlength: "菜单名长度不能大于{0}"
                     , remote: "菜单名已经存在"
+                },
+                permission:{
+                    required:"权限名必须填写"
+                    , remote: "该权限已经存在"
                 }
             },
             submitHandler: function (form) {   //表单提交句柄,为一回调函数，带一个参数：form
@@ -237,7 +241,6 @@
                         $tipper.messager().success(jsonData.message);
                         //将所有输入框重置
                         $(".clean").val("");
-                        loadMenuView();
                         return;
                     }
 

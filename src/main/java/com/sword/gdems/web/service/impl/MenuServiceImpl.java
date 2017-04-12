@@ -97,10 +97,26 @@ public class MenuServiceImpl implements MenuService {
         return menuMapper.insert(menu) > 0;
     }
 
-    private Menu getById(String parentId) {
+    public Menu getById(String id) throws Exception{
         Menu menu = new Menu();
-        menu.setId(parentId);
+        menu.setId(id);
         return menuMapper.selectByPrimaryKey(menu);
+    }
+
+    @Override
+    public boolean update(Menu menuFromDB) throws Exception {
+        int result = menuMapper.updateByPrimaryKey(menuFromDB);
+        return result > 0;
+    }
+
+    @Override
+    public List<Menu> getByUserIdAndParentId(String userId, String parentId) throws Exception {
+        return menuMapper.getByUserIdAndParentId(userId,parentId);
+    }
+
+    @Override
+    public List<Menu> getTopByUserId(String userId) throws Exception {
+        return menuMapper.getTopByUserId(userId);
     }
 
     @Override

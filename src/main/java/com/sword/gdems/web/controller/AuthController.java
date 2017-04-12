@@ -71,7 +71,7 @@ public class AuthController {
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
         RequestUtil.setLoginUserToSession(request, null);
-        response.sendRedirect("/");
+        response.sendRedirect(request.getContextPath() + "/");
     }
 
     private void rememberMe(HttpServletResponse response,String userId){

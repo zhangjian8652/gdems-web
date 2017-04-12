@@ -22,4 +22,12 @@ public interface MenuService extends BaseService<Menu> {
     boolean save(Menu menu) throws Exception;
 
     boolean exist(Menu menu) throws Exception;
+
+    Menu getById(String id) throws Exception;
+
+    boolean update(Menu menuFromDB) throws Exception;
+
+    List<Menu> getByUserIdAndParentId(String userId, String parentId) throws Exception;
+
+    List<Menu> getTopByUserId(String userId)  throws Exception;
 }
