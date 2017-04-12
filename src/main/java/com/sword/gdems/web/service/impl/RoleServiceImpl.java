@@ -126,7 +126,8 @@ public class RoleServiceImpl implements RoleService {
         List<RoleMenu> roleMenus = new ArrayList();
 
 
-        List<Menu> menus = getAddMenusByPermissions(permissions);
+       // List<Menu> menus = getAddMenusByPermissions(permissions); 没办法解决用户不打开选项，原来拥有权限问题
+        List<Menu> menus = getPermissionMenus(permissions);
 
         for (int i = 0; i < menus.size(); i++) {
             Menu menu = menus.get(i);
@@ -172,7 +173,8 @@ public class RoleServiceImpl implements RoleService {
 
         //插入新得权限
         List<RoleMenu> roleMenus = new ArrayList();
-        List<Menu> menus = getAddMenusByPermissions(zTreeNodes);
+       // List<Menu> menus = getAddMenusByPermissions(zTreeNodes); 没办法解决用户不打开选项，原来拥有权限问题
+        List<Menu> menus = getPermissionMenus(zTreeNodes);
 
         for (int i = 0; i < menus.size(); i++) {
             Menu menu = menus.get(i);
@@ -181,7 +183,6 @@ public class RoleServiceImpl implements RoleService {
         }
 
         boolean result = roleMapper.insertRoleMenuBatch(roleMenus) > 0;
-
         return result;
     }
 

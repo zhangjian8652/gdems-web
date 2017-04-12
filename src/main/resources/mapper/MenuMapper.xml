@@ -38,24 +38,24 @@
     </select>
 
 
-    <select id="getTopByUserId" resultType="java.util.List">
+    <select id="getTopByUserId" resultType="com.sword.gdems.web.entity.Menu">
         SELECT
         <include refid="allColumns"/>
         FROM
         sys_menu m
-        LEFT OUTER JOIN sys_role_menu rm on (m.id = rm.menu_id)
-        LEFT OUTER JOIN sys_user_role ur on (rm.role_id = ur.role_id)
-        WHERE ur.user_id = #{userId} AND (m.parent_id = "NO" or m.parent_id IS NULL)
+        LEFT OUTER JOIN sys_role_menu rm ON (m.id = rm.menu_id)
+        LEFT OUTER JOIN sys_user_role ur ON (rm.role_id = ur.role_id)
+        WHERE ur.user_id = #{userId} AND  m.parent_id = 'NO' OR m.parent_id IS NULL ORDER BY m.sort DESC
     </select>
 
-    <select id="getByUserIdAndParentId" resultType="java.util.List">
+    <select id="getByUserIdAndParentId" resultType="com.sword.gdems.web.entity.Menu">
         SELECT
         <include refid="allColumns"/>
         FROM
         sys_menu m
-        LEFT OUTER JOIN sys_role_menu rm on (m.id = rm.menu_id)
-        LEFT OUTER JOIN sys_user_role ur on (rm.role_id = ur.role_id)
-        WHERE ur.user_id = #{userId} AND m.parent_id = #{parentId}
+        LEFT OUTER JOIN sys_role_menu rm ON (m.id = rm.menu_id)
+        LEFT OUTER JOIN sys_user_role ur ON (rm.role_id = ur.role_id)
+        WHERE ur.user_id = #{userId} AND m.parent_id = #{parentId} ORDER BY m.sort DESC
     </select>
 
 </mapper>

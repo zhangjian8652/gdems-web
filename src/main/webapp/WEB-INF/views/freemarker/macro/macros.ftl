@@ -184,4 +184,62 @@
 [/#macro]
 
 
+
+
+[#-- ztree menu --]
+
+[#macro ztreeParent]
+    [
+       [@menu parentId="" type="LIST";list]
+            [#if list?? && list?size > 0]
+                [#list list as menu]
+                    [#if menu_index > 0]
+                    ,
+                    [/#if]
+                {
+                    id:"${menu.id!}",
+                    name:"${menu.name!}",
+                    halfCheck:true,
+                    checked:false,
+                    [#if menu.isParent?? && menu.isParent == "YES"]
+                    isParent:true,
+                    children:[@macro.ztreeChildren parentId="${menu.id!}"/]
+                    [#else]
+                    isParent:false
+                    [/#if]
+                }
+                [/#list]
+            [/#if]
+        [/@menu]
+    ]
+[/#macro]
+
+[#macro ztreeChildren parentId]
+    [
+        [@menu parentId=parentId type="LIST";list]
+            [#if list?? && list?size > 0]
+                [#list list as menu]
+                    [#if menu_index > 0]
+                    ,
+                    [/#if]
+                {
+                id:"${menu.id!}",
+                name:"${menu.name!}",
+                halfCheck:true,
+                checked:false,
+                    [#if menu.isParent?? && menu.isParent == "YES"]
+                    isParent:true,
+                     children:[@macro.ztreeChildren parentId="${menu.id!}"/]
+                    [#else]
+                    isParent:false
+                    [/#if]
+                }
+                [/#list]
+            [/#if]
+        [/@menu]
+    ]
+[/#macro]
+
 [#-- 用户的权限菜单 --]
+
+

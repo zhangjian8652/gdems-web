@@ -144,11 +144,13 @@ public class MenuController {
 
         Menu menuFromDB = menuService.getById(id);
         menuFromDB.setName(menu.getName());
-        menuFromDB.setParentId(menu.getParentId());
+        menuFromDB.setParentId(StringUtils.isEmpty(menu.getParentId()) ? Menu.NONE_PARENT_ID : menu.getParentId());
         menuFromDB.setHref(menu.getHref());
         menuFromDB.setIsShow(menu.getIsShow());
         menuFromDB.setPermission(menu.getPermission());
         menuFromDB.setSort(menu.getSort());
+        menuFromDB.setIcon(menu.getIcon());
+        menuFromDB.setIsParent(StringUtils.isEmpty(menu.getParentId()) ? Menu.IS_PARENT :null);
 
         EntityUtil.setCommonUpdateValue(menuFromDB, RequestUtil.getLoginUserFromSession(request));
 

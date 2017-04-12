@@ -61,16 +61,18 @@ public class MenuServiceImpl implements MenuService {
         }
 
         //否则查出所有对应子集菜单
-        Menu menu = new Menu();
-        menu.setParentId(parentId);
-        return menuMapper.select(menu);
+        Example example = new Example(Menu.class);
+        example.createCriteria().andEqualTo("parentId", parentId);
+        example.orderBy("sort");
+        return menuMapper.selectByExample(example);
     }
 
     @Override
     public List<Menu> getTop() throws Exception {
-        Menu menu = new Menu();
-        menu.setParentId(Menu.NONE_PARENT_ID);
-        return menuMapper.select(menu);
+        Example example = new Example(Menu.class);
+        example.createCriteria().andEqualTo("parentId", Menu.NONE_PARENT_ID);
+        example.orderBy("sort").desc();
+        return menuMapper.selectByExample(example);
     }
 
     @Override
@@ -85,6 +87,7 @@ public class MenuServiceImpl implements MenuService {
     public boolean save(Menu menu) throws Exception {
         if (StringUtils.isEmpty(menu.getParentId())) {
             menu.setParentId(Menu.NONE_PARENT_ID);
+            menu.setIsParent(Menu.IS_PARENT);
         }else {
            Menu parent = getById(menu.getParentId());
             if (parent != null) {

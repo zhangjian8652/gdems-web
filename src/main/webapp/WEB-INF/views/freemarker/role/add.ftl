@@ -270,28 +270,11 @@
 
         };
 
-        var zNodes =
-                [
-                    [@menu parentId="" type="LIST";list]
-        [#if list?? && list?size > 0]
-        [#list list as menu]
-        [#if menu_index > 0]
-        ,
-        [/#if]
-        {
-            id:"${menu.id}",
-                    name:"${menu.name}",
-                halfCheck:true,
-                checked:false,
-                isParent:true
-        }
-        [/#list]
-        [/#if]
-
-        [/@menu]
-        ];
+        var zNodes = [@macro.ztreeParent/];
 
         treeObj = $.fn.zTree.init($("#privilege-tree"), setting, zNodes);
+        treeObj.expandAll(true);
+
     });
 
 

@@ -47,11 +47,6 @@
                                     <label class="col-sm-2 control-label">父菜单</label>
 
                                     <div class="col-sm-4 input-group">
-<<<<<<< HEAD
-                                        <input type="text" class="form-control clean" name="parentName" id="parentName" readonly>
-                                        <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                                        <input type="text" name="parentId" id="parentId" value="" class="clean" style="display: none;">
-=======
                                         [#if parentMenu??]
                                             [#if parentMenu.name??]
                                             [#assign pname = parentMenu.name/]
@@ -62,9 +57,8 @@
                                         [/#if]
                                         <input type="text" class="form-control clean" name="parentName" id="parentName" readonly value="${pname!}">
                                         <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                                        <input type="text" name="parentId" id="parentId" value="${pid!}" class="clean" style="display: none;">
+                                        <input type="text" name="parentId" id="parentId" value="${pid!'NO'}" class="clean" style="display: none;">
 
->>>>>>> d8fb8782eb88fb16e104e40ad9180a0779bfb47f
                                     </div>
                                 </div>
                                 <!-- /.form-group -->
@@ -73,11 +67,8 @@
                                     <label class="col-sm-2 control-label">访问链接:</label>
 
                                     <div class="col-sm-4 input-group">
-<<<<<<< HEAD
-                                        <input type="text" class="form-control clean" name="href" placeholder="访问链接">
-=======
+
                                         <input type="text" class="form-control clean" name="href" placeholder="访问链接" value="${menu.href!}">
->>>>>>> d8fb8782eb88fb16e104e40ad9180a0779bfb47f
                                         <span class="glyphicon glyphicon-link form-control-feedback"></span>
                                     </div>
                                     <!-- /.input group -->
@@ -88,11 +79,8 @@
                                     <label class="col-sm-2 control-label">图标样式:</label>
 
                                     <div class="col-sm-4 input-group">
-<<<<<<< HEAD
-                                        <input type="text" class="form-control clean" name="icon" placeholder="图标样式" readonly>
-=======
-                                        <input type="text" class="form-control clean" name="icon" placeholder="图标样式" readonly value="${menu.icon!}">
->>>>>>> d8fb8782eb88fb16e104e40ad9180a0779bfb47f
+
+                                        <input type="text" class="form-control clean" name="icon" placeholder="图标样式"  value="${menu.icon!}">
                                         <span class="glyphicon glyphicon-bookmark form-control-feedback"></span>
                                     </div>
                                     <!-- /.input group -->
@@ -103,11 +91,7 @@
                                     <label class="col-sm-2 control-label">权限名:</label>
 
                                     <div class="col-sm-4 input-group">
-<<<<<<< HEAD
-                                        <input type="text" class="form-control clean" name="permission" id="permission" placeholder="例如：sys:menu:add">
-=======
                                         <input type="text" class="form-control clean" name="permission" id="permission" placeholder="例如：sys:menu:add" value="${menu.permission!}">
->>>>>>> d8fb8782eb88fb16e104e40ad9180a0779bfb47f
                                         <span class="glyphicon glyphicon-sunglasses form-control-feedback"></span>
                                     </div>
                                     <!-- /.input group -->
@@ -118,10 +102,6 @@
                                     <label class="col-sm-2 control-label">是否展示:</label>
                                     <div class="col-sm-4 input-group">
                                         <label class="col-sm-12" style="padding-top: 7px;">
-<<<<<<< HEAD
-                                            展示：<input type="radio" name="isShow" class="flat-red" value="0" checked>
-                                            隐藏：<input type="radio" name="isShow" class="flat-red" value="1">
-=======
                                             [#if menu.isShow == "0"]
                                                 展示：<input type="radio" name="isShow" class="flat-red" value="0" checked>
                                                 隐藏：<input type="radio" name="isShow" class="flat-red" value="1">
@@ -129,8 +109,6 @@
                                                 展示：<input type="radio" name="isShow" class="flat-red" value="0">
                                                 隐藏：<input type="radio" name="isShow" class="flat-red" value="1" checked>
                                             [/#if]
-
->>>>>>> d8fb8782eb88fb16e104e40ad9180a0779bfb47f
                                         </label>
                                     </div>
                                 </div>
@@ -141,11 +119,7 @@
                                     <label class="col-sm-2 control-label">排序值:</label>
 
                                     <div class="col-sm-4 input-group ">
-<<<<<<< HEAD
-                                        <input type="text" class="form-control spinner" name="sort" id="sort">
-=======
                                         <input type="text" class="form-control spinner" name="sort" id="sort" value="${menu.sort!}">
->>>>>>> d8fb8782eb88fb16e104e40ad9180a0779bfb47f
                                     </div>
                                     <!-- /.input group -->
                                 </div>
@@ -233,34 +207,10 @@
                 name: {
                     required: true,
                     minlength: 2,
-<<<<<<< HEAD
-                    maxlength: 40,
-                    remote: {
-                        type: "POST",
-                        url: "/menu/exist",             //servlet
-                        data: {
-                            name: function () {
-                                return $("#name").val();
-                            }
-                        }
-                    }
-                },
-                permission:{
-                    required:true,
-                    remote: {
-                          type: "POST",
-                                  url: "/menu/exist",             //servlet
-                                  data: {permission: function () {
-                                  return $("#permission").val();
-                              }
-                          }
-                    }
-=======
                     maxlength: 40
                 },
                 permission:{
                     required:true
->>>>>>> d8fb8782eb88fb16e104e40ad9180a0779bfb47f
                 }
             },
             messages: {
@@ -282,10 +232,10 @@
                 method = $form.attr("method");
 
                 callBack = function (data) {
-                    var successCode = "100000", $tipper = $("#tipper");
+                    var  $tipper = $("#tipper");
                     var jsonData = data;
 
-                    if (successCode === jsonData.code) {
+                    if (jsonData.code.startsWith(successCodePrefix)) {
                         $tipper.messager().success(jsonData.message);
                         CommonUtil.loadView("/menu/list");
                         return;
