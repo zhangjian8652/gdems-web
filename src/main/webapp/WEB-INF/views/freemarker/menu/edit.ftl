@@ -55,7 +55,7 @@
                                             [#assign pid = parentMenu.id/]
                                             [/#if]
                                         [/#if]
-                                        <input type="text" class="form-control clean" name="parentName" id="parentName" readonly value="${pname!}">
+                                        <input type="text" class="form-control clean" name="parentName" id="parentName" readonly value="${pname!}" placeholder="双击选择">
                                         <span class="glyphicon glyphicon-user form-control-feedback"></span>
                                         <input type="text" name="parentId" id="parentId" value="${pid!'NO'}" class="clean" style="display: none;">
 
@@ -68,7 +68,7 @@
 
                                     <div class="col-sm-4 input-group">
 
-                                        <input type="text" class="form-control clean" name="href" placeholder="访问链接" value="${menu.href!}">
+                                        <input type="text" class="form-control clean" name="href" placeholder="访问链接" value="${menu.href!}" id="href">
                                         <span class="glyphicon glyphicon-link form-control-feedback"></span>
                                     </div>
                                     <!-- /.input group -->
@@ -80,7 +80,7 @@
 
                                     <div class="col-sm-4 input-group">
 
-                                        <input type="text" class="form-control clean" name="icon" placeholder="图标样式"  value="${menu.icon!}">
+                                        <input type="text" class="form-control clean" name="icon" placeholder="图标样式，双击选择" readonly  value="${menu.icon!}" id="icon">
                                         <span class="glyphicon glyphicon-bookmark form-control-feedback"></span>
                                     </div>
                                     <!-- /.input group -->
@@ -173,9 +173,61 @@
         <!-- /.modal -->
 
     </div>
-    <div class="row">
-        [#include "icons.ftl"/]
-    </div>
+
+
+
+        <div class="icons-select-modal hide">
+            <div class="modal modal-info">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            <h4 class="modal-title">选择图标</h4>
+                        </div>
+                        <div class="modal-body">
+                            [#include "icons.ftl"/]
+                        </div>
+                        <div class="modal-footer">
+
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+
+            <script type="text/javascript">
+                    $(function(){
+
+                        $(".font-awesome-icon-list i").click(setSelectedIcon);
+                        $(".close").click(hideIcons);
+
+                        function showIcons(){
+                            $(".icons-select-modal").removeClass("hide");
+                        }
+
+                        function hideIcons(){
+                            $(".icons-select-modal").addClass("hide");
+                        }
+
+                        function setSelectedIcon(){
+                            var classNames =  $(this).attr("class");
+                            var icon3 = classNames.split(" ")[2];
+                            if(iconId != undefined && iconId != null) {
+                                $(iconId).val(icon3);
+                            }
+                            hideIcons();
+                        }
+
+                        var iconId;
+                        $("#icon").click(function() {
+                            iconId = "#icon";
+                            showIcons();
+                        })
+                    });
+
+
+            </script>
+        </div>
+
 
 </section><!-- /.content -->
 
@@ -270,6 +322,7 @@
         $("#cancel").click(hideSelect);
         $("#confirm").click(setSelectedValue);
 
+
     });
 
 
@@ -292,7 +345,6 @@
     function hideSelect(){
         $(".tree-select-modal").addClass("hide");
     }
-
 
 
 

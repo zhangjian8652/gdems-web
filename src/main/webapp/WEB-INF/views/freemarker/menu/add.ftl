@@ -46,7 +46,7 @@
                                     <label class="col-sm-2 control-label">父菜单</label>
 
                                     <div class="col-sm-4 input-group">
-                                        <input type="text" class="form-control clean" name="parentName" id="parentName" readonly>
+                                        <input type="text" class="form-control clean" name="parentName" id="parentName" readonly placeholder="双击选择">
                                         <span class="glyphicon glyphicon-user form-control-feedback"></span>
                                         <input type="text" name="parentId" id="parentId" value="" class="clean" style="display: none;">
                                     </div>
@@ -68,7 +68,7 @@
                                     <label class="col-sm-2 control-label">图标样式:</label>
 
                                     <div class="col-sm-4 input-group">
-                                        <input type="text" class="form-control clean" name="icon" placeholder="图标样式" readonly>
+                                        <input type="text" class="form-control clean" name="icon" placeholder="图标样式，双击选择" readonly id="icon">
                                         <span class="glyphicon glyphicon-bookmark form-control-feedback"></span>
                                     </div>
                                     <!-- /.input group -->
@@ -156,9 +156,62 @@
         <!-- /.modal -->
 
     </div>
-    <div class="row">
-        [#include "icons.ftl"/]
+
+    <div class="icons-select-modal hide">
+        <div class="modal modal-info">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title">选择图标</h4>
+                    </div>
+                    <div class="modal-body">
+                    [#include "icons.ftl"/]
+                    </div>
+                    <div class="modal-footer">
+
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+        <script type="text/javascript">
+            $(function(){
+
+                $(".font-awesome-icon-list i").click(setSelectedIcon);
+                $(".close").click(hideIcons);
+
+
+                function showIcons(){
+                    $(".icons-select-modal").removeClass("hide");
+                }
+
+                function hideIcons(){
+                    $(".icons-select-modal").addClass("hide");
+                }
+
+                function setSelectedIcon(){
+                    var classNames =  $(this).attr("class");
+                    debugger;
+                    var icon3 = classNames.split(" ")[2];
+                    if(iconId != undefined && iconId != null) {
+                        $(iconId).val(icon3);
+                    }
+                    hideIcons();
+                }
+
+                var iconId;
+                $("#icon").click(function() {
+                    iconId = "#icon";
+                    showIcons();
+                })
+            });
+
+
+
+        </script>
     </div>
+
 
 </section><!-- /.content -->
 
@@ -278,7 +331,6 @@
 
     var selectedNode={};
     var currentSelectId,currentSelectValueId;
-
     function setSelectedValue(){
         if(selectedNode != undefined) {
             $(currentSelectId).val(selectedNode.id);
