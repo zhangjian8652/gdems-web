@@ -1,6 +1,7 @@
 package com.sword.gdems.web.service.impl;
 
 import com.sword.gdems.web.entity.Menu;
+import com.sword.gdems.web.exception.NotFoundException;
 import com.sword.gdems.web.mapper.MenuMapper;
 import com.sword.gdems.web.request.entity.DatatableCondition;
 import com.sword.gdems.web.response.DataTablePage;
@@ -8,6 +9,7 @@ import com.sword.gdems.web.service.MenuService;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -120,6 +122,36 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public List<Menu> getTopByUserId(String userId) throws Exception {
         return menuMapper.getTopByUserId(userId);
+    }
+
+    @Override
+    @Transactional
+    public boolean deleteById(String id) throws Exception {
+
+        Menu menu = getById(id);
+
+        if (menu == null) {
+            throw new NotFoundException(HttpStatus.NOT_FOUND + "", "找不到你要删除的菜单");
+        }
+        menuMapper.deleteByPrimaryKey(menu);
+        deleteChildren(menu);
+
+        return true;
+    }
+
+    private void deleteChildren(Menu menu) throws Exception {
+
+         List<Menu> menus = getByParentId(menu.getId());
+
+        if (menus == null || menus.size() <= 0) {
+            return;
+        }
+
+        for (int i = 0; i < menus.size(); i++) {
+            Menu menu1 =  menus.get(i);
+            menuMapper.delete(menu1);
+            deleteChildren(menu1);
+        }
     }
 
     @Override

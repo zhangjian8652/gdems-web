@@ -1,4 +1,3 @@
-target/
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
@@ -27,3 +26,4 @@ nbdist/
 ### Themes Resources ####
 themes/
 temp/
+target/

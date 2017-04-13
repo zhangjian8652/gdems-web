@@ -5,6 +5,7 @@ import com.sword.gdems.web.entity.Menu;
 import com.sword.gdems.web.entity.User;
 import com.sword.gdems.web.entity.common.EntityUtil;
 import com.sword.gdems.web.exception.InvalidRequestException;
+import com.sword.gdems.web.exception.NotFoundException;
 import com.sword.gdems.web.exception.SwordException;
 import com.sword.gdems.web.request.util.RequestUtil;
 import com.sword.gdems.web.response.JsonResponse;
@@ -193,6 +194,18 @@ public class MenuController {
     @RequestMapping(value = "/selecttree",method = RequestMethod.GET)
     public String selectTree() {
         return "menu/tree-select";
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    public Object delete(@RequestParam("id") String id) throws Exception {
+
+        if (StringUtils.isEmpty(id)) {
+            throw new InvalidRequestException(HttpStatus.BAD_REQUEST + "", "要删除得菜单id不存在");
+        }
+
+        menuService.deleteById(id);
+
+        return new JsonResponse<Object>(HttpStatus.ACCEPTED + "", "删除菜单成功");
     }
 
 }

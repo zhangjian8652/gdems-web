@@ -173,7 +173,11 @@ public class UserController {
 
         Organization department = organizationService.getById(user.getDepartmentId());
         Organization major = organizationService.getById(user.getMajorId());
-        List<Organization> majors = organizationService.getByParentId(department.getId());
+        List<Organization> majors = null;
+        if (department != null) {
+            majors  = organizationService.getByParentId(department.getId());
+        }
+
 
         if (department != null) {
             logger.debug("edit user department:" + department.toString());
