@@ -197,6 +197,7 @@ public class MenuController {
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    @ResponseBody
     public Object delete(@RequestParam("id") String id) throws Exception {
 
         if (StringUtils.isEmpty(id)) {

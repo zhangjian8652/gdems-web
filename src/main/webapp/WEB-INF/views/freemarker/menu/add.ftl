@@ -192,7 +192,6 @@
 
                 function setSelectedIcon(){
                     var classNames =  $(this).attr("class");
-                    debugger;
                     var icon3 = classNames.split(" ")[2];
                     if(iconId != undefined && iconId != null) {
                         $(iconId).val(icon3);

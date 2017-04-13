@@ -32,4 +32,7 @@ public interface MenuService extends BaseService<Menu> {
     List<Menu> getTopByUserId(String userId)  throws Exception;
 
     boolean deleteById(String id) throws Exception;
+
+    List<Menu> getAll() throws Exception;
+
 }

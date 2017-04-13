@@ -20,7 +20,7 @@
                         <td>${menu.permission!}</td>
                         <td>${menu.icon!}</td>
                         <td>
-                            [@macro.operationButtons id="${menu.id}" uriBase="menu"/]
+                            [@macro.operationButtons id="${menu.id}" uriBase="menu" permissionBase="sys:menu"/]
                         </td>
                     </tr>
                         [@macro.menuTreeTableChildren parentId="${menu.id}" uriBase="menu"/]
@@ -69,7 +69,7 @@
                 <td>${menu.permission!}</td>
                 <td>${menu.icon!}</td>
                 <td>
-                    [@macro.operationButtons id="${menu.id}"  uriBase=uriBase/]
+                    [@macro.operationButtons id="${menu.id}"  uriBase=uriBase permissionBase="sys:menu"/]
                 </td>
             </tr>
                 [@macro.menuTreeTableChildren parentId="${menu.id}" uriBase=uriBase/]
@@ -149,7 +149,7 @@
                         [/#if]
                     [/@user]
                     <td>
-                        [@macro.operationButtons id="${organization.id!}" uriBase="${uriBase!}"/]
+                        [@macro.operationButtons id="${organization.id!}" uriBase="${uriBase!}" permissionBase="sys:organization"/]
                     </td>
                 </tr>
                     [@macro.organizationTreeTableChildren parentId="${organization.id!}" uriBase="${uriBase!}"/]
@@ -161,10 +161,25 @@
 
 [#--织机构树形结构table结束--]
 
-[#macro operationButtons id uriBase]
-    [@macro.editButton id=id uriBase=uriBase/]
+[#macro operationButtons id uriBase permissionBase]
+
+    [@permission permission = permissionBase + ":edit" userId="${USER.id}" type="BOOLEAN";isOk]
+        [#assign edit = isOk/]
+    [/@permission]
+    [@permission permission= permissionBase + ":detail" userId="${USER.id}" type="BOOLEAN";isOk]
+        [#assign detail = isOk/]
+    [/@permission]
+    [@permission permission = permissionBase + ":delete" userId="${USER.id}" type="BOOLEAN";isOk]
+        [#assign delete = isOk/]
+    [/@permission]
+
+    [#if edit]
+        [@macro.editButton id=id uriBase=uriBase/]
+    [/#if]
 [#--    [@macro.detailButton id=id uriBase=uriBase/]--]
-    [@macro.deleteButton id=id uriBase=uriBase/]
+    [#if delete]
+     [@macro.deleteButton id=id uriBase=uriBase/]
+    [/#if]
 [/#macro]
 
 [#macro editButton id uriBase]

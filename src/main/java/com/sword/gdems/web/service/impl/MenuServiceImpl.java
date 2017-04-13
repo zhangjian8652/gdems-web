@@ -139,6 +139,11 @@ public class MenuServiceImpl implements MenuService {
         return true;
     }
 
+    @Override
+    public List<Menu> getAll() throws Exception {
+        return menuMapper.selectAll();
+    }
+
     private void deleteChildren(Menu menu) throws Exception {
 
          List<Menu> menus = getByParentId(menu.getId());
