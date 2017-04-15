@@ -42,8 +42,6 @@ $(function () {
         var uri = $(this).data("uri");
         loadView(uri);
     });
-
-
 });
 
 

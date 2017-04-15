@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.sword.gdems.web.mapper.MenuMapper">
+<mapper namespace="com.sword.admin.mapper.MenuMapper">
 
     <sql id="allColumns">
    			m.*
     </sql>
 
-    <select id="getByRoleId" resultType="com.sword.gdems.web.entity.Menu">
+    <select id="getByRoleId" resultType="com.sword.admin.entity.Menu">
         SELECT
         <include refid="allColumns"/>
         FROM
@@ -16,7 +16,7 @@
 
     </select>
 
-    <select id="getByUserId" resultType="com.sword.gdems.web.entity.Menu">
+    <select id="getByUserId" resultType="com.sword.admin.entity.Menu">
         SELECT
         <include refid="allColumns"/>
         FROM
@@ -27,7 +27,7 @@
     </select>
 
 
-    <select id="getByPermissionAndUserId" resultType="com.sword.gdems.web.entity.Menu">
+    <select id="getByPermissionAndUserId" resultType="com.sword.admin.entity.Menu">
         SELECT
         <include refid="allColumns"/>
         FROM
@@ -38,7 +38,7 @@
     </select>
 
 
-    <select id="getTopByUserId" resultType="com.sword.gdems.web.entity.Menu">
+    <select id="getTopByUserId" resultType="com.sword.admin.entity.Menu">
         SELECT
         <include refid="allColumns"/>
         FROM
@@ -48,7 +48,7 @@
         WHERE ur.user_id = #{userId} AND  m.parent_id = 'NO' OR m.parent_id IS NULL ORDER BY m.sort DESC
     </select>
 
-    <select id="getByUserIdAndParentId" resultType="com.sword.gdems.web.entity.Menu">
+    <select id="getByUserIdAndParentId" resultType="com.sword.admin.entity.Menu">
         SELECT
         <include refid="allColumns"/>
         FROM

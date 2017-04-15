@@ -37,10 +37,10 @@
     <bean id="managementUserDirective" class="com.vivian.web.directive.DefaultDirective" />
     -->
 
-    <bean id="userDirective" class="com.sword.gdems.web.directive.UserDirective" />
-    <bean id="organizationDirective" class="com.sword.gdems.web.directive.OrganizationDirective" />
-    <bean id="roleDirective" class="com.sword.gdems.web.directive.RoleDirective" />
-    <bean id="menuDirective" class="com.sword.gdems.web.directive.MenuDirective" />
-    <bean id="permissionDirective" class="com.sword.gdems.web.directive.PermissionDirective" />
+    <bean id="userDirective" class="com.sword.admin.directive.UserDirective" />
+    <bean id="organizationDirective" class="com.sword.admin.directive.OrganizationDirective" />
+    <bean id="roleDirective" class="com.sword.admin.directive.RoleDirective" />
+    <bean id="menuDirective" class="com.sword.admin.directive.MenuDirective" />
+    <bean id="permissionDirective" class="com.sword.admin.directive.PermissionDirective" />
 
 </beans>

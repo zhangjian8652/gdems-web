@@ -75,3 +75,6 @@ table.treetable {
 .font-awesome-icon-list i{
     cursor: pointer;
 }
+.radio-group label{
+    margin: 5px 5px;
+}

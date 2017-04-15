@@ -38,5 +38,9 @@
 <!-- spinner -->
 <script src="${path}/static/plugins/spinner/jquery.spinner.js"></script>
 
+<!-- date picker -->
+<script src="${path}/static/plugins/datepicker/bootstrap-datepicker.js"></script>
+<script src="${path}/static/plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js"></script>
+
 <script src="${path}/static/resources/js/validation-extensions.js"></script>
 <script src="${path}/static/resources/js/common.js"></script>

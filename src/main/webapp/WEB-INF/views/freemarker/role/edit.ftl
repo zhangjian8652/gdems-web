@@ -147,7 +147,6 @@
 
                     if (successCode === jsonData.code) {
                         $tipper.messager().success(jsonData.message);
-                        $("input").val("");
                         return;
                     }
 

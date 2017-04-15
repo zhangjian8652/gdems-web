@@ -1,10 +1,10 @@
 package com.sword.unittest.mapper;
 
 
-import com.sword.gdems.web.entity.Role;
-import com.sword.gdems.web.mapper.RoleMapper;
-import com.sword.gdems.web.mapper.UserMapper;
-import com.sword.gdems.web.response.entity.DataTableUser;
+import com.sword.admin.entity.Role;
+import com.sword.admin.mapper.RoleMapper;
+import com.sword.admin.mapper.UserMapper;
+import com.sword.admin.response.entity.DataTableUser;
 import com.sword.unittest.common.SpringTest;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

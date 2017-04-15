@@ -3,11 +3,8 @@ package com.sword.unittest.mapper;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.sword.gdems.common.encrypt.util.EncryptUtil;
-import com.sword.gdems.web.config.GlobalConfig;
-import com.sword.gdems.web.entity.User;
-import com.sword.gdems.web.entity.common.EntityUtil;
-import com.sword.gdems.web.mapper.UserMapper;
+import com.sword.admin.entity.User;
+import com.sword.admin.mapper.UserMapper;
 import com.sword.unittest.common.SpringTest;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package com.sword.unittest.errorcode;
 
-import com.sword.gdems.web.config.ErrorCodeConfig;
+import com.sword.admin.config.ErrorCodeConfig;
 import org.junit.Test;
 
 /**

@@ -102,8 +102,8 @@
         </mvc:interceptor>
     </mvc:interceptors>-->
 
-   <bean id="authInterceptor" class="com.sword.gdems.web.interceptor.AuthInterceptor" />
-   <bean id="permissionInterceptor" class="com.sword.gdems.web.interceptor.PerimissionInterceptor" />
+   <bean id="authInterceptor" class="com.sword.admin.interceptor.AuthInterceptor" />
+   <bean id="permissionInterceptor" class="com.sword.admin.interceptor.PerimissionInterceptor" />
 
     <import resource="mvc-dispatcher-servlet-static.xml"/>
 </beans>

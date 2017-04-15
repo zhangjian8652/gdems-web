@@ -17,7 +17,7 @@
         <ul class="sidebar-menu">
             <li class="header">主菜单栏</li>
             <li class="active treeview">
-                <a href="#">
+                <a href="${path!}/dashboard">
                     <i class="fa fa-dashboard"></i> <span>主面板</span>
                 </a>
             </li>

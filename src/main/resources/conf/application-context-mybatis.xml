@@ -25,7 +25,7 @@
     <!-- 扫描basePackage下所有以@MyBatisDao注解的接口 -->
     <bean id="mapperScannerConfigurer" class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
-        <property name="basePackage" value="com.sword.gdems.*.mapper"/>
+        <property name="basePackage" value="com.sword.*.mapper"/>
         <!--<property name="markerInterface" value="tk.mybatis.mapper.common.Mapper"/>-->
         <property name="properties">
             <value>
