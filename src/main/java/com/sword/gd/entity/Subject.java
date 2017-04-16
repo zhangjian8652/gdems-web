@@ -16,13 +16,10 @@ import java.util.Date;
 public class Subject extends BaseEntity implements Serializable {
     @NotEmpty
     private String tittle;
-    @NotEmpty
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fromDate;
-    @NotEmpty
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date endDate;
-    @NotEmpty
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date graduationDate;
     @NotEmpty
@@ -37,6 +34,7 @@ public class Subject extends BaseEntity implements Serializable {
     private String chooseBy;
     private Date chooseDate;
     private String chooseStatus;
+    private String director;
 
     public String getChooseStatus() {
         return chooseStatus;
@@ -150,6 +148,14 @@ public class Subject extends BaseEntity implements Serializable {
         this.chooseDate = chooseDate;
     }
 
+
+    public String getDirector() {
+        return director;
+    }
+
+    public void setDirector(String director) {
+        this.director = director;
+    }
 
     public static class ChooseStatus {
         public static String NONE_CHOOSE = "NONE_CHOOSE";

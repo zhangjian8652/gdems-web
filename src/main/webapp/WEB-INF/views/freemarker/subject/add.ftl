@@ -80,7 +80,7 @@
 
                                         [#if isStudent?? || isDirector??]
                                             [#if isStudent??&& isStudent]
-                                            <input type="radio" name="sourceFrom" value="学生自选"
+                                            <input type="radio" name="sourceFrom" value="学生自选" checked
                                                    id="from-student-self"><label for="from-student-self">学生自选</label>
                                             [/#if]
 

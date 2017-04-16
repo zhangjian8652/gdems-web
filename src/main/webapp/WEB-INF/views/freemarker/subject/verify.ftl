@@ -87,10 +87,10 @@
                                         [/#if]
 
                                         [#if subject.sourceFrom?? && subject.sourceFrom = "教师自拟"]
-                                        <input type="radio" name="sourceFrom" value="教师自拟" id="from-teacher-self" disabled
+                                        <input type="radio" name="sourceFrom" value="教师自拟" id="from-teacher-self"
                                                checked><label for="from-teacher-self">教师自拟</label>
                                         [#else]
-                                        <input type="radio" name="sourceFrom" value="教师自拟" id="from-teacher-self"
+                                        <input type="radio" name="sourceFrom" value="教师自拟" id="from-teacher-self" disabled
                                                ><label for="from-teacher-self">教师自拟</label>
                                         [/#if]
 
@@ -226,7 +226,7 @@
 
 
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">导师:</label>
+                                    <label class="col-sm-2 control-label">提交人:</label>
                                     [@user type="entity" userId="${subject.createBy!}";entity]
                                     [#if entity??]
                                     [@role type="list" userId="${subject.createBy!}";list]
@@ -262,6 +262,21 @@
                                     </select>
                                 </div>
 
+                                <!-- /.form-group -->
+
+                                [#if isStudent?? isStudent]
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">指定导师：</label>
+                                    <select class="col-sm-3" name="director" id="director">
+                                        <option value="">无</option>
+                                        [#if directors??]
+                                            [#list directors as user]
+                                             <option value="${user.id!}">${user.loginName!}</option>
+                                            [/#list]
+                                        [/#if]
+                                    </select>
+                                </div>
+                                [/#if]
                                 <!-- /.form-group -->
 
 
@@ -332,6 +347,7 @@
         var verify = function() {
             var id = $("#id").val();
             var status = $("#status").val();
+            var director = $("#director").val();
             var callback = function(data) {
                 $tipper = $("#tipper");
                 if (data.code.startsWith(successCodePrefix)) {
@@ -343,7 +359,8 @@
             };
            var datas = {
                id:id,
-               status:status
+               status:status,
+               director:director,
            }
 
            var $form = $("#form");

@@ -210,4 +210,9 @@ public class UserServiceImpl implements UserService {
         logger.debug("update user info result:" + result);
         return result > 0;
     }
+
+    @Override
+    public List<User> getUserByRoleName(String roleName) throws Exception {
+        return userMapper.getByRoleName(roleName);
+    }
 }

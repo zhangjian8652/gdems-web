@@ -206,6 +206,7 @@ public class SubjectServiceImpl implements SubjectService {
 
         example.createCriteria().andEqualTo("createBy", userId).andEqualTo("status",Subject.Status.CREATED);
         example.createCriteria().andEqualTo("createBy", userId).andEqualTo("status",Subject.Status.APPROVED);
+        example.or().andEqualTo("director", userId).andEqualTo("status",Subject.Status.APPROVED);
 
         return subjectMapper.selectCountByExample(example);
     }

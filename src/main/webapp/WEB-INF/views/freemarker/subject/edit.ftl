@@ -78,56 +78,117 @@
                                     <label class="col-sm-2 control-label">来源:</label>
 
                                     <div class="col-sm-10 input-group radio-group">
-                                        [#if subject.sourceFrom?? && subject.sourceFrom = "教师科研"]
-                                        <input type="radio" name="sourceFrom" value="教师科研"
-                                               id="from-teaccher-researching" checked><label for="from-teaccher-researching">教师科研</label>
+                                        [#if isStudent?? || isDirector??]
+                                            [#if isStudent??&& isStudent]
+                                                [#if subject.sourceFrom?? && subject.sourceFrom = "学生自选"]
+                                                <input type="radio" name="sourceFrom" value="学生自选"
+                                                       id="from-student-self" checked><label for="from-student-self">学生自选</label>
+
+                                                [#else]
+                                                <input type="radio" name="sourceFrom" value="学生自选"
+                                                       id="from-student-self"><label for="from-student-self">学生自选</label><br>
+                                                [/#if]
+                                            [/#if]
+                                            [#if isDirector??&& isDirector]
+
+                                                [#if subject.sourceFrom?? && subject.sourceFrom = "教师科研"]
+                                                <input type="radio" name="sourceFrom" value="教师科研"
+                                                       id="from-teaccher-researching" checked><label for="from-teaccher-researching">教师科研</label>
+                                                [#else]
+                                                <input type="radio" name="sourceFrom" value="教师科研"
+                                                       id="from-teaccher-researching"><label for="from-teaccher-researching">教师科研</label>
+                                                [/#if]
+                                                [#if subject.sourceFrom?? && subject.sourceFrom = "教师自拟"]
+                                                <input type="radio" name="sourceFrom" value="教师自拟" id="from-teacher-self"
+                                                       checked><label for="from-teacher-self">教师自拟</label>
+                                                [#else]
+                                                <input type="radio" name="sourceFrom" value="教师自拟" id="from-teacher-self"
+                                                       checked><label for="from-teacher-self">教师自拟</label><br>
+                                                [/#if]
+
+
+                                                [#if subject.sourceFrom?? && subject.sourceFrom = "生产实践"]
+                                                <input type="radio" name="sourceFrom" value="生产实践"
+                                                       id="from-production-practice" checked><label
+                                                    for="from-production-practice">生产实践</label>
+                                                [#else]
+                                                <input type="radio" name="sourceFrom" value="生产实践"
+                                                       id="from-production-practice"><label
+                                                    for="from-production-practice">生产实践</label>
+                                                [/#if]
+
+                                                [#if subject.sourceFrom?? && subject.sourceFrom = "实验室（课程建设）"]
+                                                <input type="radio" name="sourceFrom" value="实验室（课程建设）" id="from-laboratory" checked><label
+                                                    for="from-laboratory">实验室（课程建设）</label>
+                                                [#else]
+                                                <input type="radio" name="sourceFrom" value="实验室（课程建设）" id="from-laboratory"><label
+                                                    for="from-laboratory">实验室（课程建设）</label>
+                                                [/#if]
+
+                                                [#if subject.sourceFrom?? && subject.sourceFrom = "生产实践"]
+                                                <input type="radio" name="sourceFrom" value="其他" id="from-other" checked><label
+                                                    for="from-other">其他</label>
+                                                [#else]
+                                                <input type="radio" name="sourceFrom" value="其他" id="from-other" c><label
+                                                    for="from-other">其他</label>
+                                                [/#if]
+                                            [/#if]
                                         [#else]
-                                        <input type="radio" name="sourceFrom" value="教师科研"
-                                               id="from-teaccher-researching"><label for="from-teaccher-researching">教师科研</label>
+
+                                            [#if subject.sourceFrom?? && subject.sourceFrom = "学生自选"]
+                                            <input type="radio" name="sourceFrom" value="学生自选"
+                                                   id="from-student-self" checked><label for="from-student-self">学生自选</label>
+
+                                            [#else]
+                                            <input type="radio" name="sourceFrom" value="学生自选"
+                                                   id="from-student-self"><label for="from-student-self">学生自选</label><br>
+                                            [/#if]
+
+                                            [#if subject.sourceFrom?? && subject.sourceFrom = "教师科研"]
+                                            <input type="radio" name="sourceFrom" value="教师科研"
+                                                   id="from-teaccher-researching" checked><label for="from-teaccher-researching">教师科研</label>
+                                            [#else]
+                                            <input type="radio" name="sourceFrom" value="教师科研"
+                                                   id="from-teaccher-researching"><label for="from-teaccher-researching">教师科研</label>
+                                            [/#if]
+                                            [#if subject.sourceFrom?? && subject.sourceFrom = "教师自拟"]
+                                            <input type="radio" name="sourceFrom" value="教师自拟" id="from-teacher-self"
+                                                   checked><label for="from-teacher-self">教师自拟</label>
+                                            [#else]
+                                            <input type="radio" name="sourceFrom" value="教师自拟" id="from-teacher-self"
+                                                   checked><label for="from-teacher-self">教师自拟</label><br>
+                                            [/#if]
+
+
+                                            [#if subject.sourceFrom?? && subject.sourceFrom = "生产实践"]
+                                            <input type="radio" name="sourceFrom" value="生产实践"
+                                                   id="from-production-practice" checked><label
+                                                for="from-production-practice">生产实践</label>
+                                            [#else]
+                                            <input type="radio" name="sourceFrom" value="生产实践"
+                                                   id="from-production-practice"><label
+                                                for="from-production-practice">生产实践</label>
+                                            [/#if]
+
+                                            [#if subject.sourceFrom?? && subject.sourceFrom = "实验室（课程建设）"]
+                                            <input type="radio" name="sourceFrom" value="实验室（课程建设）" id="from-laboratory" checked><label
+                                                for="from-laboratory">实验室（课程建设）</label>
+                                            [#else]
+                                            <input type="radio" name="sourceFrom" value="实验室（课程建设）" id="from-laboratory"><label
+                                                for="from-laboratory">实验室（课程建设）</label>
+                                            [/#if]
+
+                                            [#if subject.sourceFrom?? && subject.sourceFrom = "生产实践"]
+                                            <input type="radio" name="sourceFrom" value="其他" id="from-other" checked><label
+                                                for="from-other">其他</label>
+                                            [#else]
+                                            <input type="radio" name="sourceFrom" value="其他" id="from-other" c><label
+                                                for="from-other">其他</label>
+                                            [/#if]
+
                                         [/#if]
 
-                                        [#if subject.sourceFrom?? && subject.sourceFrom = "教师自拟"]
-                                        <input type="radio" name="sourceFrom" value="教师自拟" id="from-teacher-self"
-                                               checked><label for="from-teacher-self">教师自拟</label>
-                                        [#else]
-                                        <input type="radio" name="sourceFrom" value="教师自拟" id="from-teacher-self"
-                                               checked><label for="from-teacher-self">教师自拟</label>
-                                        [/#if]
 
-                                        [#if subject.sourceFrom?? && subject.sourceFrom = "学生自选"]
-                                        <input type="radio" name="sourceFrom" value="学生自选"
-                                               id="from-student-self" checked><label for="from-student-self">学生自选</label><br>
-
-                                        [#else]
-                                        <input type="radio" name="sourceFrom" value="学生自选"
-                                               id="from-student-self"><label for="from-student-self">学生自选</label><br>
-                                        [/#if]
-
-                                        [#if subject.sourceFrom?? && subject.sourceFrom = "生产实践"]
-                                        <input type="radio" name="sourceFrom" value="生产实践"
-                                               id="from-production-practice" checked><label
-                                            for="from-production-practice">生产实践</label>
-                                        [#else]
-                                        <input type="radio" name="sourceFrom" value="生产实践"
-                                               id="from-production-practice"><label
-                                            for="from-production-practice">生产实践</label>
-                                        [/#if]
-
-                                        [#if subject.sourceFrom?? && subject.sourceFrom = "实验室（课程建设）"]
-                                        <input type="radio" name="sourceFrom" value="实验室（课程建设）" id="from-laboratory" checked><label
-                                            for="from-laboratory">实验室（课程建设）</label>
-                                        [#else]
-                                        <input type="radio" name="sourceFrom" value="实验室（课程建设）" id="from-laboratory"><label
-                                            for="from-laboratory">实验室（课程建设）</label>
-                                        [/#if]
-
-                                        [#if subject.sourceFrom?? && subject.sourceFrom = "生产实践"]
-                                        <input type="radio" name="sourceFrom" value="其他" id="from-other" checked><label
-                                            for="from-other">其他</label>
-                                        [#else]
-                                        <input type="radio" name="sourceFrom" value="其他" id="from-other" c><label
-                                            for="from-other">其他</label>
-                                        [/#if]
                                     </div>
                                     <!-- /.input group -->
                                 </div>

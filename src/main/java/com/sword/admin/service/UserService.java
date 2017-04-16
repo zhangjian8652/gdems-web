@@ -22,4 +22,6 @@ public interface UserService extends BaseService<User> {
     User getUserById(String id) throws Exception;
 
     boolean updateUser(User userFromDB,String roleId) throws Exception;
+
+    List<User> getUserByRoleName(String roleName) throws Exception ;
 }

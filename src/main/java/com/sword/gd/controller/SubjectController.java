@@ -10,6 +10,7 @@ import com.sword.admin.request.util.RequestUtil;
 import com.sword.admin.response.DataTablePage;
 import com.sword.admin.response.JsonResponse;
 import com.sword.admin.service.RoleService;
+import com.sword.admin.service.UserService;
 import com.sword.gd.entity.Subject;
 import com.sword.gd.entity.SubjectConfig;
 import com.sword.gd.service.ConfigService;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -41,6 +43,10 @@ public class SubjectController {
 
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private UserService userService;
+
 
     @RequestMapping(value = "/verify/list", method = RequestMethod.GET)
     public String verifyListView() {
@@ -97,9 +103,19 @@ public class SubjectController {
         boolean isDirector = false;
         boolean isStudent = false;
 
-        isDirectOrStudent(roles, isDirector, isStudent);
-        request.setAttribute("isDirector",isDirector);
-        request.setAttribute("isStudent",isStudent);
+        for (int i = 0; i < roles.size(); i++) {
+            Role role = roles.get(i);
+            if ("导师".equals(role.getName())) {
+                isDirector = true;
+            }
+            if ("学生".equals(role.getName())) {
+                isStudent = true;
+            }
+
+        }
+
+        request.setAttribute("isDirector", isDirector);
+        request.setAttribute("isStudent", isStudent);
 
         return "subject/add";
     }
@@ -133,19 +149,17 @@ public class SubjectController {
 
         if ("学生自选".equals(subject.getSourceFrom())) {
             if (isDirector) {
-                throw new SwordException(HttpStatus.BAD_REQUEST + "", "您是导师，不能选择学生自拟。" );
+                throw new SwordException(HttpStatus.BAD_REQUEST + "", "您是导师，不能选择学生自拟。");
             }
             subject.setChooseBy(user.getId());
             subject.setChooseDate(new Date());
             subject.setChooseStatus(Subject.ChooseStatus.CHOOSE);
         } else {
             if (isStudent) {
-                throw new SwordException(HttpStatus.BAD_REQUEST + "", "您是学生，只能选择学生自拟。" );
+                throw new SwordException(HttpStatus.BAD_REQUEST + "", "您是学生，只能选择学生自拟。");
             }
             subject.setChooseStatus(Subject.ChooseStatus.NONE_CHOOSE);
         }
-
-
 
 
         if (isDirector) {
@@ -194,16 +208,6 @@ public class SubjectController {
         boolean isDirector = false;
         boolean isStudent = false;
 
-        isDirectOrStudent(roles, isDirector, isStudent);
-
-        request.setAttribute("isDirector",isDirector);
-        request.setAttribute("isStudent",isStudent);
-
-        request.setAttribute("subject", subject);
-        return "subject/edit";
-    }
-
-    private void isDirectOrStudent( List<Role> roles, boolean isDirector, boolean isStudent) {
         for (int i = 0; i < roles.size(); i++) {
             Role role = roles.get(i);
             if ("导师".equals(role.getName())) {
@@ -215,8 +219,13 @@ public class SubjectController {
 
         }
 
+        request.setAttribute("isDirector", isDirector);
+        request.setAttribute("isStudent", isStudent);
 
+        request.setAttribute("subject", subject);
+        return "subject/edit";
     }
+
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     @ResponseBody
@@ -324,7 +333,41 @@ public class SubjectController {
         if (subject == null) {
             throw new SwordException(HttpStatus.NOT_FOUND + "", "找不到该选题");
         }
+
+        List<Role> roles = roleService.getByUserId(subject.getCreateBy());
+        boolean isDirector = false;
+        boolean isStudent = false;
+
+        for (int i = 0; i < roles.size(); i++) {
+            Role role = roles.get(i);
+            if ("导师".equals(role.getName())) {
+                isDirector = true;
+            }
+            if ("学生".equals(role.getName())) {
+                isStudent = true;
+            }
+
+        }
+        request.setAttribute("isDirector", isDirector);
+        request.setAttribute("isStudent", isStudent);
+
+        List<User> directors = userService.getUserByRoleName("导师");
+
+
+        List<User> availableDirectors = new ArrayList<User>();
+
+        SubjectConfig subjectConfig = configService.getSubjectConfig();
+        for (int i = 0; i < directors.size(); i++) {
+            User user =  directors.get(i);
+            int count = subjectService.getCreateAvailableCountByUserId(user.getId());
+            if (count < subjectConfig.getStudentNum()) {
+                availableDirectors.add(user);
+
+            }
+        }
+
         request.setAttribute("subject", subject);
+        request.setAttribute("directors", availableDirectors);
 
         return "subject/verify";
     }
@@ -332,7 +375,7 @@ public class SubjectController {
 
     @RequestMapping(value = "/verify", method = RequestMethod.POST)
     @ResponseBody
-    public Object verify(HttpServletRequest request, @RequestParam String id, @RequestParam String status) throws Exception {
+    public Object verify(HttpServletRequest request, @RequestParam String id, @RequestParam String status, @RequestParam String director) throws Exception {
 
 
         if (StringUtils.isEmpty(id) || StringUtils.isEmpty(status)) {
@@ -358,6 +401,7 @@ public class SubjectController {
         subject.setStatus(status);
         subject.setVerifyBy(user.getId());
         subject.setVerifyDate(new Date());
+        subject.setDirector(director);
 
         boolean rst = subjectService.update(subject);
 
@@ -415,12 +459,12 @@ public class SubjectController {
             chooseSubject.setChooseStatus(Subject.ChooseStatus.NONE_CHOOSE);
             chooseSubject.setChooseDate(null);
             chooseSubject.setChooseBy(null);
+            chooseSubject.setDirector(null);
         }
 
-        if(chooseSubject != null && Subject.ChooseStatus.APPROVED.equalsIgnoreCase(chooseSubject.getChooseStatus())) {
+        if (chooseSubject != null && Subject.ChooseStatus.APPROVED.equalsIgnoreCase(chooseSubject.getChooseStatus())) {
             throw new SwordException(HttpStatus.BAD_REQUEST + "", "您的选题已经通过批准，不能更换了了。");
         }
-
 
 
         EntityUtil.setCommonUpdateValue(subject, user);
@@ -428,6 +472,25 @@ public class SubjectController {
         subject.setChooseDate(new Date());
         subject.setChooseStatus(Subject.ChooseStatus.CHOOSE);
 
+
+        List<Role> roles = roleService.getByUserId(subject.getCreateBy());
+        boolean isDirector = false;
+        boolean isStudent = false;
+
+        for (int i = 0; i < roles.size(); i++) {
+            Role role = roles.get(i);
+            if ("导师".equals(role.getName())) {
+                isDirector = true;
+            }
+            if ("学生".equals(role.getName())) {
+                isStudent = true;
+            }
+
+        }
+
+        if (isDirector) {
+            subject.setDirector(subject.getCreateBy());
+        }
 
 
         boolean rst = subjectService.chooseSubject(subject, chooseSubject);
@@ -468,6 +531,7 @@ public class SubjectController {
         if (subject == null) {
             throw new SwordException(HttpStatus.NOT_FOUND + "", "找不到该选题");
         }
+
         request.setAttribute("subject", subject);
 
         return "subject/choose-verify";
@@ -509,7 +573,7 @@ public class SubjectController {
     }
 
 
-    @RequestMapping(value = "/config/edit",method = RequestMethod.GET)
+    @RequestMapping(value = "/config/edit", method = RequestMethod.GET)
     public String configEditView(HttpServletRequest request) throws Exception {
 
         SubjectConfig subjectConfig = configService.getSubjectConfig();

@@ -82,3 +82,8 @@ table.treetable {
 .small-box h3 {
     white-space: normal;
 }
+#tipper{
+    position: absolute;
+    z-index: 1000;
+    top: 250px;
+}

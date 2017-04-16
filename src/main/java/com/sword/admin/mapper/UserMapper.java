@@ -25,4 +25,6 @@ public interface UserMapper extends Mapper<User> {
      int insertUserRoleBatch(@Param("userRoles") List<UserRole> userRoles);
 
      int updateUserRole(@Param("userRole") UserRole userRole);
+
+     List<User> getByRoleName(@Param("roleName") String roleName);
 }
