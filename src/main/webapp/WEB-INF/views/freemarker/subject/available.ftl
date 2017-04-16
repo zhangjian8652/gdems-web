@@ -14,6 +14,11 @@
 <!-- Main content -->
 <section class="content">
     <div class="row">
+        <div class="col-md-12" id="tipper">
+
+        </div>
+    </div>
+    <div class="row">
         [#if subjects?? && subjects?size>0]
             [#list subjects as subject]
                 [#if subject_index%4 = 0]
@@ -49,9 +54,9 @@
                             [/#if]
                         [/@user]
                     </div>
-                    [@permission permission = "gd:subject:detail" userId="${USER.id}" type="BOOLEAN";isOk]
+                    [@permission permission = "gd:subject:choose" userId="${USER.id}" type="BOOLEAN";isOk]
                         [#if isOk]
-                        <a href="javascript:void(0);" onclick="CommonUtil.loadView('/gd/subject/detail?id=${subject.id!}')" class="small-box-footer">详细信息 <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="javascript:void(0);" onclick="CommonUtil.loadView('/gd/subject/choose?id=${subject.id!}')" class="small-box-footer">详细信息 <i class="fa fa-arrow-circle-right"></i></a>
                         [/#if]
                     [/@permission]
                 </div>

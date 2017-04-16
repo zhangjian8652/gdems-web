@@ -235,7 +235,7 @@ public class UserController {
         if (!rst) {
             throw new InvalidRequestException(HttpStatus.INTERNAL_SERVER_ERROR + "", "添加失败，请稍后再试。");
         }
-        return new JsonResponse<Object>(HttpStatus.CREATED + "", "添加用户成功");
+        return new JsonResponse<Object>(HttpStatus.CREATED + "", "更新用户成功");
     }
 
 

@@ -9,6 +9,7 @@ import com.sword.gd.service.SubjectService;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import tk.mybatis.mapper.entity.Example;
 
@@ -104,13 +105,13 @@ public class SubjectServiceImpl implements SubjectService {
     }
 
     @Override
-    public DataTablePage<Subject> toVerifypageData(DatatableCondition condition) throws Exception {
+    public DataTablePage<Subject> verifyPageData(DatatableCondition condition) throws Exception {
         /**
          * 增加like条件查询
          */
         Example example = new Example(Subject.class);
 
-        example.createCriteria().andEqualTo("status", Subject.Status.CREATED);
+      //  example.createCriteria().andEqualTo("status", Subject.Status.CREATED);
 
         /*
          * 按照创建日期排序
@@ -131,5 +132,81 @@ public class SubjectServiceImpl implements SubjectService {
         DataTablePage<Subject> dataTablePage = new DataTablePage<Subject>(condition.getDraw(), count, count, users);
 
         return dataTablePage;
+    }
+
+    @Override
+    public DataTablePage<Subject> pageDataCreator(DatatableCondition condition, String id) throws Exception {
+        /**
+         * 增加like条件查询
+         */
+        Example example = new Example(Subject.class);
+
+        /**
+         * 根据创建人查询
+         */
+        example.createCriteria().andEqualTo("createBy", id);
+
+        if (!StringUtils.isEmpty(condition.getSearchValue())) {
+            example.or().andLike("tittle", "%" + condition.getSearchValue() + "%");
+        }
+
+        /**
+         * 按照创建日期排序
+         */
+        example.orderBy("createDate").desc();
+
+        /**
+         * 分页条件
+         */
+        RowBounds rowBounds = new RowBounds(condition.getStart(), condition.getLength());
+
+        /**
+         * 查询满足条件的用户数据以及总数
+         */
+        List<Subject> users = subjectMapper.selectByExampleAndRowBounds(example, rowBounds);
+        long count = subjectMapper.selectCountByExample(example);
+
+        DataTablePage<Subject> dataTablePage = new DataTablePage<Subject>(condition.getDraw(), count, count, users);
+
+        return dataTablePage;
+    }
+
+    @Override
+    public Subject getByChooseUserId(String id) throws Exception {
+        Subject subject = new Subject();
+        subject.setChooseBy(id);
+        return subjectMapper.selectOne(subject);
+
+    }
+
+    @Override
+    @Transactional
+    public boolean chooseSubject(Subject subject, Subject chooseSubject) throws Exception {
+
+       boolean result =  update(subject);
+        if (!result) {
+            return false;
+        }
+
+        if(chooseSubject != null){
+            result = update(chooseSubject);
+        }
+
+        if (!result) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int getCreateAvailableCountByUserId(String userId) throws Exception {
+
+        Example example = new Example(Subject.class);
+
+        example.createCriteria().andEqualTo("createBy", userId).andEqualTo("status",Subject.Status.CREATED);
+        example.createCriteria().andEqualTo("createBy", userId).andEqualTo("status",Subject.Status.APPROVED);
+
+        return subjectMapper.selectCountByExample(example);
     }
 }

@@ -7,7 +7,7 @@
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i>主页</a></li>
         <li><a href="#">选题管理</a></li>
-        <li class="active">编辑选题</li>
+        <li class="active">选题详情</li>
     </ol>
 </section>
 
@@ -19,7 +19,7 @@
             <!-- Form Element sizes -->
             <div class="box box-success">
                 <div class="box-header with-border">
-                    <h3 class="box-title">编辑选题</h3>
+                    <h3 class="box-title">选题详情</h3>
                 </div>
                 <div class="box-body">
                     <div class="row">

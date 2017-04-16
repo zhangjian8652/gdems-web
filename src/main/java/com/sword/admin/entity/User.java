@@ -163,4 +163,11 @@ public class User extends BaseEntity {
 				", photo='" + photo + '\'' +
 				'}';
 	}
+
+	public boolean isAdmin() {
+		return adminName.equals(this.loginName);
+	}
+
+
+	public static String adminName = "admin";
 }

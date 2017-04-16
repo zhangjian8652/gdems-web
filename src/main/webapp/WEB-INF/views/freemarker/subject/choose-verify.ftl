@@ -7,7 +7,7 @@
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i>主页</a></li>
         <li><a href="#">选题管理</a></li>
-        <li class="active">编辑选题</li>
+        <li class="active">审核选题选择</li>
     </ol>
 </section>
 
@@ -19,7 +19,7 @@
             <!-- Form Element sizes -->
             <div class="box box-success">
                 <div class="box-header with-border">
-                    <h3 class="box-title">编辑选题</h3>
+                    <h3 class="box-title">审核选题选择</h3>
                 </div>
                 <div class="box-body">
                     <div class="row">
@@ -29,13 +29,13 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <form id="form" action="/gd/subject/edit" method="post" class="form-horizontal">
-                                <input type="hidden" value="${subject.id!}" name="id" id="id"/>
+                            <form id="form" action="/gd/subject/choose/verify" method="post" class="form-horizontal">
+                                <input type="hidden" value="${subject.id!}" name="id" id="id">
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">标题:</label>
 
                                     <div class="col-sm-4 input-group">
-                                        <input type="text" value="${subject.tittle!}" class="form-control" name="tittle" id="tittle" readonly>
+                                        <input type="text" value="${subject.tittle!}" class="form-control" name="tittle" id="tittle" disabled>
                                         <span class="glyphicon glyphicon-flag form-control-feedback"></span>
                                     </div>
                                     <!-- /.input group -->
@@ -45,7 +45,7 @@
                                     <label class="col-sm-2 control-label">开始时间:</label>
 
                                     <div class="col-sm-4 input-group date">
-                                        <input type="text" class="form-control" name="fromDate" id="fromDate" value="${subject.fromDate?date!}" data-date-format="yyyy-mm-dd" placeholder="yyyy-mm-dd" readonly>
+                                        <input type="text" class="form-control" name="fromDate" id="fromDate" value="${subject.fromDate?date!}" data-date-format="yyyy-mm-dd" placeholder="yyyy-mm-dd" disabled>
                                         <span class="glyphicon glyphicon-time form-control-feedback"></span>
                                     </div>
                                 </div>
@@ -56,7 +56,7 @@
 
                                     <div class="col-sm-4 input-group date">
                                         <input type="text" class="form-control pull-right" name="endDate" id="endDate" value="${subject.endDate?date!}" data-date-format="yyyy-mm-dd" placeholder="yyyy-mm-dd"
-                                               readonly>
+                                               disabled>
                                         <span class="glyphicon glyphicon-time form-control-feedback"></span>
                                     </div>
                                 </div>
@@ -67,8 +67,8 @@
 
                                     <div class="col-sm-4 input-group date">
 
-                                        <input type="text" class="form-control  pull-right" name="graduationDate" placeholder="yyyy-mm-dd"
-                                               value="${subject.graduationDate?date!}"   id="graduationDate" readonly data-date-format="yyyy-mm-dd">
+                                        <input type="text" class="form-control  pull-right"  name="graduationDate" placeholder="yyyy-mm-dd"
+                                               value="${subject.graduationDate?date!}"   id="graduationDate" disabled data-date-format="yyyy-mm-dd">
                                         <span class="glyphicon glyphicon-time form-control-feedback"></span>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                         <input type="radio" name="sourceFrom" value="教师科研"
                                                id="from-teaccher-researching" checked><label for="from-teaccher-researching">教师科研</label>
                                         [#else]
-                                        <input type="radio" name="sourceFrom" value="教师科研"
+                                        <input type="radio" name="sourceFrom" value="教师科研" disabled
                                                id="from-teaccher-researching"><label for="from-teaccher-researching">教师科研</label>
                                         [/#if]
 
@@ -90,8 +90,8 @@
                                         <input type="radio" name="sourceFrom" value="教师自拟" id="from-teacher-self"
                                                checked><label for="from-teacher-self">教师自拟</label>
                                         [#else]
-                                        <input type="radio" name="sourceFrom" value="教师自拟" id="from-teacher-self"
-                                               checked><label for="from-teacher-self">教师自拟</label>
+                                        <input type="radio" name="sourceFrom" value="教师自拟" id="from-teacher-self" disabled
+                                               ><label for="from-teacher-self">教师自拟</label>
                                         [/#if]
 
                                         [#if subject.sourceFrom?? && subject.sourceFrom = "学生自选"]
@@ -99,7 +99,7 @@
                                                id="from-student-self" checked><label for="from-student-self">学生自选</label><br>
 
                                         [#else]
-                                        <input type="radio" name="sourceFrom" value="学生自选"
+                                        <input type="radio" name="sourceFrom" value="学生自选" disabled
                                                id="from-student-self"><label for="from-student-self">学生自选</label><br>
                                         [/#if]
 
@@ -108,24 +108,24 @@
                                                id="from-production-practice" checked><label
                                             for="from-production-practice">生产实践</label>
                                         [#else]
-                                        <input type="radio" name="sourceFrom" value="生产实践"
+                                        <input type="radio" name="sourceFrom" value="生产实践" disabled
                                                id="from-production-practice"><label
                                             for="from-production-practice">生产实践</label>
                                         [/#if]
 
                                         [#if subject.sourceFrom?? && subject.sourceFrom = "实验室（课程建设）"]
-                                        <input type="radio" name="sourceFrom" value="实验室（课程建设）" id="from-laboratory" checked><label
+                                        <input type="radio" name="sourceFrom" value="实验室（课程建设）"  id="from-laboratory" checked><label
                                             for="from-laboratory">实验室（课程建设）</label>
                                         [#else]
-                                        <input type="radio" name="sourceFrom" value="实验室（课程建设）" id="from-laboratory"><label
+                                        <input type="radio" name="sourceFrom" value="实验室（课程建设）" disabled id="from-laboratory"><label
                                             for="from-laboratory">实验室（课程建设）</label>
                                         [/#if]
 
                                         [#if subject.sourceFrom?? && subject.sourceFrom = "生产实践"]
-                                        <input type="radio" name="sourceFrom" value="其他" id="from-other" checked><label
+                                        <input type="radio" name="sourceFrom" value="其他" id="from-other" checked ><label
                                             for="from-other">其他</label>
                                         [#else]
-                                        <input type="radio" name="sourceFrom" value="其他" id="from-other" c><label
+                                        <input type="radio" name="sourceFrom" value="其他" id="from-other" disabled><label
                                             for="from-other">其他</label>
                                         [/#if]
                                     </div>
@@ -137,11 +137,11 @@
 
                                     <div class="col-sm-10 input-group radio-group">
                                         [#if subject.type?? && subject.type = "应用研究"]
-                                        <input type="radio" name="type" value="应用研究"
+                                        <input type="radio" name="type" value="应用研究" checked
                                                id="type-applied-researching"><label
                                             for="type-applied-researching">应用研究</label>
                                         [#else]
-                                        <input type="radio" name="type" value="应用研究"
+                                        <input type="radio" name="type" value="应用研究" disabled
                                                id="type-applied-researching"><label
                                             for="type-applied-researching">应用研究</label>
                                         [/#if]
@@ -150,16 +150,16 @@
                                                id="type-theoretical-researching" checked><label
                                             for="type-theoretical-researching">理论研究</label>
                                         [#else]
-                                        <input type="radio" name="type" value="理论研究"
-                                               id="type-theoretical-researching" checked><label
+                                        <input type="radio" name="type" value="理论研究" disabled
+                                               id="type-theoretical-researching" ><label
                                             for="type-theoretical-researching">理论研究</label>
                                         [/#if]
                                         [#if subject.type?? && subject.type = "工程设计"]
-                                        <input type="radio" name="type" value="工程设计"
+                                        <input type="radio" name="type" value="工程设计" checked
                                                id="type-engineering-design"><label
                                             for="type-engineering-design">工程设计</label><br>
                                         [#else]
-                                        <input type="radio" name="type" value="工程设计"
+                                        <input type="radio" name="type" value="工程设计" disabled
                                                id="type-engineering-design"><label
                                             for="type-engineering-design">工程设计</label><br>
                                         [/#if]
@@ -168,29 +168,33 @@
                                                id="type-computer-software" checked><label
                                             for="type-computer-software">计算机软件</label>
                                         [#else]
-                                        <input type="radio" name="type" value="计算机软件"
-                                               id="type-computer-software" checked><label
+                                        <input type="radio" name="type" value="计算机软件" disabled
+                                               id="type-computer-software" ><label
                                             for="type-computer-software">计算机软件</label>
                                         [/#if]
                                         [#if subject.type?? && subject.type = "社会调查"]
-                                        <input type="radio" name="type" value="社会调查"
+                                        <input type="radio" name="type" value="社会调查" checked
                                                id="type-social-survey"><label for="type-social-survey">社会调查</label>
                                         [#else]
-                                        <input type="radio" name="type" value="社会调查"
+                                        <input type="radio" name="type" value="社会调查" disabled
                                                id="type-social-survey"><label for="type-social-survey">社会调查</label>
                                         [/#if]
                                         [#if subject.type?? && subject.type = "社会难点热点"]
-                                        <input type="radio" name="type" value="社会难点热点" id="type-social-hot"><label
+                                        <input type="radio" name="type" value="社会难点热点" id="type-social-hot" checked
+                                                ><label
                                             for="type-social-hot">社会难点热点</label>
                                         [#else]
-                                        <input type="radio" name="type" value="社会难点热点" id="type-social-hot"><label
+                                        <input type="radio" name="type" value="社会难点热点" id="type-social-hot" disabled
+                                                ><label
                                             for="type-social-hot">社会难点热点</label>
                                         [/#if]
                                         [#if subject.type?? && subject.type = "其他"]
-                                        <input type="radio" name="type" value="其他" id="type-other"><label
+                                        <input type="radio" name="type" value="其他" id="type-other" checked
+                                                ><label
                                             for="from-other">其他</label>
                                         [#else]
-                                        <input type="radio" name="type" value="其他" id="type-other"><label
+                                        <input type="radio" name="type" value="其他" id="type-other" disabled
+                                                ><label
                                             for="from-other">其他</label>
                                         [/#if]
                                     </div>
@@ -202,7 +206,7 @@
                                     <label class="col-sm-2 control-label">要求:</label>
 
                                     <div class="col-sm-8 input-group">
-                                        <textarea class="form-control" rows="3" placeholder="输入 ..."
+                                        <textarea class="form-control" rows="3" placeholder="输入 ..." disabled
                                                   name="requirement">${subject.requirement!}</textarea>
                                     </div>
                                     <!-- /.input group -->
@@ -214,24 +218,78 @@
 
                                     <div class="col-sm-8 input-group">
                                         <textarea class="form-control" rows="5" placeholder="输入 ..."
-                                                  name="mainTask" >${subject.mainTask!}</textarea>
+                                                  name="mainTask" disabled >${subject.mainTask!}</textarea>
                                     </div>
                                 </div>
                                 <!-- /.form-group -->
 
 
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">选题人:</label>
+                                    [@user type="entity" userId="${subject.chooseBy!}";entity]
+                                    [#if entity??]
+                                    [@role type="list" userId="${subject.chooseBy!}";list]
+                                    [#if list?? && list?size>0]
+                                    [#assign roles= ""/]
+                                    [#list list as role]
+                                    [#if role_index > 0]
+                                    [#assign roles = roles + "," /]
+                                    [/#if]
+                                    [#assign roles = roles + role.name /]
+                                    [/#list]
+                                    [/#if]
+                                    [/@role]
+                                    <div class="col-sm-4 input-group">
+                                        <input type="text" value="${entity.loginName!}  ${roles!}" class="form-control" name="tittle" id="tittle" disabled>
+                                        <span class="glyphicon glyphicon-users form-control-feedback"></span>
+                                    </div>
+                                    <!-- /.input group -->
+                                    [/#if]
+                                    [/@user]
+
+                                </div>
+
+
                                 <!-- /.form-group -->
+
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">审核选择：</label>
+                                    <select class="col-sm-3" name="chooseStatus" id="chooseStatus">
+                                        <option value="APPROVED">通过</option>
+                                        <option value="DENIED">不通过</option>
+                                    </select>
+                                </div>
+
+                                <!-- /.form-group -->
+
 
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label"></label>
 
                                     <div class="col-sm-4 input-group">
+
+                                        [@permission permission = "gd:subject:list" userId="${USER.id}" type="BOOLEAN";isOk]
+                                        [#if isOk]
                                         <button type="button" class="btn  btn-info btn-lg  margin"
-                                                onclick="CommonUtil.loadView('/gd/subject/list')">取消
+                                                onclick="CommonUtil.loadView('/gd/subject/list')">返回
                                         </button>
-                                        <button type="submit" class="btn  btn-success btn-lg margin">确定</button>
+                                        [/#if]
+                                        [/@permission]
+
+                                        [@permission permission = "gd:subject:choose:verify" userId="${USER.id}" type="BOOLEAN";isOk]
+                                        [#if isOk]
+                                        <button type="button" class="btn btn-success btn-lg  margin" id="verify-btn"
+                                                data-uri="/gd/subject/choose/verify">确定
+                                        </button>
+                                        [/#if]
+                                        [/@permission]
+
                                     </div>
                                 </div>
+
+
                             </form>
                         </div>
                     </div>
@@ -266,90 +324,43 @@
         });
 
 
-        $(".date input").datepicker({autoclose: true,language: 'zh-CN'});
-
-        /**
-         * 添加用户表单
-         */
+        //  $(".date input").datepicker({autoclose: true,language: 'zh-CN'});
 
 
-        //选题表单开始
-        var rules = {
-            rules: {
-                tittle: {
-                    required: true,
-                },
-                fromDate: {
-                    required: true
-                },
-                endDate: {
-                    required: true
-                },
-                graduationDate: {
-                    required: true
+
+
+        var verify = function() {
+            var id = $("#id").val();
+            var chooseStatus = $("#chooseStatus").val();
+            var callback = function(data) {
+                $tipper = $("#tipper");
+                if (data.code.startsWith(successCodePrefix)) {
+                    $tipper.messager().success(data.message);
+                    return;
                 }
-            },
-            messages: {
-                tittle: {
-                    required: "选题标题必须填写"
-                },
-                fromDate: {
-                    required: "开始时间须填写"
-                },
-                endDate: {
-                    required: "结束时间必须填写"
-                },
-                graduationDate: {
-                    required: "毕业时间必须填写"
-                }
-            },
-            submitHandler: function (form) {   //表单提交句柄,为一回调函数,带一个参数：form
+                $tipper.messager().error(data.message);
 
-                var $form, requestPath, method, callBack;
+            };
+           var datas = {
+               id:id,
+               chooseStatus:chooseStatus
+           }
 
-                $form = $(form);
-                requestPath = $path + $form.attr("action");
-                method = $form.attr("method");
+           var $form = $("#form");
+           var requestPath = $path + $form.attr("action");
+           var method = $form.attr("method");
 
-                var data = {
-                    id: $("input[name='id']").val(),
-                    tittle: $("input[name='tittle']").val(),
-                    fromDate: $("input[name='fromDate']").val(),
-                    endDate: $("input[name='endDate']").val(),
-                    graduationDate: $("input[name='graduationDate']").val(),
-                    requirement: $("textarea[name='requirement']").val(),
-                    mainTask: $("textarea[name='mainTask']").val(),
-                    sourceFrom: $fromRadio.val(),
-                    type: $typeRadio.val()
-                }
+            $.ajax({
+                url: requestPath,
+                type: method,
+                data: datas,
+                success: callback
+            });
 
-                callBack = function (data) {
-                    $tipper = $("#tipper");
-                    if (data.code.startsWith(successCodePrefix)) {
-                        $tipper.messager().success(data.message);
-                        return;
-                    }
-                    $tipper.messager().error(data.message);
-                }
 
-                $.ajax({
-                    url: requestPath,
-                    type: method,
-                    data: data,
-                    success: callBack
-                });
+        };
 
-            }
-        }
-
-        $.extend(rules, GlobalVariable.formBaseRules);
-
-        var $form = $("#form");
-
-        if ($form.length > 0) {
-            $form.validate(rules);
-        }
-
+        $("#verify-btn").click(verify);
 
     });
 

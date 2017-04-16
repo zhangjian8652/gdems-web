@@ -4,6 +4,9 @@
 [@permission permission="gd:subject:detail" userId="${USER.id}" type="BOOLEAN";isOk]
     [#assign detail = isOk/]
 [/@permission]
+[@permission permission="gd:subject:choose:verify" userId="${USER.id}" type="BOOLEAN";isOk]
+    [#assign verify = isOk/]
+[/@permission]
 [@permission permission="gd:subject:delete" userId="${USER.id}" type="BOOLEAN";isOk]
     [#assign delete = isOk/]
 [/@permission]
@@ -31,17 +34,17 @@
         [#elseif subject.status = "APPROVED"]
         "status": "<span class='label label-success'>通过审核</span>",
         [#elseif subject.status = "DENIED"]
-        "status": "<span class='label label-danger'>审核没过</span>
+        "status": "<span class='label label-danger'>审核没过</span>",
         [#else]
         "status": "<span class='label label-warning'>创建</span>",
         [/#if]
         [#if subject.chooseStatus = "NONE_CHOOSE"]
         "chooseStatus": "<span class='label label-primary'>暂未被选择</span>",
-        [#elseif subject.type = "CHOOSE"]
+        [#elseif subject.chooseStatus = "CHOOSE"]
         "chooseStatus": "<span class='label label-default'>已被选择</span>",
-        [#elseif subject.type = "APPROVED"]
+        [#elseif subject.chooseStatus = "APPROVED"]
         "chooseStatus": "<span class='label label-success'>已被选择并通过审核</span>",
-        [#elseif subject.type = "DENIED"]
+        [#elseif subject.chooseStatus = "DENIED"]
         "chooseStatus": "<span class='label label-danger'>已被选择审核没过</span>
         [#else]
         "chooseStatus": "<span class='label label-warning'>待选择</span>",
@@ -51,8 +54,17 @@
         [#if edit]
             [#assign operations = "<button type='button' class='btn  bg-orange margin-right operation edit' data-id='${subject.id}' data-uribase='gd/subject' data-operation='edit'>编辑</button>"/]
         [/#if]
+
+        [#if subject.chooseStatus = "CHOOSE"]
+        [#if verify]
+            [#assign operations = operations + "<button type='button' class='btn bg-primary margin-right operation delete' data-id='${subject.id}' data-uribase='gd/subject/choose' data-operation='verify'>审核</button>"/]
+        [/#if]
+        [/#if]
+
+        [#if subject.chooseStatus != "APPROVED"]
         [#if delete]
             [#assign operations = operations + "<button type='button' class='btn bg-maroon margin-right operation delete' data-id='${subject.id}' data-uribase='gd/subject' data-operation='delete'>删除</button>"/]
+        [/#if]
         [/#if]
         "operations": "${operations!}"
         }

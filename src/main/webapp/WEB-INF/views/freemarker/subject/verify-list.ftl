@@ -32,10 +32,10 @@
                             <th>标题</th>
                             <th>来源</th>
                             <th>类型</th>
-                            <th>开始时间</th>
-                            <th>结束时间</th>
                             <th>状态</th>
                             <th>被选状态</th>
+                            <th>审核人</th>
+                            <th>审核时间</th>
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -45,10 +45,10 @@
                             <th>标题</th>
                             <th>来源</th>
                             <th>类型</th>
-                            <th>开始时间</th>
-                            <th>结束时间</th>
                             <th>状态</th>
                             <th>被选状态</th>
+                            <th>审核人</th>
+                            <th>审核时间</th>
                             <th>操作</th>
                         </tr>
                         </tfoot>
@@ -101,10 +101,10 @@
                 {"data": "tittle"},
                 {"data": "sourceFrom"},
                 {"data": "type"},
-                {"data": "fromDate"},
-                {"data": "endDate"},
                 {"data": "status"},
                 {"data": "chooseStatus"},
+                {"data": "verifyBy"},
+                {"data": "verifyDate"},
                 {"data": "operations"}
             ],
             "drawCallback": function(){

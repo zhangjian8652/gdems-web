@@ -78,3 +78,7 @@ table.treetable {
 .radio-group label{
     margin: 5px 5px;
 }
+
+.small-box h3 {
+    white-space: normal;
+}

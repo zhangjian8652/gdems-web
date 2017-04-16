@@ -1,7 +1,6 @@
 package com.sword.gd.controller;
 
-import com.alibaba.druid.sql.visitor.functions.Bin;
-import com.sword.admin.common.directive.DirectiveUtils;
+import com.sword.admin.entity.Role;
 import com.sword.admin.entity.User;
 import com.sword.admin.entity.common.EntityUtil;
 import com.sword.admin.exception.InvalidRequestException;
@@ -10,7 +9,10 @@ import com.sword.admin.request.entity.DatatableCondition;
 import com.sword.admin.request.util.RequestUtil;
 import com.sword.admin.response.DataTablePage;
 import com.sword.admin.response.JsonResponse;
+import com.sword.admin.service.RoleService;
 import com.sword.gd.entity.Subject;
+import com.sword.gd.entity.SubjectConfig;
+import com.sword.gd.service.ConfigService;
 import com.sword.gd.service.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
 
@@ -33,25 +36,29 @@ public class SubjectController {
     @Autowired
     private SubjectService subjectService;
 
+    @Autowired
+    private ConfigService configService;
+
+    @Autowired
+    private RoleService roleService;
+
     @RequestMapping(value = "/verify/list", method = RequestMethod.GET)
     public String verifyListView() {
         return "subject/verify-list";
     }
 
     @RequestMapping(value = "/verify/list", method = RequestMethod.POST)
-    public String verifyListData(@ModelAttribute DatatableCondition datatableCondition, BindingResult bindingResult, HttpServletRequest request) throws Exception {
+    public String verifyListData(@Valid @ModelAttribute DatatableCondition datatableCondition, BindingResult bindingResult, HttpServletRequest request) throws Exception {
 
         if (bindingResult.hasErrors()) {
             throw new InvalidRequestException(HttpStatus.BAD_REQUEST + "", bindingResult.getAllErrors().get(0).getDefaultMessage());
         }
 
-        DataTablePage<Subject> pageData = subjectService.toVerifypageData(datatableCondition);
+        DataTablePage<Subject> pageData = subjectService.verifyPageData(datatableCondition);
         request.setAttribute("page", pageData);
 
         return "subject/data/verify-list";
     }
-
-
 
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -61,13 +68,20 @@ public class SubjectController {
 
 
     @RequestMapping(value = "/list", method = RequestMethod.POST)
-    public String listData(@ModelAttribute DatatableCondition datatableCondition, BindingResult bindingResult, HttpServletRequest request) throws Exception {
+    public String listData(@Valid @ModelAttribute DatatableCondition datatableCondition, BindingResult bindingResult, HttpServletRequest request) throws Exception {
 
         if (bindingResult.hasErrors()) {
             throw new InvalidRequestException(HttpStatus.BAD_REQUEST + "", bindingResult.getAllErrors().get(0).getDefaultMessage());
         }
 
-        DataTablePage<Subject> pageData = subjectService.pageData(datatableCondition);
+        User user = RequestUtil.getLoginUserFromSession(request);
+
+        DataTablePage<Subject> pageData;
+        if (user.isAdmin()) {
+            pageData = subjectService.pageData(datatableCondition);
+        } else {
+            pageData = subjectService.pageDataCreator(datatableCondition, user.getId());
+        }
         request.setAttribute("page", pageData);
 
         return "subject/data/list";
@@ -75,13 +89,24 @@ public class SubjectController {
 
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public String addView() {
+    public String addView(HttpServletRequest request) throws Exception {
+
+        User user = RequestUtil.getLoginUserFromSession(request);
+        List<Role> roles = roleService.getByUserId(user.getId());
+
+        boolean isDirector = false;
+        boolean isStudent = false;
+
+        isDirectOrStudent(roles, isDirector, isStudent);
+        request.setAttribute("isDirector",isDirector);
+        request.setAttribute("isStudent",isStudent);
+
         return "subject/add";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public Object add(@ModelAttribute Subject subject, BindingResult result, HttpServletRequest request) throws Exception {
+    public Object add(@Valid @ModelAttribute Subject subject, BindingResult result, HttpServletRequest request) throws Exception {
 
         if (result.hasErrors()) {
             throw new InvalidRequestException(HttpStatus.BAD_REQUEST + "", result.getAllErrors().get(0).getDefaultMessage());
@@ -90,13 +115,55 @@ public class SubjectController {
         User user = RequestUtil.getLoginUserFromSession(request);
         EntityUtil.setCommonValue(subject, user);
 
+        List<Role> roles = roleService.getByUserId(user.getId());
+
+        boolean isDirector = false;
+        boolean isStudent = false;
+
+        for (int i = 0; i < roles.size(); i++) {
+            Role role = roles.get(i);
+            if ("导师".equals(role.getName())) {
+                isDirector = true;
+            }
+            if ("学生".equals(role.getName())) {
+                isStudent = true;
+            }
+
+        }
+
         if ("学生自选".equals(subject.getSourceFrom())) {
+            if (isDirector) {
+                throw new SwordException(HttpStatus.BAD_REQUEST + "", "您是导师，不能选择学生自拟。" );
+            }
             subject.setChooseBy(user.getId());
             subject.setChooseDate(new Date());
             subject.setChooseStatus(Subject.ChooseStatus.CHOOSE);
         } else {
+            if (isStudent) {
+                throw new SwordException(HttpStatus.BAD_REQUEST + "", "您是学生，只能选择学生自拟。" );
+            }
             subject.setChooseStatus(Subject.ChooseStatus.NONE_CHOOSE);
         }
+
+
+
+
+        if (isDirector) {
+            SubjectConfig subjectConfig = configService.getSubjectConfig();
+            int count = subjectService.getCreateAvailableCountByUserId(user.getId());
+
+            if (count <= subjectConfig.getStudentNum()) {
+                throw new SwordException(HttpStatus.BAD_REQUEST + "", "您提交的选题数量已经上线，不能超过" + count);
+            }
+        }
+
+        if (isStudent) {
+            int count = subjectService.getCreateAvailableCountByUserId(user.getId());
+            if (count > 0) {
+                throw new SwordException(HttpStatus.BAD_REQUEST + "", "您提交的选题数量已经上线，不能超过" + count);
+            }
+        }
+
 
         subject.setStatus(Subject.Status.CREATED);
 
@@ -121,13 +188,39 @@ public class SubjectController {
             throw new InvalidRequestException(HttpStatus.NOT_FOUND + "", "该选题找不到");
         }
 
+        User user = RequestUtil.getLoginUserFromSession(request);
+        List<Role> roles = roleService.getByUserId(user.getId());
+
+        boolean isDirector = false;
+        boolean isStudent = false;
+
+        isDirectOrStudent(roles, isDirector, isStudent);
+
+        request.setAttribute("isDirector",isDirector);
+        request.setAttribute("isStudent",isStudent);
+
         request.setAttribute("subject", subject);
         return "subject/edit";
     }
 
+    private void isDirectOrStudent( List<Role> roles, boolean isDirector, boolean isStudent) {
+        for (int i = 0; i < roles.size(); i++) {
+            Role role = roles.get(i);
+            if ("导师".equals(role.getName())) {
+                isDirector = true;
+            }
+            if ("学生".equals(role.getName())) {
+                isStudent = true;
+            }
+
+        }
+
+
+    }
+
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     @ResponseBody
-    public Object edit(@ModelAttribute Subject subject, BindingResult result, HttpServletRequest request) throws Exception {
+    public Object edit(@Valid @ModelAttribute Subject subject, BindingResult result, HttpServletRequest request) throws Exception {
 
         if (result.hasErrors()) {
             throw new InvalidRequestException(HttpStatus.BAD_REQUEST + "", result.getAllErrors().get(0).getDefaultMessage());
@@ -161,8 +254,8 @@ public class SubjectController {
 
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
-         @ResponseBody
-         public Object delete(@RequestParam String id) throws Exception {
+    @ResponseBody
+    public Object delete(@RequestParam String id) throws Exception {
 
         if (StringUtils.isEmpty(id)) {
             return false;
@@ -174,7 +267,11 @@ public class SubjectController {
             throw new InvalidRequestException(HttpStatus.NOT_FOUND + "", "该选题已经不存在");
         }
 
-        boolean rst =  subjectService.delete(subject.getId());
+        if (Subject.ChooseStatus.APPROVED.equalsIgnoreCase(subject.getChooseStatus())) {
+            throw new InvalidRequestException(HttpStatus.BAD_REQUEST + "", "选题已经通过审批，不能删除。");
+        }
+
+        boolean rst = subjectService.delete(subject.getId());
 
         if (!rst) {
             throw new SwordException(HttpStatus.INTERNAL_SERVER_ERROR + "", "删除失败，请联系管理员");
@@ -194,7 +291,7 @@ public class SubjectController {
     }
 
     @RequestMapping(value = "/detail", method = RequestMethod.GET)
-    public String detail(HttpServletRequest request,@RequestParam String id) throws Exception {
+    public String detail(HttpServletRequest request, @RequestParam String id) throws Exception {
 
 
         if (StringUtils.isEmpty(id)) {
@@ -205,11 +302,141 @@ public class SubjectController {
         Subject subject = subjectService.getById(id);
 
         if (subject == null) {
-            throw  new SwordException(HttpStatus.NOT_FOUND+"","找不到该选题");
+            throw new SwordException(HttpStatus.NOT_FOUND + "", "找不到该选题");
         }
         request.setAttribute("subject", subject);
 
         return "subject/detail";
+    }
+
+
+    @RequestMapping(value = "/verify", method = RequestMethod.GET)
+    public String verifyView(HttpServletRequest request, @RequestParam String id) throws Exception {
+
+
+        if (StringUtils.isEmpty(id)) {
+            throw new InvalidRequestException(HttpStatus.BAD_REQUEST + "", "ID不能为空值。");
+        }
+
+
+        Subject subject = subjectService.getById(id);
+
+        if (subject == null) {
+            throw new SwordException(HttpStatus.NOT_FOUND + "", "找不到该选题");
+        }
+        request.setAttribute("subject", subject);
+
+        return "subject/verify";
+    }
+
+
+    @RequestMapping(value = "/verify", method = RequestMethod.POST)
+    @ResponseBody
+    public Object verify(HttpServletRequest request, @RequestParam String id, @RequestParam String status) throws Exception {
+
+
+        if (StringUtils.isEmpty(id) || StringUtils.isEmpty(status)) {
+            throw new InvalidRequestException(HttpStatus.BAD_REQUEST + "", "ID和status不能为空值。");
+        }
+
+        if (!(Subject.Status.APPROVED.equalsIgnoreCase(status) || Subject.Status.DENIED.equalsIgnoreCase(status))) {
+            throw new InvalidRequestException(HttpStatus.BAD_REQUEST + "", "审核状态只能为通过或者不通过。");
+        }
+
+
+        Subject subject = subjectService.getById(id);
+
+        if (subject == null) {
+            throw new SwordException(HttpStatus.NOT_FOUND + "", "找不到该选题");
+        }
+
+        User user = RequestUtil.getLoginUserFromSession(request);
+
+        EntityUtil.setCommonUpdateValue(subject, user);
+
+
+        subject.setStatus(status);
+        subject.setVerifyBy(user.getId());
+        subject.setVerifyDate(new Date());
+
+        boolean rst = subjectService.update(subject);
+
+        if (!rst) {
+            throw new SwordException(HttpStatus.INTERNAL_SERVER_ERROR + "", "审核选题失败，请联系管理员");
+        }
+
+        return new JsonResponse<Object>(HttpStatus.ACCEPTED + "", "审核选题成功");
+    }
+
+
+    @RequestMapping(value = "/choose", method = RequestMethod.GET)
+    public String chooseView(HttpServletRequest request, @RequestParam String id) throws Exception {
+
+
+        if (StringUtils.isEmpty(id)) {
+            throw new InvalidRequestException(HttpStatus.BAD_REQUEST + "", "ID不能为空值。");
+        }
+
+
+        Subject subject = subjectService.getById(id);
+
+        if (subject == null) {
+            throw new SwordException(HttpStatus.NOT_FOUND + "", "找不到该选题");
+        }
+        request.setAttribute("subject", subject);
+
+        return "subject/choose";
+    }
+
+
+    @RequestMapping(value = "/choose", method = RequestMethod.POST)
+    @ResponseBody
+    public Object choose(HttpServletRequest request, @RequestParam String id) throws Exception {
+
+
+        if (StringUtils.isEmpty(id)) {
+            throw new InvalidRequestException(HttpStatus.BAD_REQUEST + "", "ID和status不能为空值。");
+        }
+
+        Subject subject = subjectService.getById(id);
+
+        if (subject == null) {
+            throw new SwordException(HttpStatus.NOT_FOUND + "", "找不到该选题");
+        }
+
+
+        User user = RequestUtil.getLoginUserFromSession(request);
+
+        Subject chooseSubject = subjectService.getByChooseUserId(user.getId());
+
+        if (chooseSubject != null && !Subject.ChooseStatus.APPROVED.equalsIgnoreCase(chooseSubject.getChooseStatus())) {
+
+            EntityUtil.setCommonUpdateValue(chooseSubject, user);
+            chooseSubject.setChooseStatus(Subject.ChooseStatus.NONE_CHOOSE);
+            chooseSubject.setChooseDate(null);
+            chooseSubject.setChooseBy(null);
+        }
+
+        if(chooseSubject != null && Subject.ChooseStatus.APPROVED.equalsIgnoreCase(chooseSubject.getChooseStatus())) {
+            throw new SwordException(HttpStatus.BAD_REQUEST + "", "您的选题已经通过批准，不能更换了了。");
+        }
+
+
+
+        EntityUtil.setCommonUpdateValue(subject, user);
+        subject.setChooseBy(user.getId());
+        subject.setChooseDate(new Date());
+        subject.setChooseStatus(Subject.ChooseStatus.CHOOSE);
+
+
+
+        boolean rst = subjectService.chooseSubject(subject, chooseSubject);
+
+        if (!rst) {
+            throw new SwordException(HttpStatus.INTERNAL_SERVER_ERROR + "", "选择选题失败，请联系管理员");
+        }
+
+        return new JsonResponse<Object>(HttpStatus.ACCEPTED + "", "选择选题成功");
     }
 
 
@@ -225,5 +452,89 @@ public class SubjectController {
 
         return subjects == null || subjects.size() <= 0;
     }
+
+
+    @RequestMapping(value = "/choose/verify", method = RequestMethod.GET)
+    public String chooseVerifyView(HttpServletRequest request, @RequestParam String id) throws Exception {
+
+
+        if (StringUtils.isEmpty(id)) {
+            throw new InvalidRequestException(HttpStatus.BAD_REQUEST + "", "ID不能为空值。");
+        }
+
+
+        Subject subject = subjectService.getById(id);
+
+        if (subject == null) {
+            throw new SwordException(HttpStatus.NOT_FOUND + "", "找不到该选题");
+        }
+        request.setAttribute("subject", subject);
+
+        return "subject/choose-verify";
+    }
+
+
+    @RequestMapping(value = "/choose/verify", method = RequestMethod.POST)
+    @ResponseBody
+    public Object chooseVerify(HttpServletRequest request, @RequestParam String id, @RequestParam String chooseStatus) throws Exception {
+
+
+        if (StringUtils.isEmpty(id) || StringUtils.isEmpty(chooseStatus)) {
+            throw new InvalidRequestException(HttpStatus.BAD_REQUEST + "", "ID和status不能为空值。");
+        }
+
+        if (!(Subject.ChooseStatus.APPROVED.equalsIgnoreCase(chooseStatus) || Subject.ChooseStatus.DENIED.equalsIgnoreCase(chooseStatus) || Subject.ChooseStatus.NONE_CHOOSE.equalsIgnoreCase(chooseStatus))) {
+            throw new InvalidRequestException(HttpStatus.BAD_REQUEST + "", "选题选择审核状态只能为通过或者不通过，撤销该选择。");
+        }
+
+
+        Subject subject = subjectService.getById(id);
+
+        if (subject == null) {
+            throw new SwordException(HttpStatus.NOT_FOUND + "", "找不到该选题");
+        }
+
+        User user = RequestUtil.getLoginUserFromSession(request);
+
+        EntityUtil.setCommonUpdateValue(subject, user);
+        subject.setChooseStatus(chooseStatus);
+
+        boolean rst = subjectService.update(subject);
+
+        if (!rst) {
+            throw new SwordException(HttpStatus.INTERNAL_SERVER_ERROR + "", "选题选择审核失败，请联系管理员");
+        }
+
+        return new JsonResponse<Object>(HttpStatus.ACCEPTED + "", "选题选择审核成功");
+    }
+
+
+    @RequestMapping(value = "/config/edit",method = RequestMethod.GET)
+    public String configEditView(HttpServletRequest request) throws Exception {
+
+        SubjectConfig subjectConfig = configService.getSubjectConfig();
+
+        request.setAttribute("subjectConfig", subjectConfig);
+
+        return "subject/config/edit";
+    }
+
+
+    @RequestMapping(value = "/config/edit", method = RequestMethod.POST)
+    @ResponseBody
+    public Object configEdit(@Valid @ModelAttribute SubjectConfig subjectConfig, BindingResult result) throws Exception {
+
+        if (result.hasErrors()) {
+            throw new InvalidRequestException(HttpStatus.BAD_REQUEST + "", "配置格式不正确" + result.getAllErrors().get(0).getDefaultMessage());
+        }
+
+        boolean rst = configService.updateSubjectConfig(subjectConfig);
+
+        if (!rst) {
+            throw new SwordException(HttpStatus.INTERNAL_SERVER_ERROR + "", "更新配置失败。");
+        }
+        return new JsonResponse<Object>(HttpStatus.ACCEPTED + "", "更新配置成功。");
+    }
+
 
 }

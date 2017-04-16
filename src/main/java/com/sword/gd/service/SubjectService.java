@@ -26,5 +26,13 @@ public interface SubjectService {
 
     List<Subject> getAvailable() throws Exception;
 
-    DataTablePage<Subject> toVerifypageData(DatatableCondition datatableCondition) throws Exception;
+    DataTablePage<Subject> verifyPageData(DatatableCondition datatableCondition) throws Exception;
+
+    DataTablePage<Subject> pageDataCreator(DatatableCondition datatableCondition, String id) throws Exception;
+
+    Subject getByChooseUserId(String id) throws Exception;
+
+    boolean chooseSubject(Subject subject, Subject chooseSubject) throws Exception;
+
+    int getCreateAvailableCountByUserId(String userId) throws Exception;
 }

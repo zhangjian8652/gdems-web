@@ -1,4 +1,4 @@
-[@permission permission="gd:subject:detail" userId="${USER.id}" type="BOOLEAN";isOk]
+[@permission permission="gd:subject:verify" userId="${USER.id}" type="BOOLEAN";isOk]
     [#assign detail = isOk/]
 [/@permission]
 
@@ -18,33 +18,52 @@
         {
         "tittle": "${subject.tittle!}",
         "type": "${subject.type!}",
-        "fromDate": "${subject.fromDate?date!}",
-        "endDate": "${subject.endDate?date!}",
         "sourceFrom": "${subject.sourceFrom!}",
         [#if subject.status = "CREATED"]
         "status": "<span class='label label-warning'>创建</span>",
         [#elseif subject.status = "APPROVED"]
         "status": "<span class='label label-success'>通过审核</span>",
         [#elseif subject.status = "DENIED"]
-        "status": "<span class='label label-danger'>审核没过</span>
+        "status": "<span class='label label-danger'>审核没过</span>",
         [#else]
         "status": "<span class='label label-warning'>创建</span>",
         [/#if]
         [#if subject.chooseStatus = "NONE_CHOOSE"]
         "chooseStatus": "<span class='label label-primary'>暂未被选择</span>",
-        [#elseif subject.type = "CHOOSE"]
+        [#elseif subject.chooseStatus = "CHOOSE"]
         "chooseStatus": "<span class='label label-default'>已被选择</span>",
-        [#elseif subject.type = "APPROVED"]
+        [#elseif subject.chooseStatus = "APPROVED"]
         "chooseStatus": "<span class='label label-success'>已被选择并通过审核</span>",
-        [#elseif subject.type = "DENIED"]
+        [#elseif subject.chooseStatus = "DENIED"]
         "chooseStatus": "<span class='label label-danger'>已被选择审核没过</span>
         [#else]
         "chooseStatus": "<span class='label label-warning'>待选择</span>",
         [/#if]
-
-        [#assign operations = ""/]
-        [#if verify]
-            [#assign operations = "<button type='button' class='btn  bg-orange margin-right operation detail' data-id='${subject.id}' data-uribase='gd/subject' data-operation='detail'>详情</button>"/]
+        [#if subject.verifyBy??]
+        [@user type="entity" userId="${subject.verifyBy!}";entity]
+                [#if entity??]
+                    "verifyBy":"${entity.loginName}",
+                [#else]
+                "verifyBy":"-",
+                [/#if]
+        [/@user]
+        [#else]
+        "verifyBy":"-",
+        [/#if]
+        [#if subject.verifyDate??]
+        "verifyDate":"${subject.verifyDate?date}",
+        [#else]
+        "verifyDate":"-",
+        [/#if]
+            [#assign operations = ""/]
+        [#if subject.status?? && subject.status = "CREATED"]
+            [#if detail]
+                [#assign operations = "<button type='button' class='btn  bg-orange margin-right operation detail' data-id='${subject.id}' data-uribase='gd/subject' data-operation='verify'>审核</button>"/]
+            [#else]
+                [#assign operations = "-"/]
+            [/#if]
+        [#else]
+            [#assign operations = "-"/]
         [/#if]
         "operations": "${operations!}"
         }

@@ -150,7 +150,7 @@ public class MenuController {
         menuFromDB.setPermission(menu.getPermission());
         menuFromDB.setSort(menu.getSort());
         menuFromDB.setIcon(menu.getIcon());
-        menuFromDB.setIsParent(StringUtils.isEmpty(menu.getParentId()) ? Menu.IS_PARENT :null);
+       // menuFromDB.setIsParent(StringUtils.isEmpty(menu.getParentId()) ? Menu.IS_PARENT :null);
 
         EntityUtil.setCommonUpdateValue(menuFromDB, RequestUtil.getLoginUserFromSession(request));
 

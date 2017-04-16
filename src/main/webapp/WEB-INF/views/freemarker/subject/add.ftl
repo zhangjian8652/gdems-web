@@ -77,12 +77,35 @@
                                     <label class="col-sm-2 control-label">来源:</label>
 
                                     <div class="col-sm-10 input-group radio-group">
+
+                                        [#if isStudent?? || isDirector??]
+                                            [#if isStudent??&& isStudent]
+                                            <input type="radio" name="sourceFrom" value="学生自选"
+                                                   id="from-student-self"><label for="from-student-self">学生自选</label>
+                                            [/#if]
+
+                                            [#if isDirector??&& isDirector]
+                                            <input type="radio" name="sourceFrom" value="教师科研"
+                                                   id="from-teaccher-researching"><label for="from-teaccher-researching">教师科研</label>
+                                            <input type="radio" name="sourceFrom" value="教师自拟" id="from-teacher-self"
+                                                   checked><label for="from-teacher-self">教师自拟</label>
+                                            <br>
+                                            <input type="radio" name="sourceFrom" value="生产实践"
+                                                   id="from-production-practice"><label
+                                                for="from-production-practice">生产实践</label>
+                                            <input type="radio" name="sourceFrom" value="实验室（课程建设）" id="from-laboratory"><label
+                                                for="from-laboratory">实验室（课程建设）</label>
+                                            <input type="radio" name="sourceFrom" value="其他" id="from-other"><label
+                                                for="from-other">其他</label>
+                                            [/#if]
+                                        [#else]
+                                        <input type="radio" name="sourceFrom" value="学生自选"
+                                               id="from-student-self"><label for="from-student-self">学生自选</label>
                                         <input type="radio" name="sourceFrom" value="教师科研"
                                                id="from-teaccher-researching"><label for="from-teaccher-researching">教师科研</label>
                                         <input type="radio" name="sourceFrom" value="教师自拟" id="from-teacher-self"
                                                checked><label for="from-teacher-self">教师自拟</label>
-                                        <input type="radio" name="sourceFrom" value="学生自选"
-                                               id="from-student-self"><label for="from-student-self">学生自选</label><br>
+                                        <br>
                                         <input type="radio" name="sourceFrom" value="生产实践"
                                                id="from-production-practice"><label
                                             for="from-production-practice">生产实践</label>
@@ -90,6 +113,8 @@
                                             for="from-laboratory">实验室（课程建设）</label>
                                         <input type="radio" name="sourceFrom" value="其他" id="from-other"><label
                                             for="from-other">其他</label>
+                                        [/#if]
+
                                     </div>
                                     <!-- /.input group -->
                                 </div>
@@ -149,9 +174,13 @@
                                     <label class="col-sm-2 control-label"></label>
 
                                     <div class="col-sm-4 input-group">
+                                        [@permission permission = "gd:subject:list" userId="${USER.id}" type="BOOLEAN";isOk]
+                                        [#if isOk]
                                         <button type="button" class="btn  btn-info btn-lg  margin"
                                                 onclick="CommonUtil.loadView('/gd/subject/list')">取消
                                         </button>
+                                        [/#if]
+                                        [/@permission]
                                         <button type="submit" class="btn  btn-success btn-lg margin">确定</button>
                                     </div>
                                 </div>
@@ -223,7 +252,7 @@
             messages: {
                 tittle: {
                     required: "选题标题必须填写"
-                    , remote: "选题标题已经存在"
+                    , remote: "选题标题已经被其他导师或学生添加了，请换其他的。"
                 },
                 fromDate: {
                     required: "开始时间须填写"
@@ -248,8 +277,8 @@
                     fromDate: $("input[name='fromDate']").val(),
                     endDate: $("input[name='endDate']").val(),
                     graduationDate: $("input[name='graduationDate']").val(),
-                    requirement: $("input[name='requirement']").val(),
-                    mainTask: $("input[name='mainTask']").val(),
+                    requirement: $("textarea[name='requirement']").val(),
+                    mainTask: $("textarea[name='mainTask']").val(),
                     sourceFrom: $fromRadio.val(),
                     type: $typeRadio.val(),
                 }
@@ -258,7 +287,7 @@
                     $tipper = $("#tipper");
                     if (data.code.startsWith(successCodePrefix)) {
                         $tipper.messager().success(data.message);
-                        $("input,textarea").val("");
+                        $("input[type='text'],textarea").val("");
                         return;
                     }
                     $tipper.messager().error(data.message);
