@@ -83,7 +83,7 @@ table.treetable {
     white-space: normal;
 }
 #tipper{
-    position: absolute;
+    position: fixed;
     z-index: 1000;
-    top: 250px;
+    top: 200px;
 }
