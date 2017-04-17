@@ -279,8 +279,8 @@
                     graduationDate: $("input[name='graduationDate']").val(),
                     requirement: $("textarea[name='requirement']").val(),
                     mainTask: $("textarea[name='mainTask']").val(),
-                    sourceFrom: $fromRadio.val(),
-                    type: $typeRadio.val(),
+                    sourceFrom: $(".checked input[name='sourceFrom']").val(),
+                    type: $(".checked input[name='type']").val()
                 }
 
                 callBack = function (data) {

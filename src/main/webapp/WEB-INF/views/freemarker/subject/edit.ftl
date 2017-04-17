@@ -198,7 +198,7 @@
 
                                     <div class="col-sm-10 input-group radio-group">
                                         [#if subject.type?? && subject.type = "应用研究"]
-                                        <input type="radio" name="type" value="应用研究"
+                                        <input type="radio" name="type" value="应用研究" checked
                                                id="type-applied-researching"><label
                                             for="type-applied-researching">应用研究</label>
                                         [#else]
@@ -212,11 +212,11 @@
                                             for="type-theoretical-researching">理论研究</label>
                                         [#else]
                                         <input type="radio" name="type" value="理论研究"
-                                               id="type-theoretical-researching" checked><label
+                                               id="type-theoretical-researching"><label
                                             for="type-theoretical-researching">理论研究</label>
                                         [/#if]
                                         [#if subject.type?? && subject.type = "工程设计"]
-                                        <input type="radio" name="type" value="工程设计"
+                                        <input type="radio" name="type" value="工程设计" checked
                                                id="type-engineering-design"><label
                                             for="type-engineering-design">工程设计</label><br>
                                         [#else]
@@ -230,25 +230,25 @@
                                             for="type-computer-software">计算机软件</label>
                                         [#else]
                                         <input type="radio" name="type" value="计算机软件"
-                                               id="type-computer-software" checked><label
+                                               id="type-computer-software" ><label
                                             for="type-computer-software">计算机软件</label>
                                         [/#if]
                                         [#if subject.type?? && subject.type = "社会调查"]
-                                        <input type="radio" name="type" value="社会调查"
+                                        <input type="radio" name="type" value="社会调查" checked
                                                id="type-social-survey"><label for="type-social-survey">社会调查</label>
                                         [#else]
                                         <input type="radio" name="type" value="社会调查"
                                                id="type-social-survey"><label for="type-social-survey">社会调查</label>
                                         [/#if]
                                         [#if subject.type?? && subject.type = "社会难点热点"]
-                                        <input type="radio" name="type" value="社会难点热点" id="type-social-hot"><label
+                                        <input type="radio" name="type" value="社会难点热点" id="type-social-hot" checked><label
                                             for="type-social-hot">社会难点热点</label>
                                         [#else]
                                         <input type="radio" name="type" value="社会难点热点" id="type-social-hot"><label
                                             for="type-social-hot">社会难点热点</label>
                                         [/#if]
                                         [#if subject.type?? && subject.type = "其他"]
-                                        <input type="radio" name="type" value="其他" id="type-other"><label
+                                        <input type="radio" name="type" value="其他" id="type-other" checked><label
                                             for="from-other">其他</label>
                                         [#else]
                                         <input type="radio" name="type" value="其他" id="type-other"><label
@@ -320,11 +320,13 @@
             radioClass: 'iradio_flat-green',
             increaseArea: '20%'
         });
+
         $typeRadio.iCheck({
             checkboxClass: 'icheckbox_flat-green',
             radioClass: 'iradio_flat-green',
             increaseArea: '20%'
         });
+
 
 
         $(".date input").datepicker({autoclose: true,language: 'zh-CN'});
@@ -380,8 +382,8 @@
                     graduationDate: $("input[name='graduationDate']").val(),
                     requirement: $("textarea[name='requirement']").val(),
                     mainTask: $("textarea[name='mainTask']").val(),
-                    sourceFrom: $fromRadio.val(),
-                    type: $typeRadio.val()
+                    sourceFrom: $(".checked input[name='sourceFrom']").val(),
+                    type: $(".checked input[name='type']").val()
                 }
 
                 callBack = function (data) {
