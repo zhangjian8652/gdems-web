@@ -34,7 +34,7 @@
                                     <label class="col-sm-3 control-label">导师可带学生数:</label>
 
                                     <div class="col-sm-3 input-group">
-                                        <input type="text" value="${subjectConfig.studentNum!'0'}" class="form-control spinner" name="studentNum" id="studentNum">
+                                        <input type="text"  class="form-control spinner" name="studentNum" id="studentNum">
                                     </div>
                                     <!-- /.input group -->
                                 </div>
@@ -66,7 +66,7 @@
 
     $(function () {
 
-        $(".spinner").spinner();
+        $(".spinner").spinner({value:${subjectConfig.studentNum!0}, min:0,max:100});
 
 
         /**
