@@ -44,5 +44,78 @@
 | 类型 | type | String |40| 文件类型 |
 | 上传人 | uploaded_by | String |64| 用户关联ID |
 | 上传时间 | uploaded_date | datetime || 文件上传时间 |
+| 创建时间 | created_date| datetime| |创建时间|
+| 更新时间 | updated_date | datetime| |更新时间|
+| 创建人 | created_by | String| 64 |创建人ID|
+| 更新人 | updated_by | datetime| 64|更新人ID|
 
+
+### 任务书
+
+表明：gd_task_book
+
+| 属性 | 字段名 | 类型 |长度| 描述|
+| :---: | :---: | :---: |:---: | :---: |
+| 主键 | id | String | 64 | 任务书主键ID|
+| 班级 | class| String| 64|班级名称|
+| 姓名 | name| String | 64|学生姓名|
+|论文（设计）题目|thesis_tittle|String|255|论文（设计的题目）|
+|要求完成的内容|requirement_content|String|255|要求完成的内容|
+|发题日期|send_date|date| |发题日期|
+|完成日期|finish_date|date| |完成日期|
+|实习单位|practice_units|String|255 |实习单位|
+|实习地点|practice_address|String|255 |实习地址|
+|论文页数|thesis_page_count|int|10 |论文页数|
+|图纸张数|drawing_count|int|10 |图纸张数|
+| 创建时间 | created_date| datetime| |创建时间|
+| 更新时间 | updated_date | datetime| |更新时间|
+| 创建人 | created_by | String| 64 |创建人ID|
+| 更新人 | updated_by | datetime| 64|更新人ID|
  
+### 指导老师评议书
+
+表明：gd_director_comment_book
+
+| 属性 | 字段名 | 类型 |长度| 描述|
+| :---: | :---: | :---: |:---: | :---: |
+| 主键 | id | String | 64 | 任务书主键ID|
+| 论文题目 | thesis_tittle| String| 255|论文题目|
+| 班级 | class| String| 120|班级id|
+| 专业 | major | String| 64|专业id|
+| 姓名 | name| String | 120|学生姓名|
+| 方案论证分（15分）| plan_proof_score| int | 2 | 方案论证分，总分15分(能独立查阅文献和课题调研，能提出较科学、合理、可行的实施方案。)|
+| 论文设计类容（30分）| thesis_design_score| int | 2 | 方案论证分，总分30分(能独立查阅文献和课题调研，能提出较科学、合理、可行的实施方案。)|
+| 工作量和难度（20分）| workload_difficulty_score| int | 2| 工作量和难度分，总分20分(遵守毕业论文（设计）管理制度，按期完成任务书规定的内容，工作量饱满，有一定难度。)|
+| 论文（设计)质量（20分）| thesis_quality_score| int | 2|论文设计质量，总分20分(结构合理、条理清楚、文理通顺、用语符合专业要求；文体格式规范、图表清楚。图样绘制与技术要求符合国家标准，图面质量符合要求。)|
+| 创新性与应用价值（15分）| innovating_worth_score| int | 2| 论文设计质量，总分20分(具有一定的创新性和应用价值。)|
+|总分（100）| total_score | int |2| 总分数|
+|导师评语| director_comment | String |255| 导师评语|
+| 创建时间 | created_date| datetime| |创建时间|
+| 更新时间 | updated_date | datetime| |更新时间|
+| 创建人 | created_by | String| 64 |创建人ID|
+| 更新人 | updated_by | datetime| 64|更新人ID|
+
+
+### 中期检查表
+
+表明：gd_mid_check_form
+
+| 属性 | 字段名 | 类型 |长度| 描述|
+| :---: | :---: | :---: |:---: | :---: |
+| 主键 | id | String | 64 | 中期检查表主键ID|
+| 姓名 | name| String |64|用户id,学生|
+| 学院 | department| String| 64|组织机构id,学院|
+| 班级 | class| String| 64|组织机构id，班级|
+| 指导老师 | director| String| 64|用户id,指导老师|
+| 专业 | major | String| 64|学生专业|
+| 方案论证分（15分）| plan_proof_score| int | 2|方案论证分，总分15分(能独立查阅文献和课题调研，能提出较科学、合理、可行的实施方案。)|
+| 论文设计类容（30分）| thesis_design_score| int | 2|方案论证分，总分30分(能独立查阅文献和课题调研，能提出较科学、合理、可行的实施方案。)|
+| 工作量和难度（20分）| workload_difficulty_score| int | 2|工作量和难度分，总分20分(遵守毕业论文（设计）管理制度，按期完成任务书规定的内容，工作量饱满，有一定难度。)|
+| 论文（设计)质量（20分）| thesis_quality_score| int | 2|论文设计质量，总分20分(结构合理、条理清楚、文理通顺、用语符合专业要求；文体格式规范、图表清楚。图样绘制与技术要求符合国家标准，图面质量符合要求。)|
+| 创新性与应用价值（15分）| innovating_worth_score| int | 2|论文设计质量，总分20分(具有一定的创新性和应用价值。)|
+|总分（100）| total_score | int |2| 总分数|
+|导师评语| director_comment | String |255| 导师评语|
+| 创建时间 | created_date| datetime| |创建时间|
+| 更新时间 | updated_date | datetime| |更新时间|
+| 创建人 | created_by | String| 64 |创建人ID|
+| 更新人 | updated_by | datetime| 64|更新人ID|

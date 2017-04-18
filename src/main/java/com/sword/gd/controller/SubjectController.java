@@ -114,7 +114,9 @@ public class SubjectController {
 
         }
 
+        if(isDirector)
         request.setAttribute("isDirector", isDirector);
+        if(isStudent)
         request.setAttribute("isStudent", isStudent);
 
         return "subject/add";
