@@ -1,13 +1,13 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        选题管理
+        任务书
         <small>毕业设计</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i>主页</a></li>
-        <li><a href="#">选题管理</a></li>
-        <li class="active">选题列表</li>
+        <li><a href="#">任务书</a></li>
+        <li class="active">任务书学生列表</li>
     </ol>
 </section>
 
@@ -17,7 +17,7 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">选题列表</h3>
+                    <h3 class="box-title">任务书学生列表</h3>
                     <div class="row">
                         <div class="col-md-12" id="tipper">
 
@@ -29,27 +29,25 @@
                     <table id="subjects" class="table table-bordered table-hover">
                         <thead>
                         <tr>
-                            <th>标题</th>
-                            <th>来源</th>
-                            <th>类型</th>
-                            <th>开始时间</th>
-                            <th>结束时间</th>
-                            <th>状态</th>
-                            <th>被选状态</th>
-                            <th>操作</th>
+                            <th>编号</th>
+                            <th>学生</th>
+                            <th>学院</th>
+                            <th>专业</th>
+                            <th>班级</th>
+                            <th>选题名称</th>
+                            <th>填写任务书</th>
                         </tr>
                         </thead>
 
                         <tfoot>
                         <tr>
-                            <th>标题</th>
-                            <th>来源</th>
-                            <th>类型</th>
-                            <th>开始时间</th>
-                            <th>结束时间</th>
-                            <th>状态</th>
-                            <th>被选状态</th>
-                            <th>操作</th>
+                            <th>编号</th>
+                            <th>学生</th>
+                            <th>学院</th>
+                            <th>专业</th>
+                            <th>班级</th>
+                            <th>选题名称</th>
+                            <th>填写任务书</th>
                         </tr>
                         </tfoot>
                     </table>

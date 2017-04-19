@@ -29,6 +29,7 @@ public class User extends BaseEntity {
 	private Date loginDate;	// 最后登陆日期
 	private String loginFlag;	// 是否允许登陆
 	private String photo;	// 头像
+	private String professionalRank;
 
 
 	public String getDepartmentId() {
@@ -143,6 +144,14 @@ public class User extends BaseEntity {
 		this.photo = photo;
 	}
 
+
+	public String getProfessionalRank() {
+		return professionalRank;
+	}
+
+	public void setProfessionalRank(String professionalRank) {
+		this.professionalRank = professionalRank;
+	}
 
 	@Override
 	public String toString() {

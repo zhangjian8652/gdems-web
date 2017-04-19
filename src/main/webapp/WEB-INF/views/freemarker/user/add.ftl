@@ -69,6 +69,25 @@
                                 </div>
                                 <!-- /.form-group -->
 
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">编号:</label>
+
+                                    <div class="col-sm-4 input-group">
+                                        <input type="text" class="form-control" name="no" id="no">
+                                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                                    </div>
+                                </div>
+                                <!-- /.form-group -->
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">职称:</label>
+
+                                    <div class="col-sm-4 input-group">
+                                        <input type="text" class="form-control" name="professionalRank" id="professionalRank">
+                                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                                    </div>
+                                </div>
+                                <!-- /.form-group -->
 
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">角色</label>
@@ -242,6 +261,8 @@
                 var email = $("#email").val();
                 var mobile = $("#mobile").val();
                 var password = $("#password").val();
+                var no = $("#no").val();
+                var professionalRank = $("#professionalRank").val();
                 var role = $role.val();
                 var department = $department.val();
                 var major = $major.val();
@@ -251,6 +272,8 @@
                     email :email,
                     mobile :mobile,
                     password :password,
+                    no :no,
+                    professionalRank :professionalRank,
                     departmentId : department,
                     majorId :major,
                  });
