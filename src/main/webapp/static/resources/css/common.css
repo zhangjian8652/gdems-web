@@ -87,3 +87,7 @@ table.treetable {
     z-index: 1000;
     top: 200px;
 }
+.form-control:focus {
+    border-color: #00a65a;
+    box-shadow: none;
+}

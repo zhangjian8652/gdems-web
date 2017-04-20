@@ -18,6 +18,8 @@
     <mvc:view-controller path="/" view-name="login"/>
     <mvc:view-controller path="/404" view-name="404"/>
     <mvc:view-controller path="/500" view-name="500"/>
+    <mvc:view-controller path="/evaluation/taskbook/edit" view-name="evaluation/taskbook-edit"/>
+    <mvc:view-controller path="/evaluation/taskbook/print" view-name="evaluation/taskbook-print"/>
     <!--公共模块 结束-->
 
     <!-- 后台系统模块 开始 -->

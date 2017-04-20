@@ -14,12 +14,12 @@
 ;(function ($) {
   $.fn.spinner = function (opts) {
     return this.each(function () {
-      var defaults = {value:1, min:0}
+      var defaults = {value:1, min:0,lenth:2}
       var options = $.extend(defaults, opts)
       var keyCodes = {up:38, down:40}
       var container = $('<div></div>')
       container.addClass('spinner')
-      var textField = $(this).addClass('value').attr('maxlength', '2').val(options.value)
+      var textField = $(this).addClass('value').attr('maxlength', options.lenth).val(options.value)
         .bind('keyup paste change', function (e) {
           var field = $(this)
           if (e.keyCode == keyCodes.up) changeValue(1)

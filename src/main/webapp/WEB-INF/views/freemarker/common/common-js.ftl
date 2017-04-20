@@ -42,5 +42,8 @@
 <script src="${path}/static/plugins/datepicker/bootstrap-datepicker.js"></script>
 <script src="${path}/static/plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js"></script>
 
+<!-- print js -->
+<script src="${path}/static/plugins/Print.js-1.0.14/dist/print.min.js"></script>
+
 <script src="${path}/static/resources/js/validation-extensions.js"></script>
 <script src="${path}/static/resources/js/common.js"></script>
