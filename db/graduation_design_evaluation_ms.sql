@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2017-04-21 20:57:42
+Date: 2017-04-21 23:14:28
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -75,6 +75,32 @@ INSERT INTO `gd_subject` VALUES ('a2a85524-2690-11e7-a6d2-c85b7636065d', '是否
 INSERT INTO `gd_subject` VALUES ('a54e847e-2244-11e7-a6d2-c85b7636065d', '选题测试机5', '教师科研', '的发表在法国\n\n二号染色体\n\n嗯虽然还是让他和收入', '2017-03-31 00:00:00', '2017-05-12 00:00:00', '2017-05-27 00:00:00', null, '豆瓣\n表示认同你托人试图让\n你突然身体瘦弱\n你说让你突然', '2017-04-16 09:33:03', '2017-04-16 09:33:03', '5884804e-1c5d-11e7-a63f-c85b7636065d', '5884804e-1c5d-11e7-a63f-c85b7636065d', 'CREATED', null, null, null, null, 'NONE_CHOOSE', '应用研究', '0', null, null);
 INSERT INTO `gd_subject` VALUES ('d9d4be0c-21bb-11e7-a6d2-c85b7636065d', '测试标题二', '教师科研', null, '2017-04-16 12:58:41', '2017-04-16 12:58:41', '2017-04-16 12:58:41', null, null, '2017-04-16 12:58:41', '2017-04-16 12:58:41', '5884804e-1c5d-11e7-a63f-c85b7636065d', '5884804e-1c5d-11e7-a63f-c85b7636065d', 'APPROVED', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-16 12:58:41', null, null, 'NONE_CHOOSE', '应用研究', '0', null, null);
 INSERT INTO `gd_subject` VALUES ('da72bd93-2249-11e7-a6d2-c85b7636065d', '我基于web的毕业设计考核系统3', '教师科研', '三个人嘎儿\nerhrsthdrt\n虽然还是让他和肉体上', '2017-04-01 00:00:00', '2017-05-31 00:00:00', '2017-04-23 00:00:00', null, '二个人是私人谈话\n额是说让他和认识他\n生日会生日会虽然他\n让人忽视他然后身体如何\n虽然很少人认识他会突然', '2017-04-16 10:10:20', '2017-04-16 13:34:57', '085924be-1c5e-11e7-a63f-c85b7636065d', '085924be-1c5e-11e7-a63f-c85b7636065d', 'APPROVED', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-16 11:42:55', '734d3f15-2264-11e7-a6d2-c85b7636065d', '2017-04-16 13:30:18', 'APPROVED', '应用研究', '0', null, null);
+
+-- ----------------------------
+-- Table structure for gd_taskbook
+-- ----------------------------
+DROP TABLE IF EXISTS `gd_taskbook`;
+CREATE TABLE `gd_taskbook` (
+  `id` varchar(64) NOT NULL,
+  `student_id` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '学生关联字段，sys_user.user_id',
+  `thesis_tittle` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '论文（设计）题目',
+  `requirement_content` varchar(255) DEFAULT NULL,
+  `send_date` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `finish_date` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `practice_units` varchar(120) DEFAULT NULL,
+  `practice_address` varchar(120) DEFAULT NULL,
+  `thesis_page_count` int(3) DEFAULT NULL,
+  `drawing_page_count` int(3) DEFAULT NULL,
+  `update_date` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `update_by` varchar(64) DEFAULT NULL,
+  `create_date` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `create_by` varchar(64) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of gd_taskbook
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for sys_area
