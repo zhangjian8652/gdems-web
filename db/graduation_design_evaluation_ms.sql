@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2017-04-21 20:17:59
+Date: 2017-04-21 20:57:42
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -24,7 +24,7 @@ CREATE TABLE `gd_config` (
   `config_value` varchar(40) NOT NULL,
   `type` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '配置类型',
   PRIMARY KEY (`config_key`,`type`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of gd_config
@@ -71,6 +71,7 @@ INSERT INTO `gd_subject` VALUES ('4666c547-2249-11e7-a6d2-c85b7636065d', '我基
 INSERT INTO `gd_subject` VALUES ('5d61eb84-21ab-11e7-a6d2-c85b7636065d', '测试标题二', '教师科研', null, '2017-04-16 12:58:41', '2017-04-16 12:58:41', '2017-04-16 12:58:41', null, null, '2017-04-16 12:58:41', '2017-04-16 13:03:06', '5884804e-1c5d-11e7-a63f-c85b7636065d', 'd8607faa-1c5d-11e7-a63f-c85b7636065d', 'APPROVED', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-16 12:58:41', null, null, 'NONE_CHOOSE', '应用研究', '0', null, null);
 INSERT INTO `gd_subject` VALUES ('67728a32-21ab-11e7-a6d2-c85b7636065d', '测试标题三', '教师科研', null, '2017-04-16 12:58:41', '2017-04-16 12:58:41', '2017-04-16 12:58:41', null, null, '2017-04-16 12:58:41', '2017-04-16 12:58:41', '5884804e-1c5d-11e7-a63f-c85b7636065d', 'admin5884804e-1c5d-11e7-a63f-c85b7636065d', 'APPROVED', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-16 12:58:41', null, null, 'NONE_CHOOSE', '应用研究', '0', null, null);
 INSERT INTO `gd_subject` VALUES ('6baf686d-2249-11e7-a6d2-c85b7636065d', '我基于web的毕业设计考核系统2', '教师科研', '倒萨啊额个热\n生日歌色色 撒地方还是\n是人还是挺好发', '2017-04-01 00:00:00', '2017-05-31 00:00:00', '2017-05-17 00:00:00', null, '嘎热轧热是如何输入\n是如何如何是否会很舒服的\n少数人会私人海滩杀人\n说说让他和伤身体', '2017-04-16 10:07:14', '2017-04-16 11:44:32', '085924be-1c5e-11e7-a63f-c85b7636065d', '5884804e-1c5d-11e7-a63f-c85b7636065d', 'DENIED', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-16 11:44:32', null, null, 'NONE_CHOOSE', '应用研究', '0', null, null);
+INSERT INTO `gd_subject` VALUES ('a2a85524-2690-11e7-a6d2-c85b7636065d', '是否士大夫但是', '教师科研', '士大夫似的', '2017-04-01 00:00:00', '2017-04-14 00:00:00', '2017-05-03 00:00:00', null, '士大夫但是', '2017-04-21 20:47:19', '2017-04-21 20:47:19', '5884804e-1c5d-11e7-a63f-c85b7636065d', '5884804e-1c5d-11e7-a63f-c85b7636065d', 'CREATED', null, null, null, null, 'NONE_CHOOSE', '计算机软件', '0', null, null);
 INSERT INTO `gd_subject` VALUES ('a54e847e-2244-11e7-a6d2-c85b7636065d', '选题测试机5', '教师科研', '的发表在法国\n\n二号染色体\n\n嗯虽然还是让他和收入', '2017-03-31 00:00:00', '2017-05-12 00:00:00', '2017-05-27 00:00:00', null, '豆瓣\n表示认同你托人试图让\n你突然身体瘦弱\n你说让你突然', '2017-04-16 09:33:03', '2017-04-16 09:33:03', '5884804e-1c5d-11e7-a63f-c85b7636065d', '5884804e-1c5d-11e7-a63f-c85b7636065d', 'CREATED', null, null, null, null, 'NONE_CHOOSE', '应用研究', '0', null, null);
 INSERT INTO `gd_subject` VALUES ('d9d4be0c-21bb-11e7-a6d2-c85b7636065d', '测试标题二', '教师科研', null, '2017-04-16 12:58:41', '2017-04-16 12:58:41', '2017-04-16 12:58:41', null, null, '2017-04-16 12:58:41', '2017-04-16 12:58:41', '5884804e-1c5d-11e7-a63f-c85b7636065d', '5884804e-1c5d-11e7-a63f-c85b7636065d', 'APPROVED', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-16 12:58:41', null, null, 'NONE_CHOOSE', '应用研究', '0', null, null);
 INSERT INTO `gd_subject` VALUES ('da72bd93-2249-11e7-a6d2-c85b7636065d', '我基于web的毕业设计考核系统3', '教师科研', '三个人嘎儿\nerhrsthdrt\n虽然还是让他和肉体上', '2017-04-01 00:00:00', '2017-05-31 00:00:00', '2017-04-23 00:00:00', null, '二个人是私人谈话\n额是说让他和认识他\n生日会生日会虽然他\n让人忽视他然后身体如何\n虽然很少人认识他会突然', '2017-04-16 10:10:20', '2017-04-16 13:34:57', '085924be-1c5e-11e7-a63f-c85b7636065d', '085924be-1c5e-11e7-a63f-c85b7636065d', 'APPROVED', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-16 11:42:55', '734d3f15-2264-11e7-a6d2-c85b7636065d', '2017-04-16 13:30:18', 'APPROVED', '应用研究', '0', null, null);
@@ -220,7 +221,7 @@ INSERT INTO `sys_menu` VALUES ('2', '1', '用户列表', '1', '/user/list', '', 
 INSERT INTO `sys_menu` VALUES ('29599165-1df4-11e7-a63f-c85b7636065d', 'NO', '菜单管理', '4', '', null, 'fa-align-justify', '0', 'sys:menu', 'admin', '2017-04-10 21:47:00', 'admin', '2017-04-13 22:24:41', null, '0', 'YES');
 INSERT INTO `sys_menu` VALUES ('2bf4af8c-224a-11e7-a6d2-c85b7636065d', 'da4c1b62-1cf0-11e7-a63f-c85b7636065d', '毕设管理配置', '1', '/gd/subject/config/edit', null, 'fa-edit', '0', 'gd:subject:config:edit', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-16 10:12:37', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-16 15:13:38', null, '0', null);
 INSERT INTO `sys_menu` VALUES ('2e996641-1c40-11e7-a63f-c85b7636065d', 'e0454d76-1c3f-11e7-a63f-c85b7636065d', '机构编辑', null, '/organization/edit', null, '', '0', 'sys:organization:edit', 'admin', '2017-04-08 17:46:03', 'admin', '2017-04-08 17:46:03', null, '0', null);
-INSERT INTO `sys_menu` VALUES ('2ff83d2a-2500-11e7-a6d2-c85b7636065d', 'da4c1b62-1cf0-11e7-a63f-c85b7636065d', '任务书', '1', '/gd/taskbook', null, 'fa-file-word-o', '0', 'gd:taskbook:list', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-19 21:00:33', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-19 21:00:33', null, '0', null);
+INSERT INTO `sys_menu` VALUES ('2ff83d2a-2500-11e7-a6d2-c85b7636065d', 'da4c1b62-1cf0-11e7-a63f-c85b7636065d', '任务书', '1', '/gd/taskbook/list', null, 'fa-file-word-o', '0', 'gd:taskbook:list', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-19 21:00:33', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-21 20:47:58', null, '0', null);
 INSERT INTO `sys_menu` VALUES ('3', '2', '用户编辑', '1', '/user/edit', '', null, '1', 'sys:user:edit', 'admin', '2017-04-02 17:04:17', 'admin', '2017-04-02 17:04:25', null, '0', null);
 INSERT INTO `sys_menu` VALUES ('35e995fe-2264-11e7-a6d2-c85b7636065d', '033fff15-2181-11e7-a6d2-c85b7636065d', '选题选择审核', '1', '/gd/subject/choose/verify', null, 'fa-check-square', '0', 'gd:subject:choose:verify', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-16 13:19:00', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-16 13:19:00', null, '0', null);
 INSERT INTO `sys_menu` VALUES ('36f8952c-1df4-11e7-a63f-c85b7636065d', '29599165-1df4-11e7-a63f-c85b7636065d', '菜单列表', '1', '/menu/list', null, 'fa-list-ul', '0', 'sys:menu:list', 'admin', '2017-04-10 21:47:23', 'admin', '2017-04-10 21:47:23', null, '0', 'YES');
