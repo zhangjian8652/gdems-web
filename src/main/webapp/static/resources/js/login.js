@@ -74,7 +74,7 @@ $(function () {
                 var jsonData = data;
 
                 if(successCode === jsonData.code){
-                    location.href = URIS.dashboard;
+                    location.href = $path + URIS.dashboard;
                     return;
                 }
 

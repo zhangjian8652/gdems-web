@@ -62,6 +62,7 @@
                                                 style="width: 200px;" id="type">
                                                 <option value="department">学院</option>
                                                 <option value="major" selected>专业</option>
+                                                <option value="class" selected>班级</option>
                                         </select>
                                     </div>
                                 </div>

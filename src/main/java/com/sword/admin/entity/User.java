@@ -17,6 +17,7 @@ public class User extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 	private String departmentId;	// 归属公司
 	private String majorId;	// 归属部门
+	private String classId;	// 归属部门
 	private String loginName;// 登录名
 	private String password;// 密码
 	private String no;		// 工号
@@ -29,6 +30,15 @@ public class User extends BaseEntity {
 	private Date loginDate;	// 最后登陆日期
 	private String loginFlag;	// 是否允许登陆
 	private String photo;	// 头像
+
+
+	public String getClassId() {
+		return classId;
+	}
+
+	public void setClassId(String classId) {
+		this.classId = classId;
+	}
 
 	public String getDepartmentId() {
 		return departmentId;

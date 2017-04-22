@@ -82,11 +82,11 @@ public class SubjectController {
 
         User user = RequestUtil.getLoginUserFromSession(request);
 
-        DataTablePage<Subject> pageData;
+        DataTablePage<Subject> pageData = null;
         if (user.isAdmin()) {
             pageData = subjectService.pageData(datatableCondition);
-        } else {
-            pageData = subjectService.pageDataCreator(datatableCondition, user.getId());
+        } else{
+            pageData = subjectService.pageDirectorSubjects(datatableCondition, user.getId());
         }
         request.setAttribute("page", pageData);
 
@@ -156,11 +156,12 @@ public class SubjectController {
             subject.setChooseBy(user.getId());
             subject.setChooseDate(new Date());
             subject.setChooseStatus(Subject.ChooseStatus.CHOOSE);
-        } else {
+        } else if(isDirector) {
             if (isStudent) {
                 throw new SwordException(HttpStatus.BAD_REQUEST + "", "您是学生，只能选择学生自拟。");
             }
             subject.setChooseStatus(Subject.ChooseStatus.NONE_CHOOSE);
+            subject.setDirector(user.getId());
         }
 
 
@@ -318,6 +319,20 @@ public class SubjectController {
         request.setAttribute("subject", subject);
 
         return "subject/detail";
+    }
+
+    @RequestMapping(value = "/choose/detail", method = RequestMethod.GET)
+    public String choosedetail(HttpServletRequest request) throws Exception {
+
+
+        User user = RequestUtil.getLoginUserFromSession(request);
+        Subject subject = subjectService.getByChooseUserId(user.getId());
+
+        if (subject != null) {
+            request.setAttribute("subject", subject);
+        }
+
+        return "subject/choose-detail";
     }
 
 

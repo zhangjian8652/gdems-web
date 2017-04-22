@@ -135,7 +135,7 @@ public class SubjectServiceImpl implements SubjectService {
     }
 
     @Override
-    public DataTablePage<Subject> pageDataCreator(DatatableCondition condition, String id) throws Exception {
+    public DataTablePage<Subject> pageDirectorSubjects(DatatableCondition condition, String id) throws Exception {
         /**
          * 增加like条件查询
          */
@@ -209,5 +209,42 @@ public class SubjectServiceImpl implements SubjectService {
         example.or().andEqualTo("director", userId).andEqualTo("status",Subject.Status.APPROVED);
 
         return subjectMapper.selectCountByExample(example);
+    }
+
+    @Override
+    public DataTablePage<Subject> pageStudentSubjects(DatatableCondition condition, String id) throws Exception {
+        /**
+         * 增加like条件查询
+         */
+        Example example = new Example(Subject.class);
+
+        /**
+         * 根据创建人查询
+         */
+        example.createCriteria().andEqualTo("chooseBy", id);
+
+        if (!StringUtils.isEmpty(condition.getSearchValue())) {
+            example.or().andLike("tittle", "%" + condition.getSearchValue() + "%");
+        }
+
+        /**
+         * 按照创建日期排序
+         */
+        example.orderBy("createDate").desc();
+
+        /**
+         * 分页条件
+         */
+        RowBounds rowBounds = new RowBounds(condition.getStart(), condition.getLength());
+
+        /**
+         * 查询满足条件的用户数据以及总数
+         */
+        List<Subject> users = subjectMapper.selectByExampleAndRowBounds(example, rowBounds);
+        long count = subjectMapper.selectCountByExample(example);
+
+        DataTablePage<Subject> dataTablePage = new DataTablePage<Subject>(condition.getDraw(), count, count, users);
+
+        return dataTablePage;
     }
 }

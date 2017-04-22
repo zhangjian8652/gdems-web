@@ -256,7 +256,7 @@
 
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">审核选择：</label>
-                                    <select class="col-sm-3" name="chooseStatus" id="chooseStatus">
+                                    <select class="col-sm-3 select2" name="chooseStatus" id="chooseStatus">
                                         <option value="APPROVED">通过</option>
                                         <option value="DENIED">不通过</option>
                                     </select>

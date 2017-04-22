@@ -28,11 +28,13 @@ public interface SubjectService {
 
     DataTablePage<Subject> verifyPageData(DatatableCondition datatableCondition) throws Exception;
 
-    DataTablePage<Subject> pageDataCreator(DatatableCondition datatableCondition, String id) throws Exception;
+    DataTablePage<Subject> pageDirectorSubjects(DatatableCondition datatableCondition, String id) throws Exception;
 
     Subject getByChooseUserId(String id) throws Exception;
 
     boolean chooseSubject(Subject subject, Subject chooseSubject) throws Exception;
 
     int getCreateAvailableCountByUserId(String userId) throws Exception;
+
+    DataTablePage<Subject> pageStudentSubjects(DatatableCondition datatableCondition, String id) throws Exception;
 }

@@ -7,7 +7,7 @@
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i>主页</a></li>
         <li><a href="#">选题管理</a></li>
-        <li class="active">选择选题</li>
+        <li class="active">审核选题选择</li>
     </ol>
 </section>
 
@@ -19,7 +19,7 @@
             <!-- Form Element sizes -->
             <div class="box box-success">
                 <div class="box-header with-border">
-                    <h3 class="box-title">选择选题</h3>
+                    <h3 class="box-title">审核选题选择</h3>
                 </div>
                 <div class="box-body">
                     <div class="row">
@@ -29,7 +29,8 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <form id="form" action="/gd/subject/choose" method="post" class="form-horizontal">
+                            [#if subject??]
+                            <form id="form" action="/gd/subject/choose/verify" method="post" class="form-horizontal">
                                 <input type="hidden" value="${subject.id!}" name="id" id="id">
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">标题:</label>
@@ -226,10 +227,10 @@
 
 
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">导师:</label>
-                                    [@user type="entity" userId="${subject.createBy!}";entity]
+                                    <label class="col-sm-2 control-label">选题人:</label>
+                                    [@user type="entity" userId="${subject.chooseBy!}";entity]
                                     [#if entity??]
-                                    [@role type="list" userId="${subject.createBy!}";list]
+                                    [@role type="list" userId="${subject.chooseBy!}";list]
                                     [#if list?? && list?size>0]
                                     [#assign roles= ""/]
                                     [#list list as role]
@@ -255,9 +256,10 @@
 
 
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">审核：</label>
-                                    <select class="col-sm-3 select2" name="status" id="status" disabled>
+                                    <label class="col-sm-2 control-label">审核选择：</label>
+                                    <select class="col-sm-3 select2" name="chooseStatus" id="chooseStatus" disabled>
                                         <option value="APPROVED">通过</option>
+                                        <option value="DENIED">不通过</option>
                                     </select>
                                 </div>
 
@@ -269,27 +271,24 @@
 
                                     <div class="col-sm-4 input-group">
 
-                                        [@permission permission = "gd:subject:available" userId="${USER.id}" type="BOOLEAN";isOk]
-                                        [#if isOk]
-                                        <button type="button" class="btn  btn-info btn-lg  margin"
-                                                onclick="CommonUtil.loadView('/gd/subject/available')">返回
-                                        </button>
-                                        [/#if]
-                                        [/@permission]
-
-                                        [@permission permission = "gd:subject:choose" userId="${USER.id}" type="BOOLEAN";isOk]
-                                        [#if isOk]
-                                        <button type="button" class="btn btn-success btn-lg  margin" id="choose-btn"
-                                                data-uri="/gd/subject/choose">确定
-                                        </button>
-                                        [/#if]
-                                        [/@permission]
-
                                     </div>
                                 </div>
 
 
                             </form>
+                                [#else ]
+                                    <h3 class="box-title">你还没有选择选题
+
+                                    [@permission permission = "gd:subject:available" userId="${USER.id}" type="BOOLEAN";isOk]
+                                        [#if isOk]
+                                    <button type="button" class="btn  btn-info btn-lg  margin"
+                                                                              onclick="CommonUtil.loadView('/gd/subject/available')">去选择
+                                    </button>
+                                        [/#if]
+                                    [/@permission]
+                                    </h3>
+
+                            [/#if]
                         </div>
                     </div>
                 </div>
@@ -306,6 +305,7 @@
 <script type="text/javascript">
 
     $(function () {
+
 
         $(".select2").select2();
 
@@ -329,8 +329,9 @@
 
 
 
-        var choose = function() {
+        var verify = function() {
             var id = $("#id").val();
+            var chooseStatus = $("#chooseStatus").val();
             var callback = function(data) {
                 $tipper = $("#tipper");
                 if (data.code.startsWith(successCodePrefix)) {
@@ -341,7 +342,8 @@
 
             };
            var datas = {
-               id:id
+               id:id,
+               chooseStatus:chooseStatus
            }
 
            var $form = $("#form");
@@ -358,7 +360,7 @@
 
         };
 
-        $("#choose-btn").click(choose);
+        $("#verify-btn").click(verify);
 
     });
 

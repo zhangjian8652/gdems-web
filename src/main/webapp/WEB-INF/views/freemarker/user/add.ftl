@@ -130,6 +130,20 @@
                                 <!-- /.form-group -->
 
                                 <div class="form-group">
+                                    <label class="col-sm-2 control-label">班级</label>
+
+                                    <div class="col-sm-6 input-group">
+                                        <select class="select2" name="clasz" id="clasz"
+                                                data-placeholder="选择班级"
+                                                style="width: 50%;">
+
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- /.form-group -->
+
+                                <div class="form-group">
                                     <label class="col-sm-2 control-label">&nbsp;</label>
                                     <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4  input-group">
                                         <button type="button" class="btn  btn-info btn-lg  margin" onclick="CommonUtil.loadView('/user/list')">取消添加</button>
@@ -158,6 +172,7 @@
         var $role = $("#role").select2();
         var $department = $("#department").select2();
         var $major= $("#major").select2();
+        var $clasz= $("#clasz").select2();
 
         var $roleCheckboxes = $(".role-checkbox");
 
@@ -178,6 +193,17 @@
                 $major = $("#major").select2();
             });
         });
+
+        $('#major').on("select2:select",function(){
+            var url = $path + "/organization/options?parentId=" + $major.val();
+            $.get(url,function(data){
+                $("#clasz").html(data);
+                $clasz = $("#clasz").select2();
+            });
+        });
+
+
+        var
 
         /**
          * 添加用户表单
@@ -256,6 +282,7 @@
                 var role = $role.val();
                 var department = $department.val();
                 var major = $major.val();
+                var clasz = $clasz.val();
 
                 requestData = JSON.stringify({
                     loginName : loginName,
@@ -266,6 +293,7 @@
                     professionalRank :professionalRank,
                     departmentId : department,
                     majorId :major,
+                    classId :clasz
                  });
 
                 requestPath += "?roleId=" + role;
