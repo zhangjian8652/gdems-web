@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : gds
-Source Server Version : 50717
+Source Server         : localhost
+Source Server Version : 50625
 Source Host           : localhost:3306
 Source Database       : graduation_design_evaluation_ms
 
 Target Server Type    : MYSQL
-Target Server Version : 50717
+Target Server Version : 50625
 File Encoding         : 65001
 
-Date: 2017-04-21 23:14:28
+Date: 2017-04-22 18:10:44
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -65,16 +65,16 @@ CREATE TABLE `gd_subject` (
 -- ----------------------------
 -- Records of gd_subject
 -- ----------------------------
-INSERT INTO `gd_subject` VALUES ('0d767549-227c-11e7-a6d2-c85b7636065d', '自己得选题一', '学生自选', '身边的人df ', '2017-04-05 00:00:00', '2017-05-12 00:00:00', '2017-06-16 00:00:00', null, '大范甘迪打分\n大坏蛋', '2017-04-16 16:09:40', '2017-04-16 16:09:40', '734d3f15-2264-11e7-a6d2-c85b7636065d', '734d3f15-2264-11e7-a6d2-c85b7636065d', 'CREATED', null, null, '734d3f15-2264-11e7-a6d2-c85b7636065d', '2017-04-16 16:09:40', 'CHOOSE', '应用研究', '0', null, null);
-INSERT INTO `gd_subject` VALUES ('12b75338-21aa-11e7-a6d2-c85b7636065d', '测试选题一', '教师自拟', '1.要求一\r\n2.要求二\r\n3.要求三\r\n4.要求四', '2017-04-16 12:58:41', '2017-04-16 12:58:41', '2017-04-16 12:58:41', null, '1.任务一\r\n2.任务二\r\n3.任务三\r\n4.任务四', '2017-04-16 12:58:41', '2017-04-16 13:03:06', '5884804e-1c5d-11e7-a63f-c85b7636065d', 'd8607faa-1c5d-11e7-a63f-c85b7636065d', 'APPROVED', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-16 12:58:41', 'd8607faa-1c5d-11e7-a63f-c85b7636065d', '2017-04-16 13:03:06', 'CHOOSE', '计算机软件', '0', null, null);
+INSERT INTO `gd_subject` VALUES ('0d767549-227c-11e7-a6d2-c85b7636065d', '自己得选题一', '学生自选', '身边的人df ', '2017-04-05 00:00:00', '2017-05-12 00:00:00', '2017-06-16 00:00:00', null, '大范甘迪打分\n大坏蛋', '2017-04-16 16:09:40', '2017-04-22 17:26:54', '734d3f15-2264-11e7-a6d2-c85b7636065d', '734d3f15-2264-11e7-a6d2-c85b7636065d', 'CREATED', null, null, null, null, 'NONE_CHOOSE', '应用研究', '0', null, null);
+INSERT INTO `gd_subject` VALUES ('12b75338-21aa-11e7-a6d2-c85b7636065d', '测试选题一', '教师自拟', '1.要求一\r\n2.要求二\r\n3.要求三\r\n4.要求四', '2017-04-22 17:40:22', '2017-04-22 17:40:22', '2017-04-22 17:40:22', null, '1.任务一\r\n2.任务二\r\n3.任务三\r\n4.任务四', '2017-04-22 17:40:22', '2017-04-22 17:40:22', '5884804e-1c5d-11e7-a63f-c85b7636065d', '5884804e-1c5d-11e7-a63f-c85b7636065d', 'APPROVED', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-22 17:40:22', 'd8607faa-1c5d-11e7-a63f-c85b7636065d', '2017-04-22 17:40:22', 'APPROVED', '计算机软件', '0', null, '5884804e-1c5d-11e7-a63f-c85b7636065d');
 INSERT INTO `gd_subject` VALUES ('4666c547-2249-11e7-a6d2-c85b7636065d', '我基于web的毕业设计考核系统', '教师科研', '东方早报\n的复合散热\n东方红是', '2017-04-01 00:00:00', '2017-05-31 00:00:00', '2017-06-16 00:00:00', null, '二哥色弱\n虽然热管色弱\n生日会生日会是\n十日谈\n是是都市和尚', '2017-04-16 10:06:12', '2017-04-16 10:06:12', '085924be-1c5e-11e7-a63f-c85b7636065d', '085924be-1c5e-11e7-a63f-c85b7636065d', 'CREATED', null, null, null, null, 'NONE_CHOOSE', '应用研究', '0', null, null);
-INSERT INTO `gd_subject` VALUES ('5d61eb84-21ab-11e7-a6d2-c85b7636065d', '测试标题二', '教师科研', null, '2017-04-16 12:58:41', '2017-04-16 12:58:41', '2017-04-16 12:58:41', null, null, '2017-04-16 12:58:41', '2017-04-16 13:03:06', '5884804e-1c5d-11e7-a63f-c85b7636065d', 'd8607faa-1c5d-11e7-a63f-c85b7636065d', 'APPROVED', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-16 12:58:41', null, null, 'NONE_CHOOSE', '应用研究', '0', null, null);
+INSERT INTO `gd_subject` VALUES ('4b3238a6-273f-11e7-9600-00ac8fea48d7', '我基于web的毕业设计考核系统3', '生产实践', 'dsfgwer g\n惹我给我\n 认为会发给我让他\n温哥华我\n', '2017-04-01 00:00:00', '2017-04-30 00:00:00', '2017-05-19 00:00:00', null, 'ewrgw撒旦我w\n如果为而\n个人我二哥', '2017-04-22 17:37:25', '2017-04-22 17:37:25', '085924be-1c5e-11e7-a63f-c85b7636065d', '085924be-1c5e-11e7-a63f-c85b7636065d', 'CREATED', null, null, null, null, 'NONE_CHOOSE', '社会调查', '0', null, null);
+INSERT INTO `gd_subject` VALUES ('5d61eb84-21ab-11e7-a6d2-c85b7636065d', '测试标题二', '教师科研', null, '2017-04-16 12:58:41', '2017-04-16 12:58:41', '2017-04-16 12:58:41', null, null, '2017-04-16 12:58:41', '2017-04-22 17:26:54', '5884804e-1c5d-11e7-a63f-c85b7636065d', '734d3f15-2264-11e7-a6d2-c85b7636065d', 'APPROVED', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-16 12:58:41', '734d3f15-2264-11e7-a6d2-c85b7636065d', '2017-04-22 17:26:54', 'CHOOSE', '应用研究', '0', null, null);
 INSERT INTO `gd_subject` VALUES ('67728a32-21ab-11e7-a6d2-c85b7636065d', '测试标题三', '教师科研', null, '2017-04-16 12:58:41', '2017-04-16 12:58:41', '2017-04-16 12:58:41', null, null, '2017-04-16 12:58:41', '2017-04-16 12:58:41', '5884804e-1c5d-11e7-a63f-c85b7636065d', 'admin5884804e-1c5d-11e7-a63f-c85b7636065d', 'APPROVED', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-16 12:58:41', null, null, 'NONE_CHOOSE', '应用研究', '0', null, null);
 INSERT INTO `gd_subject` VALUES ('6baf686d-2249-11e7-a6d2-c85b7636065d', '我基于web的毕业设计考核系统2', '教师科研', '倒萨啊额个热\n生日歌色色 撒地方还是\n是人还是挺好发', '2017-04-01 00:00:00', '2017-05-31 00:00:00', '2017-05-17 00:00:00', null, '嘎热轧热是如何输入\n是如何如何是否会很舒服的\n少数人会私人海滩杀人\n说说让他和伤身体', '2017-04-16 10:07:14', '2017-04-16 11:44:32', '085924be-1c5e-11e7-a63f-c85b7636065d', '5884804e-1c5d-11e7-a63f-c85b7636065d', 'DENIED', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-16 11:44:32', null, null, 'NONE_CHOOSE', '应用研究', '0', null, null);
 INSERT INTO `gd_subject` VALUES ('a2a85524-2690-11e7-a6d2-c85b7636065d', '是否士大夫但是', '教师科研', '士大夫似的', '2017-04-01 00:00:00', '2017-04-14 00:00:00', '2017-05-03 00:00:00', null, '士大夫但是', '2017-04-21 20:47:19', '2017-04-21 20:47:19', '5884804e-1c5d-11e7-a63f-c85b7636065d', '5884804e-1c5d-11e7-a63f-c85b7636065d', 'CREATED', null, null, null, null, 'NONE_CHOOSE', '计算机软件', '0', null, null);
 INSERT INTO `gd_subject` VALUES ('a54e847e-2244-11e7-a6d2-c85b7636065d', '选题测试机5', '教师科研', '的发表在法国\n\n二号染色体\n\n嗯虽然还是让他和收入', '2017-03-31 00:00:00', '2017-05-12 00:00:00', '2017-05-27 00:00:00', null, '豆瓣\n表示认同你托人试图让\n你突然身体瘦弱\n你说让你突然', '2017-04-16 09:33:03', '2017-04-16 09:33:03', '5884804e-1c5d-11e7-a63f-c85b7636065d', '5884804e-1c5d-11e7-a63f-c85b7636065d', 'CREATED', null, null, null, null, 'NONE_CHOOSE', '应用研究', '0', null, null);
 INSERT INTO `gd_subject` VALUES ('d9d4be0c-21bb-11e7-a6d2-c85b7636065d', '测试标题二', '教师科研', null, '2017-04-16 12:58:41', '2017-04-16 12:58:41', '2017-04-16 12:58:41', null, null, '2017-04-16 12:58:41', '2017-04-16 12:58:41', '5884804e-1c5d-11e7-a63f-c85b7636065d', '5884804e-1c5d-11e7-a63f-c85b7636065d', 'APPROVED', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-16 12:58:41', null, null, 'NONE_CHOOSE', '应用研究', '0', null, null);
-INSERT INTO `gd_subject` VALUES ('da72bd93-2249-11e7-a6d2-c85b7636065d', '我基于web的毕业设计考核系统3', '教师科研', '三个人嘎儿\nerhrsthdrt\n虽然还是让他和肉体上', '2017-04-01 00:00:00', '2017-05-31 00:00:00', '2017-04-23 00:00:00', null, '二个人是私人谈话\n额是说让他和认识他\n生日会生日会虽然他\n让人忽视他然后身体如何\n虽然很少人认识他会突然', '2017-04-16 10:10:20', '2017-04-16 13:34:57', '085924be-1c5e-11e7-a63f-c85b7636065d', '085924be-1c5e-11e7-a63f-c85b7636065d', 'APPROVED', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-16 11:42:55', '734d3f15-2264-11e7-a6d2-c85b7636065d', '2017-04-16 13:30:18', 'APPROVED', '应用研究', '0', null, null);
 
 -- ----------------------------
 -- Table structure for gd_taskbook
@@ -239,7 +239,7 @@ CREATE TABLE `sys_menu` (
 -- ----------------------------
 -- Records of sys_menu
 -- ----------------------------
-INSERT INTO `sys_menu` VALUES ('033fff15-2181-11e7-a6d2-c85b7636065d', 'da4c1b62-1cf0-11e7-a63f-c85b7636065d', '选题列表', '1', '/gd/subject/list', null, 'fa-file-word-o', '0', 'gd:subject:list', 'admin', '2017-04-15 10:12:41', 'admin', '2017-04-15 15:18:39', null, '0', 'YES');
+INSERT INTO `sys_menu` VALUES ('033fff15-2181-11e7-a6d2-c85b7636065d', 'da4c1b62-1cf0-11e7-a63f-c85b7636065d', '我提交的选题', '1', '/gd/subject/list', null, 'fa-file-word-o', '0', 'gd:subject:list', 'admin', '2017-04-15 10:12:41', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-22 16:47:14', null, '0', 'YES');
 INSERT INTO `sys_menu` VALUES ('097cb6eb-1c40-11e7-a63f-c85b7636065d', 'd243ec63-1c3e-11e7-a63f-c85b7636065d', '机构添加', null, '/organization/add', null, 'fa-plus', '0', 'sys:organization:add', 'admin', '2017-04-08 17:45:00', 'admin', '2017-04-08 17:45:00', null, '0', null);
 INSERT INTO `sys_menu` VALUES ('1', 'NO', '用户管理', '7', '', null, 'fa-users', '1', 'sys:user', 'admin', '2017-04-02 17:04:17', 'admin', '2017-04-12 22:28:06', null, '0', 'YES');
 INSERT INTO `sys_menu` VALUES ('119a9278-2184-11e7-a6d2-c85b7636065d', 'da4c1b62-1cf0-11e7-a63f-c85b7636065d', '添加选题', '1', '/gd/subject/add', null, 'fa-plus-square', '0', 'gd:subject:add', 'admin', '2017-04-15 10:34:34', 'admin', '2017-04-15 10:34:34', null, '0', null);
@@ -261,6 +261,7 @@ INSERT INTO `sys_menu` VALUES ('5bc18d67-2500-11e7-a6d2-c85b7636065d', 'da4c1b62
 INSERT INTO `sys_menu` VALUES ('5e0efea5-21c2-11e7-a6d2-c85b7636065d', 'da4c1b62-1cf0-11e7-a63f-c85b7636065d', '可选选题', '1', '/gd/subject/available', null, 'fa-check', '0', 'gd:subject:available', 'admin', '2017-04-15 18:00:31', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-16 12:09:47', null, '0', 'YES');
 INSERT INTO `sys_menu` VALUES ('6', '1', '用户增加', '1', '/user/add', null, 'fa-plus', '1', 'sys:user:add', 'admin', '2017-04-02 18:02:51', 'admin', '2017-04-02 18:02:51', null, '0', null);
 INSERT INTO `sys_menu` VALUES ('6be12160-225b-11e7-a6d2-c85b7636065d', '5e0efea5-21c2-11e7-a6d2-c85b7636065d', '选择选题', '1', '/gd/subject/choose', null, 'fa-thumbs-up', '0', 'gd:subject:choose', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-16 12:16:05', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-16 12:32:51', null, '0', null);
+INSERT INTO `sys_menu` VALUES ('6f0b350b-2738-11e7-9600-00ac8fea48d7', 'da4c1b62-1cf0-11e7-a63f-c85b7636065d', '我的选题', '1', '/gd/subject/choose/detail', null, 'fa-bicycle', '0', 'gd:subject:choose:detail', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-22 16:48:19', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-22 16:48:19', null, '0', null);
 INSERT INTO `sys_menu` VALUES ('7410789b-1919-11e7-b5b9-c85b7636065d', '858c7e6f8a624018a63ac8b4d2246d8a', '角色更新', '1', '/role/edit', null, 'fa-toggle-on', '0', 'sys:role:edit', 'zhangjian', '2017-04-04 17:33:52', 'zhangjian', '2017-04-04 17:33:52', null, '0', null);
 INSERT INTO `sys_menu` VALUES ('858c7e6f8a624018a63ac8b4d2246d8a', '9256f07e5bc8463ca4175a673d505b29', '角色列表', '1', '/role/list', null, 'fa-list-ul', '0', 'sys:role:list', 'zhangjian', '2017-04-03 23:30:34', 'zhangjian', '2017-04-03 23:30:34', null, '0', 'YES');
 INSERT INTO `sys_menu` VALUES ('8f638ac5-1915-11e7-b5b9-c85b7636065d', '9256f07e5bc8463ca4175a673d505b29', '角色添加', '1', '/role/add', null, 'fa-plus', '0', 'sys:role:add', 'zhangjian', '2017-04-04 17:06:00', 'zhangjian', '2017-04-04 17:06:00', null, '0', null);
@@ -316,6 +317,7 @@ CREATE TABLE `sys_organization` (
 -- ----------------------------
 INSERT INTO `sys_organization` VALUES ('b569aa56-1cdf-11e7-a63f-c85b7636065d', 'NO', '软件学院', '1', 'temp', null, 'department', null, null, null, '085924be-1c5e-11e7-a63f-c85b7636065d', null, null, null, null, null, null, 'admin', '2017-04-09 12:48:07', 'admin', '2017-04-09 12:48:07', null, '0');
 INSERT INTO `sys_organization` VALUES ('c1bd4726-21d2-11e7-a6d2-c85b7636065d', 'NO', '信息学院', '1', 'temp', null, 'department', null, null, null, 'd8607faa-1c5d-11e7-a63f-c85b7636065d', null, null, null, null, null, null, '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-15 19:57:50', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-15 19:57:50', null, '0');
+INSERT INTO `sys_organization` VALUES ('c31d873d-2741-11e7-9600-00ac8fea48d7', 'b569aa56-1cdf-11e7-a63f-c85b7636065d', '软件专业', '1', 'temp', null, 'major', null, null, null, '5884804e-1c5d-11e7-a63f-c85b7636065d', null, null, null, null, null, null, '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-22 17:55:06', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-22 17:55:06', null, '0');
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -342,11 +344,11 @@ CREATE TABLE `sys_role` (
 -- ----------------------------
 -- Records of sys_role
 -- ----------------------------
-INSERT INTO `sys_role` VALUES ('1', '学生', 'student', 'NORMAL', null, 'ACTIVE', 'admin', '2017-04-02 17:00:24', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-16 16:01:18', null, '0');
+INSERT INTO `sys_role` VALUES ('1', '学生', 'student', 'NORMAL', null, 'ACTIVE', 'admin', '2017-04-02 17:00:24', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-22 17:14:00', null, '0');
 INSERT INTO `sys_role` VALUES ('579cd02e-2501-11e7-a6d2-c85b7636065d', '评阅老师', '', 'NORMAL', null, 'ACTIVE', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-19 21:09:08', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-19 21:09:08', null, '0');
 INSERT INTO `sys_role` VALUES ('6ffcdadf-1c43-11e7-a63f-c85b7636065d', '导师', '', 'NORMAL', null, 'ACTIVE', 'admin', '2017-04-08 18:09:21', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-16 13:19:23', null, '0');
 INSERT INTO `sys_role` VALUES ('7c94a9f3-1c54-11e7-a63f-c85b7636065d', '答辩老师', null, 'NORMAL', null, 'ACTIVE', 'admin', '2017-04-08 20:11:35', 'admin', '2017-04-08 20:11:35', null, '0');
-INSERT INTO `sys_role` VALUES ('84c5258c-1c45-11e7-a63f-c85b7636065d', '管理员', 'administrator', 'NORMAL', null, 'ACTIVE', 'admin', '2017-04-08 18:24:15', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-19 21:10:24', null, '0');
+INSERT INTO `sys_role` VALUES ('84c5258c-1c45-11e7-a63f-c85b7636065d', '管理员', 'administrator', 'NORMAL', null, 'ACTIVE', 'admin', '2017-04-08 18:24:15', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-22 16:48:45', null, '0');
 
 -- ----------------------------
 -- Table structure for sys_role_menu
@@ -366,6 +368,7 @@ INSERT INTO `sys_role_menu` VALUES ('1', '119a9278-2184-11e7-a6d2-c85b7636065d')
 INSERT INTO `sys_role_menu` VALUES ('1', '50ccfecd-21b7-11e7-a6d2-c85b7636065d');
 INSERT INTO `sys_role_menu` VALUES ('1', '5e0efea5-21c2-11e7-a6d2-c85b7636065d');
 INSERT INTO `sys_role_menu` VALUES ('1', '6be12160-225b-11e7-a6d2-c85b7636065d');
+INSERT INTO `sys_role_menu` VALUES ('1', '6f0b350b-2738-11e7-9600-00ac8fea48d7');
 INSERT INTO `sys_role_menu` VALUES ('1', '928082c3-21b7-11e7-a6d2-c85b7636065d');
 INSERT INTO `sys_role_menu` VALUES ('1', 'c87ea01c-21cb-11e7-a6d2-c85b7636065d');
 INSERT INTO `sys_role_menu` VALUES ('1', 'da4c1b62-1cf0-11e7-a63f-c85b7636065d');
@@ -441,6 +444,7 @@ INSERT INTO `sys_role_menu` VALUES ('84c5258c-1c45-11e7-a63f-c85b7636065d', '5bc
 INSERT INTO `sys_role_menu` VALUES ('84c5258c-1c45-11e7-a63f-c85b7636065d', '5e0efea5-21c2-11e7-a6d2-c85b7636065d');
 INSERT INTO `sys_role_menu` VALUES ('84c5258c-1c45-11e7-a63f-c85b7636065d', '6');
 INSERT INTO `sys_role_menu` VALUES ('84c5258c-1c45-11e7-a63f-c85b7636065d', '6be12160-225b-11e7-a6d2-c85b7636065d');
+INSERT INTO `sys_role_menu` VALUES ('84c5258c-1c45-11e7-a63f-c85b7636065d', '6f0b350b-2738-11e7-9600-00ac8fea48d7');
 INSERT INTO `sys_role_menu` VALUES ('84c5258c-1c45-11e7-a63f-c85b7636065d', '7410789b-1919-11e7-b5b9-c85b7636065d');
 INSERT INTO `sys_role_menu` VALUES ('84c5258c-1c45-11e7-a63f-c85b7636065d', '858c7e6f8a624018a63ac8b4d2246d8a');
 INSERT INTO `sys_role_menu` VALUES ('84c5258c-1c45-11e7-a63f-c85b7636065d', '8f638ac5-1915-11e7-b5b9-c85b7636065d');
@@ -531,6 +535,7 @@ CREATE TABLE `sys_user` (
   `remarks` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '备注信息',
   `del_flag` char(1) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0' COMMENT '删除标记',
   `professional_rank` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `class_id` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `sys_user_office_id` (`major_id`),
   KEY `sys_user_login_name` (`login_name`),
@@ -542,11 +547,11 @@ CREATE TABLE `sys_user` (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES ('085924be-1c5e-11e7-a63f-c85b7636065d', '68411167-1add-11e7-b5b9-c85b7636065d', null, 'director', '31ace546d14f7add7423867cbb6bc87a5e7bcc7e', null, 'director', 'director@qq.com', null, '18328358153', null, null, null, null, null, 'admin', '2017-04-08 21:19:55', 'admin', '2017-04-08 21:19:55', null, '0', '');
-INSERT INTO `sys_user` VALUES ('5884804e-1c5d-11e7-a63f-c85b7636065d', '68411167-1add-11e7-b5b9-c85b7636065d', null, 'admin', '31ace546d14f7add7423867cbb6bc87a5e7bcc7e', null, 'admin', 'admin@qq.com', null, '18328358152', null, null, null, null, null, 'admin', '2017-04-08 21:15:00', 'admin', '2017-04-08 21:15:00', null, '0', '');
-INSERT INTO `sys_user` VALUES ('71a9a7a4-1c5e-11e7-a63f-c85b7636065d', 'b569aa56-1cdf-11e7-a63f-c85b7636065d', null, 'jimy', '31ace546d14f7add7423867cbb6bc87a5e7bcc7e', null, 'jimy', 'jiamy@qq.com', null, '18328358155', null, null, null, null, null, 'admin', '2017-04-08 21:22:52', 'admin', '2017-04-08 21:22:52', null, '0', '');
-INSERT INTO `sys_user` VALUES ('734d3f15-2264-11e7-a6d2-c85b7636065d', 'b569aa56-1cdf-11e7-a63f-c85b7636065d', null, 'student', '31ace546d14f7add7423867cbb6bc87a5e7bcc7e', null, 'student', 'student@qq.com', null, '18328358152', null, null, null, null, null, '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-16 13:20:43', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-16 13:20:43', null, '0', '');
-INSERT INTO `sys_user` VALUES ('d8607faa-1c5d-11e7-a63f-c85b7636065d', '68411167-1add-11e7-b5b9-c85b7636065d', null, 'zhengzhe', '31ace546d14f7add7423867cbb6bc87a5e7bcc7e', null, 'zhengzhe', 'zhengzhe@qq.com', null, '18328358153', null, null, null, null, null, 'admin', '2017-04-08 21:18:35', 'admin', '2017-04-08 21:18:35', null, '0', '');
+INSERT INTO `sys_user` VALUES ('085924be-1c5e-11e7-a63f-c85b7636065d', '68411167-1add-11e7-b5b9-c85b7636065d', null, 'director', '31ace546d14f7add7423867cbb6bc87a5e7bcc7e', null, 'director', 'director@qq.com', null, '18328358153', null, null, null, null, null, 'admin', '2017-04-08 21:19:55', 'admin', '2017-04-08 21:19:55', null, '0', '', null);
+INSERT INTO `sys_user` VALUES ('5884804e-1c5d-11e7-a63f-c85b7636065d', '68411167-1add-11e7-b5b9-c85b7636065d', null, 'admin', '31ace546d14f7add7423867cbb6bc87a5e7bcc7e', null, 'admin', 'admin@qq.com', null, '18328358152', null, null, null, null, null, 'admin', '2017-04-08 21:15:00', 'admin', '2017-04-08 21:15:00', null, '0', '', null);
+INSERT INTO `sys_user` VALUES ('71a9a7a4-1c5e-11e7-a63f-c85b7636065d', 'b569aa56-1cdf-11e7-a63f-c85b7636065d', null, 'jimy', '31ace546d14f7add7423867cbb6bc87a5e7bcc7e', null, 'jimy', 'jiamy@qq.com', null, '18328358155', null, null, null, null, null, 'admin', '2017-04-08 21:22:52', 'admin', '2017-04-08 21:22:52', null, '0', '', null);
+INSERT INTO `sys_user` VALUES ('734d3f15-2264-11e7-a6d2-c85b7636065d', 'b569aa56-1cdf-11e7-a63f-c85b7636065d', null, 'student', '31ace546d14f7add7423867cbb6bc87a5e7bcc7e', null, 'student', 'student@qq.com', null, '18328358152', null, null, null, null, null, '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-16 13:20:43', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-16 13:20:43', null, '0', '', null);
+INSERT INTO `sys_user` VALUES ('d8607faa-1c5d-11e7-a63f-c85b7636065d', '68411167-1add-11e7-b5b9-c85b7636065d', null, 'zhengzhe', '31ace546d14f7add7423867cbb6bc87a5e7bcc7e', null, 'zhengzhe', 'zhengzhe@qq.com', null, '18328358153', null, null, null, null, null, 'admin', '2017-04-08 21:18:35', 'admin', '2017-04-08 21:18:35', null, '0', '', null);
 
 -- ----------------------------
 -- Table structure for sys_user_role
