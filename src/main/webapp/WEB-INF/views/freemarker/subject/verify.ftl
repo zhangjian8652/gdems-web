@@ -264,7 +264,7 @@
 
                                 <!-- /.form-group -->
 
-                                [#if isStudent?? isStudent]
+                                [#if isStudent?? && isStudent]
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">指定导师：</label>
                                     <select class="col-sm-3" name="director" id="director">

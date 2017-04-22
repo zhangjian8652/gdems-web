@@ -168,7 +168,7 @@ public class SubjectController {
             SubjectConfig subjectConfig = configService.getSubjectConfig();
             int count = subjectService.getCreateAvailableCountByUserId(user.getId());
 
-            if (count <= subjectConfig.getStudentNum()) {
+            if (count >= subjectConfig.getStudentNum()) {
                 throw new SwordException(HttpStatus.BAD_REQUEST + "", "您提交的选题数量已经上线，不能超过" + count);
             }
         }
@@ -377,7 +377,7 @@ public class SubjectController {
 
     @RequestMapping(value = "/verify", method = RequestMethod.POST)
     @ResponseBody
-    public Object verify(HttpServletRequest request, @RequestParam String id, @RequestParam String status, @RequestParam String director) throws Exception {
+    public Object verify(HttpServletRequest request, @RequestParam String id, @RequestParam String status, @RequestParam(required = false) String director) throws Exception {
 
 
         if (StringUtils.isEmpty(id) || StringUtils.isEmpty(status)) {
@@ -403,7 +403,31 @@ public class SubjectController {
         subject.setStatus(status);
         subject.setVerifyBy(user.getId());
         subject.setVerifyDate(new Date());
-        subject.setDirector(director);
+
+
+        List<Role> roles = roleService.getByUserId(subject.getCreateBy());
+        boolean isDirector = false;
+        boolean isStudent = false;
+
+        for (int i = 0; i < roles.size(); i++) {
+            Role role = roles.get(i);
+            if ("导师".equals(role.getName())) {
+                isDirector = true;
+            }
+            if ("学生".equals(role.getName())) {
+                isStudent = true;
+            }
+
+        }
+
+        if (isDirector) {
+            subject.setDirector(subject.getCreateBy());
+        }else if(isStudent){
+            if (StringUtils.isEmpty(director)) {
+                throw new InvalidRequestException(HttpStatus.BAD_REQUEST + "", "知道老师未指定。");
+            }
+            subject.setDirector(director);
+        }
 
         boolean rst = subjectService.update(subject);
 

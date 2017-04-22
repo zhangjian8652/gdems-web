@@ -223,7 +223,6 @@ public class UserController {
         userFromDB.setEmail(user.getEmail());
         userFromDB.setMobile(user.getMobile());
         userFromDB.setNo(user.getNo());
-        userFromDB.setProfessionalRank(user.getProfessionalRank());
         if (!StringUtils.isEmpty(user.getDepartmentId()) && organizationService.getById(user.getDepartmentId()) != null) {
             userFromDB.setDepartmentId(user.getDepartmentId());
         }

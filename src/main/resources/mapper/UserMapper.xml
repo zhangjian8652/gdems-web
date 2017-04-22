@@ -23,9 +23,7 @@
 		u.create_date,
 		u.update_by,
 		u.update_date ,
-		u.del_flag,
-		d.name as department_name,
-		m.name as major_name
+		u.del_flag
     </sql>
 
    <sql id="joinColumns">
@@ -38,6 +36,8 @@
 
         SELECT
         <include refid="allColumns"/>
+		,d.name as department_name,
+		m.name as major_name
         FROM
         sys_user u
         <include refid="joinColumns"/>
@@ -86,7 +86,7 @@
 		</foreach>
 	</insert>
 
-	<select id="getByRoleName">
+	<select id="getByRoleName" resultType="com.sword.admin.entity.User">
 		SELECT
 		<include refid="allColumns"/>
 		FROM
