@@ -28,12 +28,12 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
                             <form id="user-add-form" action="/user/add" method="post" class="form-horizontal">
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">用户名:</label>
 
-                                    <div class="col-sm-4 input-group">
+                                    <div class="col-sm-8 col-md-6 col-lg-4 input-group">
                                         <input type="text" class="form-control" name="loginName" id="loginName">
                                         <span class="glyphicon glyphicon-user form-control-feedback"></span>
                                     </div>
@@ -42,7 +42,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">邮箱:</label>
 
-                                    <div class="col-sm-4 input-group">
+                                    <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4  input-group">
                                         <input type="text" class="form-control" name="email" id="email">
                                         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                                     </div>
@@ -52,7 +52,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">手机号:</label>
 
-                                    <div class="col-sm-4 input-group">
+                                    <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4  input-group">
                                         <input type="text" class="form-control" name="mobile" id="mobile">
                                         <span class="glyphicon glyphicon-phone form-control-feedback"></span>
                                     </div>
@@ -62,7 +62,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">密码:</label>
 
-                                    <div class="col-sm-4 input-group">
+                                    <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4  input-group">
                                         <input type="password" class="form-control" name="password" id="password">
                                         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                                     </div>
@@ -72,7 +72,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">编号:</label>
 
-                                    <div class="col-sm-4 input-group">
+                                    <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4  input-group">
                                         <input type="text" class="form-control" name="no" id="no">
                                         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                                     </div>
@@ -82,7 +82,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">职称:</label>
 
-                                    <div class="col-sm-4 input-group">
+                                    <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4  input-group">
                                         <input type="text" class="form-control" name="professionalRank" id="professionalRank">
                                         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                                     </div>
@@ -141,7 +141,7 @@
 
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">&nbsp;</label>
-                                    <div class="col-sm-4 input-group">
+                                    <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4  input-group">
                                         <button type="button" class="btn  btn-info btn-lg  margin" onclick="CommonUtil.loadView('/user/list')">取消添加</button>
                                         <button type="submit" class="btn  btn-success btn-lg margin">确定添加</button>
                                     </div>

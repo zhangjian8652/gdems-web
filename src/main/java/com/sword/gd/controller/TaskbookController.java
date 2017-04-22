@@ -15,8 +15,13 @@ public class TaskbookController {
 
     @RequestMapping(value = "/list",method = RequestMethod.GET)
     public String listView() {
-
         return "evaluation/taskbook-list.ftl";
+    }
+
+
+    @RequestMapping(value = "/list",method = RequestMethod.POST)
+    public String list() {
+        return "evaluation/data/taskbook-list.ftl";
     }
 
 }
