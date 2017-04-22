@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50625
 File Encoding         : 65001
 
-Date: 2017-04-22 18:10:44
+Date: 2017-04-22 21:56:10
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -346,7 +346,7 @@ CREATE TABLE `sys_role` (
 -- ----------------------------
 INSERT INTO `sys_role` VALUES ('1', '学生', 'student', 'NORMAL', null, 'ACTIVE', 'admin', '2017-04-02 17:00:24', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-22 17:14:00', null, '0');
 INSERT INTO `sys_role` VALUES ('579cd02e-2501-11e7-a6d2-c85b7636065d', '评阅老师', '', 'NORMAL', null, 'ACTIVE', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-19 21:09:08', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-19 21:09:08', null, '0');
-INSERT INTO `sys_role` VALUES ('6ffcdadf-1c43-11e7-a63f-c85b7636065d', '导师', '', 'NORMAL', null, 'ACTIVE', 'admin', '2017-04-08 18:09:21', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-16 13:19:23', null, '0');
+INSERT INTO `sys_role` VALUES ('6ffcdadf-1c43-11e7-a63f-c85b7636065d', '导师', '', 'NORMAL', null, 'ACTIVE', 'admin', '2017-04-08 18:09:21', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-22 21:48:07', null, '0');
 INSERT INTO `sys_role` VALUES ('7c94a9f3-1c54-11e7-a63f-c85b7636065d', '答辩老师', null, 'NORMAL', null, 'ACTIVE', 'admin', '2017-04-08 20:11:35', 'admin', '2017-04-08 20:11:35', null, '0');
 INSERT INTO `sys_role` VALUES ('84c5258c-1c45-11e7-a63f-c85b7636065d', '管理员', 'administrator', 'NORMAL', null, 'ACTIVE', 'admin', '2017-04-08 18:24:15', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-22 16:48:45', null, '0');
 
@@ -385,9 +385,12 @@ INSERT INTO `sys_role_menu` VALUES ('579cd02e-2501-11e7-a6d2-c85b7636065d', 'da4
 INSERT INTO `sys_role_menu` VALUES ('6adb1fde-1913-11e7-b5b9-c85b7636065d', '1');
 INSERT INTO `sys_role_menu` VALUES ('6ffcdadf-1c43-11e7-a63f-c85b7636065d', '033fff15-2181-11e7-a6d2-c85b7636065d');
 INSERT INTO `sys_role_menu` VALUES ('6ffcdadf-1c43-11e7-a63f-c85b7636065d', '119a9278-2184-11e7-a6d2-c85b7636065d');
+INSERT INTO `sys_role_menu` VALUES ('6ffcdadf-1c43-11e7-a63f-c85b7636065d', '2ff83d2a-2500-11e7-a6d2-c85b7636065d');
 INSERT INTO `sys_role_menu` VALUES ('6ffcdadf-1c43-11e7-a63f-c85b7636065d', '35e995fe-2264-11e7-a6d2-c85b7636065d');
 INSERT INTO `sys_role_menu` VALUES ('6ffcdadf-1c43-11e7-a63f-c85b7636065d', '50ccfecd-21b7-11e7-a6d2-c85b7636065d');
+INSERT INTO `sys_role_menu` VALUES ('6ffcdadf-1c43-11e7-a63f-c85b7636065d', '5bc18d67-2500-11e7-a6d2-c85b7636065d');
 INSERT INTO `sys_role_menu` VALUES ('6ffcdadf-1c43-11e7-a63f-c85b7636065d', '928082c3-21b7-11e7-a6d2-c85b7636065d');
+INSERT INTO `sys_role_menu` VALUES ('6ffcdadf-1c43-11e7-a63f-c85b7636065d', 'a678d2e6-2500-11e7-a6d2-c85b7636065d');
 INSERT INTO `sys_role_menu` VALUES ('6ffcdadf-1c43-11e7-a63f-c85b7636065d', 'c87ea01c-21cb-11e7-a6d2-c85b7636065d');
 INSERT INTO `sys_role_menu` VALUES ('6ffcdadf-1c43-11e7-a63f-c85b7636065d', 'da4c1b62-1cf0-11e7-a63f-c85b7636065d');
 INSERT INTO `sys_role_menu` VALUES ('7c94a9f3-1c54-11e7-a63f-c85b7636065d', '097cb6eb-1c40-11e7-a63f-c85b7636065d');
