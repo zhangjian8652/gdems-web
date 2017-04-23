@@ -2,38 +2,43 @@ package com.sword.gd.entity;
 
 import com.sword.admin.entity.User;
 import com.sword.admin.entity.common.BaseEntity;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.Table;
 import java.util.Date;
 
 /**
  * Created by Joker on 2017/4/21.
  */
+@Table(name = "gd_taskbook")
 public class TaskBook extends BaseEntity{
-    private String clasz;
-    private String student;
+    private String studentId;
     private String thesisTittle;
+    private String professionalSubject;
     private String requirementContent;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date sendDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date finishDate;
     private String practiceUnits;
     private String practiceAddress;
-    private int thesisPageCount;
-    private int drawingPageCount;
+    private Integer thesisPageCount;
+    private Integer drawingPageCount;
 
-    public String getClasz() {
-        return clasz;
+    public String getProfessionalSubject() {
+        return professionalSubject;
     }
 
-    public void setClasz(String clasz) {
-        this.clasz = clasz;
+    public void setProfessionalSubject(String professionalSubject) {
+        this.professionalSubject = professionalSubject;
     }
 
-    public String getStudent() {
-        return student;
+    public String getStudentId() {
+        return studentId;
     }
 
-    public void setStudent(String student) {
-        this.student = student;
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
     }
 
     public String getThesisTittle() {
@@ -84,19 +89,19 @@ public class TaskBook extends BaseEntity{
         this.practiceAddress = practiceAddress;
     }
 
-    public int getThesisPageCount() {
-        return thesisPageCount;
-    }
-
-    public void setThesisPageCount(int thesisPageCount) {
-        this.thesisPageCount = thesisPageCount;
-    }
-
-    public int getDrawingPageCount() {
+    public Integer getDrawingPageCount() {
         return drawingPageCount;
     }
 
-    public void setDrawingPageCount(int drawingPageCount) {
+    public void setDrawingPageCount(Integer drawingPageCount) {
         this.drawingPageCount = drawingPageCount;
+    }
+
+    public Integer getThesisPageCount() {
+        return thesisPageCount;
+    }
+
+    public void setThesisPageCount(Integer thesisPageCount) {
+        this.thesisPageCount = thesisPageCount;
     }
 }

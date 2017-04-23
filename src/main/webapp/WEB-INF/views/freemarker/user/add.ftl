@@ -74,10 +74,23 @@
 
                                     <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4  input-group">
                                         <input type="text" class="form-control" name="no" id="no">
-                                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                                        <span class="glyphicon glyphicon-user form-control-feedback"></span>
                                     </div>
                                 </div>
                                 <!-- /.form-group -->
+
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">职称:</label>
+
+                                    <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4  input-group">
+                                        <input type="text" class="form-control" name="name" id="name">
+                                        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                                    </div>
+                                </div>
+                                <!-- /.form-group -->
+
+
 
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">角色</label>
@@ -104,6 +117,7 @@
                                         <select class="select2"  name="department" id="department"
                                                 data-placeholder="选择学院"
                                                 style="width: 50%;">
+                                            <option value="NONE">无</option>
                                             [@organization typeType="department" type="list";list]
                                             [#if list?? && list?size > 0]
                                             [#list list as organization]
@@ -186,25 +200,30 @@
             $(this).attr("checked", "on");
         });
 
-        $('#department').on("select2:select",function(){
+
+
+        var loadMajor = function() {
             var url = $path + "/organization/options?parentId=" + $department.val();
-            $.get(url,function(data){
+            $.get(url, function (data) {
                 $("#major").html(data);
                 $major = $("#major").select2();
+                loadClasz();
             });
-        });
+        }  ;
 
-        $('#major').on("select2:select",function(){
+
+        var loadClasz = function(){
             var url = $path + "/organization/options?parentId=" + $major.val();
             $.get(url,function(data){
                 $("#clasz").html(data);
                 $clasz = $("#clasz").select2();
             });
-        });
+        }
 
+        loadMajor();
+        $('#department').on("select2:select",loadMajor);
 
-        var
-
+        $('#major').on("select2:select",loadClasz);
         /**
          * 添加用户表单
          */
@@ -278,7 +297,7 @@
                 var mobile = $("#mobile").val();
                 var password = $("#password").val();
                 var no = $("#no").val();
-                var professionalRank = $("#professionalRank").val();
+                var name = $("#name").val();
                 var role = $role.val();
                 var department = $department.val();
                 var major = $major.val();
@@ -290,7 +309,7 @@
                     mobile :mobile,
                     password :password,
                     no :no,
-                    professionalRank :professionalRank,
+                    name :name,
                     departmentId : department,
                     majorId :major,
                     classId :clasz

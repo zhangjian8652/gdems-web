@@ -73,6 +73,16 @@
                                 <!-- /.form-group -->
 
                                 <div class="form-group">
+                                    <label class="col-sm-2 control-label">职称:</label>
+
+                                    <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4  input-group">
+                                        <input type="text" class="form-control" name="name" id="name">
+                                        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                                    </div>
+                                </div>
+                                <!-- /.form-group -->
+
+                                <div class="form-group">
                                     <label class="col-sm-2 control-label">角色</label>
 
                                     <div class="col-sm-6 input-group">
@@ -105,6 +115,7 @@
                                         <select class="select2"  name="department" id="department"
                                                 data-placeholder="选择学院"
                                                 style="width: 50%;">
+                                            <option value="NONE">无</option>
                                             [@organization typeType="department" type="list";list]
                                             [#if list?? && list?size > 0]
                                             [#list list as organization]
@@ -144,6 +155,29 @@
                                 <!-- /.form-group -->
 
                                 <div class="form-group">
+                                    <label class="col-sm-2 control-label">班级</label>
+
+                                    <div class="col-sm-6 input-group">
+                                        <select class="select2" name="clasz" id="clasz"
+                                                data-placeholder="选择班级"
+                                                style="width: 50%;">
+                                            [#if claszs?? && claszs??]
+                                            [#list claszs as aClasz]
+                                            [#if clasz?? && clasz.id?? && clasz.id == aClasz.id]
+                                            <option value="${aClasz.id}" selected>${aClasz.name}</option>
+                                            [#else]
+                                            <option value="${aClasz.id}" >${aClasz.name}</option>
+                                            [/#if]
+                                            [/#list]
+                                            [/#if]
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- /.form-group -->
+
+
+                                <div class="form-group">
                                     <label class="col-sm-2 control-label">&nbsp;</label>
                                     <div class="col-sm-4 input-group">
                                         <button type="button" class="btn  btn-info btn-lg  margin" onclick="loadView('/user/list')">取消</button>
@@ -172,6 +206,7 @@
         var $role = $("#role").select2();
         var $department = $("#department").select2();
         var $major= $("#major").select2();
+        var $clasz= $("#clasz").select2();
 
         var $roleCheckboxes = $(".role-checkbox");
 
@@ -185,13 +220,29 @@
             $(this).attr("checked", "on");
         });
 
-        $('#department').on("select2:select",function(){
+
+
+        var loadMajor = function() {
             var url = $path + "/organization/options?parentId=" + $department.val();
-            $.get(url,function(data){
+            $.get(url, function (data) {
                 $("#major").html(data);
                 $major = $("#major").select2();
+                loadClasz();
             });
-        });
+        }  ;
+
+        loadMajor();
+        var loadClasz = function(){
+            var url = $path + "/organization/options?parentId=" + $major.val();
+            $.get(url,function(data){
+                $("#clasz").html(data);
+                $clasz = $("#clasz").select2();
+            });
+        }
+
+        $('#department').on("select2:select",loadMajor);
+
+        $('#major').on("select2:select",loadClasz);
 
         /**
          * 添加用户表单
@@ -246,7 +297,8 @@
                 var email = $("#email").val();
                 var mobile = $("#mobile").val();
                 var no = $("#no").val();
-                var professionalRank = $("#professionalRank").val();
+                var clasz = $clasz.val();
+                var professionalRank = $("#name").val();
                 var role = $role.val();
                 var department = $department.val();
                 var major = $major.val();
@@ -257,9 +309,10 @@
                     email :email,
                     mobile :mobile,
                     no :no,
-                    professionalRank :professionalRank,
+                    classId :clasz,
+                    name :professionalRank,
                     departmentId : department,
-                    majorId :major,
+                    majorId :major
                 });
 
                 requestPath += "?roleId=" + role;

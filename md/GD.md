@@ -60,6 +60,7 @@
 | 班级 | class| String| 64|班级名称|
 | 学生 | student| String | 64|用户id,学生|
 |论文（设计）题目|thesis_tittle|String|255|论文（设计的题目）|
+|专题|professional_subject|String|120|专题|
 |要求完成的内容|requirement_content|String|255|要求完成的内容|
 |发题日期|send_date|date| |发题日期|
 |完成日期|finish_date|date| |完成日期|
@@ -80,9 +81,7 @@
 | :---: | :---: | :---: |:---: | :---: |
 | 主键 | id | String | 64 | 任务书主键ID|
 | 论文题目 | thesis_tittle| String| 255|论文题目|
-| 班级 | class| String| 120|班级id|
-| 专业 | major | String| 64|专业id|
-| 学生 | student| String | 120|学生姓名|
+| 学生 | student_id| String | 64|学生id|
 | 方案论证分（15分）| plan_proof_score| int | 2 | 方案论证分，总分15分(能独立查阅文献和课题调研，能提出较科学、合理、可行的实施方案。)|
 | 论文设计类容（30分）| thesis_design_score| int | 2 | 方案论证分，总分30分(能独立查阅文献和课题调研，能提出较科学、合理、可行的实施方案。)|
 | 工作量和难度（20分）| workload_difficulty_score| int | 2| 工作量和难度分，总分20分(遵守毕业论文（设计）管理制度，按期完成任务书规定的内容，工作量饱满，有一定难度。)|
@@ -103,11 +102,7 @@
 | 属性 | 字段名 | 类型 |长度| 描述|
 | :---: | :---: | :---: |:---: | :---: |
 | 主键 | id | String | 64 | 中期检查表主键ID|
-| 姓名 | student| String |64|用户id,学生|
-| 学院 | department| String| 64|组织机构id,学院|
-| 专业 | major | String| 64|学生专业|
-| 班级 | class| String| 64|组织机构id，班级|
-| 指导老师 | director| String| 64|用户id,指导老师|
+| 姓名 | student_id| String |64|用户id,学生|
 | 论文题目 | thesis_tittle| String| 255|论文题目|
 | 已完成的任务| finish_task | String | 255 | 已完成的任务 |
 | 是否符合任务要求书进度| task_conformance| String | 10| NON-CONFORMANCE,CONFORMANCE|
@@ -128,11 +123,7 @@
 | :---: | :---: | :---: |:---: | :---: |
 | 主键 | id | String | 64 | 任务书主键ID|
 | 论文（设计）题目 | thesis_tittle| String| 255|论文题目|
-| 学生 | student| String | 64|用户id,学生|
-| 专业 | major | String| 64|专业id|
-| 学院 | department | String| 64| 学院id|
-| 班级 | class| String| 64|班级id|
-| 指导教师 | director| String| 64|用户id|
+| 学生 | student_id| String | 64|用户id,学生|
 | 规范程度（15分）| plan_proof_score| int | 2 | 方案论证分，总分15分(能独立查阅文献和课题调研，能提出较科学、合理、可行的实施方案。)|
 | 论文设计类容（30分）| thesis_design_score| int | 2 | 方案论证分，总分30分(能独立查阅文献和课题调研，能提出较科学、合理、可行的实施方案。)|
 | 工作量和难度（20分）| workload_difficulty_score| int | 2| 工作量和难度分，总分20分(遵守毕业论文（设计）管理制度，按期完成任务书规定的内容，工作量饱满，有一定难度。)|

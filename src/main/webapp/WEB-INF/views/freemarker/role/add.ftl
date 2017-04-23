@@ -58,7 +58,10 @@
                                         <select class="select2" name="roleType"
                                                 data-placeholder="选择角色类型"
                                                 style="width: 100%;">
-                                            <option value="NORMAL">普通角色</option>
+                                            <option value="NORMAL">普通</option>
+                                            <option value="DIRECTOR">老师</option>
+                                            <option value="STUDENT">学生</option>
+                                            <option value="STUDENT">管理员</option>
                                         </select>
                                     </div>
                                 </div>

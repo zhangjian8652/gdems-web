@@ -14,7 +14,7 @@
 ;(function ($) {
   $.fn.spinner = function (opts) {
     return this.each(function () {
-      var defaults = {value:1, min:0,lenth:2}
+      var defaults = {value:1, min:0,max:100,lenth:2}
       var options = $.extend(defaults, opts)
       var keyCodes = {up:38, down:40}
       var container = $('<div></div>')
@@ -53,6 +53,10 @@
         var value = getValue()
         if (value <= options.min) decreaseButton.attr('disabled', 'disabled')
         else decreaseButton.removeAttr('disabled')
+
+        if (value >= options.max) increaseButton.attr('disabled', 'disabled')
+        else increaseButton.removeAttr('disabled')
+
         field.toggleClass('invalid', isInvalid(value)).toggleClass('passive', value === 0)
 
         if (isInvalid(value)) {

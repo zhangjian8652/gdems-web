@@ -91,7 +91,7 @@ public class UserController {
         //设置baseentity属性，比如createDate,createBy
         EntityUtil.setCommonValue(user, sessionUser);
 
-        user.setName(user.getLoginName());
+       // user.setName(user.getLoginName());
 
         boolean rst = false;
         if (StringUtils.isEmpty(roleId)) {
@@ -173,11 +173,18 @@ public class UserController {
 
         Organization department = organizationService.getById(user.getDepartmentId());
         Organization major = organizationService.getById(user.getMajorId());
+        Organization clasz = organizationService.getById(user.getClassId());
+
         List<Organization> majors = null;
+        List<Organization> claszs = null;
+
         if (department != null) {
             majors  = organizationService.getByParentId(department.getId());
         }
 
+        if (major != null) {
+            claszs  = organizationService.getByParentId(major.getId());
+        }
 
         if (department != null) {
             logger.debug("edit user department:" + department.toString());
@@ -188,9 +195,15 @@ public class UserController {
             logger.debug("edit user major:" + major.toString());
             request.setAttribute("major",major);
         }
+        if (clasz != null) {
+            logger.debug("edit user clasz:" + clasz.toString());
+            request.setAttribute("clasz",clasz);
+        }
 
 
         request.setAttribute("majors",majors);
+        request.setAttribute("claszs",claszs);
+
 
         List<Role> roles = roleService.getByUserId(user.getId());
 
@@ -212,8 +225,6 @@ public class UserController {
         //设置baseentity属性，比如createDate,createBy
         EntityUtil.setCommonUpdateValue(user, sessionUser);
 
-        user.setName(user.getLoginName());
-
         User userFromDB = userService.getUserById(user.getId());
 
         if (userFromDB == null) {
@@ -222,13 +233,19 @@ public class UserController {
 
         userFromDB.setEmail(user.getEmail());
         userFromDB.setMobile(user.getMobile());
+        userFromDB.setName(user.getName());
         userFromDB.setNo(user.getNo());
+
         if (!StringUtils.isEmpty(user.getDepartmentId()) && organizationService.getById(user.getDepartmentId()) != null) {
             userFromDB.setDepartmentId(user.getDepartmentId());
         }
 
         if (!StringUtils.isEmpty(user.getMajorId()) && organizationService.getById(user.getMajorId()) != null) {
             userFromDB.setMajorId(user.getMajorId());
+        }
+
+        if (!StringUtils.isEmpty(user.getClassId()) && organizationService.getById(user.getClassId()) != null) {
+            userFromDB.setClassId(user.getClassId());
         }
 
         boolean rst = userService.updateUser(userFromDB,roleId);

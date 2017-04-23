@@ -31,11 +31,9 @@
                         <tr>
                             <th>编号</th>
                             <th>学生</th>
-                            <th>学院</th>
-                            <th>专业</th>
                             <th>班级</th>
                             <th>选题名称</th>
-                            <th>填写任务书</th>
+                            <th>操作</th>
                         </tr>
                         </thead>
 
@@ -43,11 +41,9 @@
                         <tr>
                             <th>编号</th>
                             <th>学生</th>
-                            <th>学院</th>
-                            <th>专业</th>
                             <th>班级</th>
                             <th>选题名称</th>
-                            <th>填写任务书</th>
+                            <th>操作</th>
                         </tr>
                         </tfoot>
                     </table>
@@ -75,7 +71,7 @@
                     if (data.code.startsWith(successCodePrefix)) {
                         $tipper.messager().success(data.message);
                         setTimeout(function() {
-                            loadView("/gd/subject/list");
+                            loadView("/gd/mystudents/list");
                         },3000);
                         return;
                     }else{
@@ -92,17 +88,14 @@
             "ordering": false,
             "serverSide": true,
             "ajax": {
-                "url": "/gd/subject/list",
+                "url": "/gd/mystudents/list",
                 "type":"POST"
             },
             "columns": [
+                {"data": "no"},
+                {"data": "student"},
+                {"data": "class"},
                 {"data": "tittle"},
-                {"data": "sourceFrom"},
-                {"data": "type"},
-                {"data": "fromDate"},
-                {"data": "endDate"},
-                {"data": "status"},
-                {"data": "chooseStatus"},
                 {"data": "operations"}
             ],
             "drawCallback": function(){
