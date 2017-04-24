@@ -91,3 +91,7 @@ table.treetable {
     border-color: #00a65a;
     box-shadow: none;
 }
+
+input:focus {
+    outline: #00a65a auto 5px;
+}

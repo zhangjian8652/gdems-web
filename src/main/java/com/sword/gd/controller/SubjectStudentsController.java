@@ -22,32 +22,33 @@ import javax.validation.Valid;
  * Created by Joker on 2017/4/21.
  */
 @Controller
-@RequestMapping("/gd/toreviewstudents")
-public class ToReviewStudentsController {
+@RequestMapping("/gd/subjectstudents")
+public class SubjectStudentsController {
 
     @Autowired
     private SubjectStudentsService subjectStudentsService;
 
-    @RequestMapping(value = "/list",method = RequestMethod.GET)
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String listView() {
-        return "to-review-students/list";
+        return "subject-students/list";
     }
 
 
-    @RequestMapping(value = "/list",method = RequestMethod.POST)
+    @RequestMapping(value = "/list", method = RequestMethod.POST)
     public String list(@Valid @ModelAttribute DatatableCondition condition, BindingResult bindingResult, HttpServletRequest request) throws Exception {
 
         if (bindingResult.hasErrors()) {
             throw new InvalidRequestException(HttpStatus.BAD_REQUEST + "", "请求数据不正确");
         }
 
+        String searchValue = request.getParameter("search[value]");
+        condition.setSearchValue(searchValue);
 
-        User user = RequestUtil.getLoginUserFromSession(request);
         DataTablePage<SubjectStudent> page = subjectStudentsService.getAllStudentsInfoPage(condition);
 
-        request.setAttribute("page",page);
+        request.setAttribute("page", page);
 
-        return "to-review-students/data/list";
+        return "subject-students/data/list";
     }
 
 }

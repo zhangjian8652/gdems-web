@@ -59,7 +59,7 @@ public class ReviewerCommentBookController {
 
         request.setAttribute("subjectStudent", subjectStudent);
 
-        return "to-review-students/director-comment-book-edit";
+        return "subject-students/reviewer-comment-book-edit";
     }
 
 
@@ -84,6 +84,11 @@ public class ReviewerCommentBookController {
 
         reviewerCommentBookFromDB.setStudentId(reviewerCommentBook.getStudentId());
         //TODO 设置字段信息
+        reviewerCommentBookFromDB.setStandardizeDegreeScore(reviewerCommentBook.getStandardizeDegreeScore());
+        reviewerCommentBookFromDB.setContentQualityScore(reviewerCommentBook.getContentQualityScore());
+        reviewerCommentBookFromDB.setInnovatingWorthScore(reviewerCommentBook.getInnovatingWorthScore());
+        reviewerCommentBookFromDB.setTotalScore(reviewerCommentBook.calculateTotalScore());
+        reviewerCommentBookFromDB.setReviewerComment(reviewerCommentBook.getReviewerComment());
 
         boolean result = false;
         if (StringUtils.isEmpty(reviewerCommentBookFromDB.getId())) {
@@ -122,7 +127,7 @@ public class ReviewerCommentBookController {
 
         request.setAttribute("subjectStudent", subjectStudent);
 
-        return "to-review-students/director-comment-book-print";
+        return "subject-students/reviewer-comment-book-print";
     }
 
 }

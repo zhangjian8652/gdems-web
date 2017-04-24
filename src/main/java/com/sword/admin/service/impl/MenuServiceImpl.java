@@ -110,6 +110,11 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public boolean update(Menu menuFromDB) throws Exception {
+        Menu parent = getById(menuFromDB.getParentId());
+        if (parent != null) {
+            parent.setIsParent(Menu.IS_PARENT);
+            menuMapper.updateByPrimaryKey(parent);
+        }
         int result = menuMapper.updateByPrimaryKey(menuFromDB);
         return result > 0;
     }

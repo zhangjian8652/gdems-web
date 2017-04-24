@@ -67,34 +67,37 @@
         FROM gd_subject subject
         <include refid="joins"/>
         WHERE
-        1 = 1
-        <if test="subjectStudent != null">
-            <if test="subjectStudent.student != null AND subjectStudent.student.loginName != null ">
-        AND  user.login_name LIKE CONCAT('%',#{subjectStudent.student.loginName},'%')
-            </if>
-        </if>
-        <if test="subjectStudent != null">
-            <if test="subjectStudent.department != null AND subjectStudent.department.name != null ">
-                AND  department.name LIKE CONCAT('%',#{subjectStudent.department.name},'%')
-            </if>
-        </if>
-        <if test="subjectStudent != null">
-            <if test="subjectStudent.major != null AND subjectStudent.major.name != null ">
-        AND  major.name LIKE CONCAT('%',#{subjectStudent.major.name},'%')
-            </if>
-        </if>
-        <if test="subjectStudent != null">
-            <if test="subjectStudent.clasz != null AND subjectStudent.clasz.name != null ">
-        AND  clasz.name LIKE CONCAT('%',#{subjectStudent.clasz.name},'%')
-            </if>
-        </if>
-        <if test="subjectStudent != null">
-            <if test="subjectStudent.director != null AND subjectStudent.director.loginName != null ">
-        AND  director.login_name LIKE CONCAT('%',#{subjectStudent.director.loginName},'%')
-            </if>
-        </if>
-        AND UPPER(subject.status) = UPPER('APPROVED')
+            UPPER(subject.status) = UPPER('APPROVED')
         AND UPPER(subject.choose_status) = UPPER('APPROVED')
+        AND
+        (
+        1 = 0
+        <if test="subjectStudent != null">
+            <if test="subjectStudent.student != null and subjectStudent.student.loginName != null ">
+                OR  user.login_name LIKE CONCAT('%',#{subjectStudent.student.loginName},'%')
+            </if>
+        </if>
+        <if test="subjectStudent != null">
+            <if test="subjectStudent.department != null and subjectStudent.department.name != null ">
+                OR  department.name LIKE CONCAT('%',#{subjectStudent.department.name},'%')
+            </if>
+        </if>
+        <if test="subjectStudent != null">
+            <if test="subjectStudent.major != null and subjectStudent.major.name != null ">
+                OR  major.name LIKE CONCAT('%',#{subjectStudent.major.name},'%')
+            </if>
+        </if>
+        <if test="subjectStudent != null">
+            <if test="subjectStudent.clasz != null and subjectStudent.clasz.name != null ">
+                OR  clasz.name LIKE CONCAT('%',#{subjectStudent.clasz.name},'%')
+            </if>
+        </if>
+        <if test="subjectStudent != null">
+            <if test="subjectStudent.director != null and subjectStudent.director.loginName != null ">
+                OR  director.login_name LIKE CONCAT('%',#{subjectStudent.director.loginName},'%')
+            </if>
+        </if>
+        )
         ORDER BY subject.create_date DESC LIMIT #{offset},#{limit}
     </select>
 
@@ -108,29 +111,29 @@
         AND UPPER(subject.choose_status) = UPPER('APPROVED')
         AND
         (
-        1 = 1
+        1 = 0
         <if test="subjectStudent != null">
-            <if test="subjectStudent.student != null AND subjectStudent.student.loginName != null ">
+            <if test="subjectStudent.student != null and subjectStudent.student.loginName != null ">
                 OR  user.login_name LIKE CONCAT('%',#{subjectStudent.student.loginName},'%')
             </if>
         </if>
         <if test="subjectStudent != null">
-            <if test="subjectStudent.department != null AND subjectStudent.department.name != null ">
+            <if test="subjectStudent.department != null and subjectStudent.department.name != null ">
                 OR  department.name LIKE CONCAT('%',#{subjectStudent.department.name},'%')
             </if>
         </if>
         <if test="subjectStudent != null">
-            <if test="subjectStudent.major != null AND subjectStudent.major.name != null ">
+            <if test="subjectStudent.major != null and subjectStudent.major.name != null ">
                 OR  major.name LIKE CONCAT('%',#{subjectStudent.major.name},'%')
             </if>
         </if>
         <if test="subjectStudent != null">
-            <if test="subjectStudent.clasz != null AND subjectStudent.clasz.name != null ">
+            <if test="subjectStudent.clasz != null and subjectStudent.clasz.name != null ">
                 OR  clasz.name LIKE CONCAT('%',#{subjectStudent.clasz.name},'%')
             </if>
         </if>
         <if test="subjectStudent != null">
-            <if test="subjectStudent.director != null AND subjectStudent.director.loginName != null ">
+            <if test="subjectStudent.director != null and subjectStudent.director.loginName != null ">
                 OR  director.login_name LIKE CONCAT('%',#{subjectStudent.director.loginName},'%')
             </if>
         </if>

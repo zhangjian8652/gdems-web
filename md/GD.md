@@ -177,9 +177,9 @@
 |答辩小组成绩（30%）| examination_total_score | int |2| 答辩小组总成绩|
 |综合成绩| comprehensive_performance_score | int |3| 综合成绩|
 |五级分制成绩| five_level_score | int |3| 五级分制成绩|
-| 创建时间 | update_date| datetime| |创建时间|
-| 更新时间 | update_date | datetime| |更新时间|
+| 更新时间 | update_date| datetime| |创建时间|
+| 更新人  | update_by | datetime| |更新时间|
 | 创建人 | create_by | String| 64 |创建人ID|
-| 更新人 | update_by | datetime| 64|更新人ID|
+| 创建时间| create_date | datetime| 64|更新人ID|
 | 标记 | remarks | string| 255 |标记|
 |删除标记|del_flag|string|1| 标记|

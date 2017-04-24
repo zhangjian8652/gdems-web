@@ -73,4 +73,8 @@ public class ReviewerCommentBook extends BaseEntity {
     public void setReviewerComment(String reviewerComment) {
         this.reviewerComment = reviewerComment;
     }
+
+    public int calculateTotalScore() {
+        return this.standardizeDegreeScore + this.contentQualityScore + this.innovatingWorthScore;
+    }
 }
