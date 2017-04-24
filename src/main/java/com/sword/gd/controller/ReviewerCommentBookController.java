@@ -8,10 +8,10 @@ import com.sword.admin.exception.SwordException;
 import com.sword.admin.request.util.RequestUtil;
 import com.sword.admin.response.JsonResponse;
 import com.sword.admin.service.UserService;
-import com.sword.gd.entity.DirectorCommentBook;
 import com.sword.gd.entity.SubjectStudent;
-import com.sword.gd.service.DirectorCommentBookService;
+import com.sword.gd.entity.ReviewerCommentBook;
 import com.sword.gd.service.SubjectStudentsService;
+import com.sword.gd.service.ReviewerCommentBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -24,14 +24,14 @@ import javax.servlet.http.HttpServletRequest;
  * Created by Joker on 2017/4/21.
  */
 @Controller
-@RequestMapping("/gd/directorcommentbook")
-public class DirectorCommentBookController {
+@RequestMapping("/gd/reviewercommentbook")
+public class ReviewerCommentBookController {
 
     @Autowired
     private SubjectStudentsService myStudentsService;
 
     @Autowired
-    private DirectorCommentBookService directorCommentBookService;
+    private ReviewerCommentBookService reviewerCommentBookService;
 
     @Autowired
     private UserService userService;
@@ -49,53 +49,47 @@ public class DirectorCommentBookController {
             throw new NotFoundException(HttpStatus.NOT_FOUND + "", "找不到该用户。");
         }
 
-        DirectorCommentBook directorCommentBook = directorCommentBookService.getByStudentId(id);
-        if (directorCommentBook == null) {
-            directorCommentBook = new DirectorCommentBook();
+        ReviewerCommentBook reviewerCommentBook = reviewerCommentBookService.getByStudentId(id);
+        if (reviewerCommentBook == null) {
+            reviewerCommentBook = new ReviewerCommentBook();
         }
-        request.setAttribute("directorCommentBook", directorCommentBook);
+        request.setAttribute("reviewerCommentBook", reviewerCommentBook);
 
         SubjectStudent subjectStudent = myStudentsService.getMySubjectStudentByStudentId(id);
 
         request.setAttribute("subjectStudent", subjectStudent);
 
-        return "my-subject-students/director-comment-book-edit";
+        return "to-review-students/director-comment-book-edit";
     }
 
 
     @RequestMapping(value = "/edit",method = RequestMethod.POST)
     @ResponseBody
-    public Object edit(@ModelAttribute("form") DirectorCommentBook directorCommentBook, HttpServletRequest request) throws Exception {
+    public Object edit(@ModelAttribute("form") ReviewerCommentBook reviewerCommentBook, HttpServletRequest request) throws Exception {
 
-        if (StringUtils.isEmpty(directorCommentBook.getStudentId())) {
+        if (StringUtils.isEmpty(reviewerCommentBook.getStudentId())) {
             throw new InvalidRequestException(HttpStatus.BAD_REQUEST + "", "请求学生id为空值");
         }
 
-        DirectorCommentBook directorCommentBookFromDB = directorCommentBookService.getByStudentId(directorCommentBook.getStudentId());
+        ReviewerCommentBook reviewerCommentBookFromDB = reviewerCommentBookService.getByStudentId(reviewerCommentBook.getStudentId());
 
         User user = RequestUtil.getLoginUserFromSession(request);
 
-        if (directorCommentBookFromDB == null) {
-            directorCommentBookFromDB = new DirectorCommentBook();
-            EntityUtil.setCommonValue(directorCommentBookFromDB, user);
+        if (reviewerCommentBookFromDB == null) {
+            reviewerCommentBookFromDB = new ReviewerCommentBook();
+            EntityUtil.setCommonValue(reviewerCommentBookFromDB, user);
         } else {
-            EntityUtil.setCommonUpdateValue(directorCommentBookFromDB, user);
+            EntityUtil.setCommonUpdateValue(reviewerCommentBookFromDB, user);
         }
 
-        directorCommentBookFromDB.setStudentId(directorCommentBook.getStudentId());
-        directorCommentBookFromDB.setPlanProofScore(directorCommentBook.getPlanProofScore());
-        directorCommentBookFromDB.setThesisDesignScore(directorCommentBook.getThesisDesignScore());
-        directorCommentBookFromDB.setWorkloadDifficultyScore(directorCommentBook.getWorkloadDifficultyScore());
-        directorCommentBookFromDB.setThesisQualityScore(directorCommentBook.getThesisQualityScore());
-        directorCommentBookFromDB.setInnovatingWorthScore(directorCommentBook.getInnovatingWorthScore());
-        directorCommentBookFromDB.setTotalScore(directorCommentBookFromDB.calculateTotalScre());
-        directorCommentBookFromDB.setDirectorComment(directorCommentBook.getDirectorComment());
+        reviewerCommentBookFromDB.setStudentId(reviewerCommentBook.getStudentId());
+        //TODO 设置字段信息
 
         boolean result = false;
-        if (StringUtils.isEmpty(directorCommentBookFromDB.getId())) {
-            result = directorCommentBookService.add(directorCommentBookFromDB);
+        if (StringUtils.isEmpty(reviewerCommentBookFromDB.getId())) {
+            result = reviewerCommentBookService.add(reviewerCommentBookFromDB);
         } else {
-            result = directorCommentBookService.update(directorCommentBookFromDB);
+            result = reviewerCommentBookService.update(reviewerCommentBookFromDB);
         }
 
         if (!result) {
@@ -118,17 +112,17 @@ public class DirectorCommentBookController {
             throw new NotFoundException(HttpStatus.NOT_FOUND + "", "找不到该用户。");
         }
 
-        DirectorCommentBook directorCommentBook = directorCommentBookService.getByStudentId(id);
-        if (directorCommentBook == null) {
-            directorCommentBook = new DirectorCommentBook();
+        ReviewerCommentBook reviewerCommentBook = reviewerCommentBookService.getByStudentId(id);
+        if (reviewerCommentBook == null) {
+            reviewerCommentBook = new ReviewerCommentBook();
         }
-        request.setAttribute("directorCommentBook", directorCommentBook);
+        request.setAttribute("reviewerCommentBook", reviewerCommentBook);
 
         SubjectStudent subjectStudent = myStudentsService.getMySubjectStudentByStudentId(id);
 
         request.setAttribute("subjectStudent", subjectStudent);
 
-        return "my-subject-students/director-comment-book-print";
+        return "to-review-students/director-comment-book-print";
     }
 
 }

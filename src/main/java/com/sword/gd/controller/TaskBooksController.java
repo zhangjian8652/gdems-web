@@ -8,9 +8,9 @@ import com.sword.admin.exception.SwordException;
 import com.sword.admin.request.util.RequestUtil;
 import com.sword.admin.response.JsonResponse;
 import com.sword.admin.service.UserService;
-import com.sword.gd.entity.MySubjectStudent;
+import com.sword.gd.entity.SubjectStudent;
 import com.sword.gd.entity.TaskBook;
-import com.sword.gd.service.MySubjectStudentsService;
+import com.sword.gd.service.SubjectStudentsService;
 import com.sword.gd.service.TaskBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 public class TaskBooksController {
 
     @Autowired
-    private MySubjectStudentsService myStudentsService;
+    private SubjectStudentsService myStudentsService;
 
     @Autowired
     private TaskBookService taskBookService;
@@ -55,9 +55,9 @@ public class TaskBooksController {
         }
         request.setAttribute("taskbood", taskBook);
 
-        MySubjectStudent mySubjectStudent = myStudentsService.getMySubjectStudentByStudentId(id);
+        SubjectStudent subjectStudent = myStudentsService.getMySubjectStudentByStudentId(id);
 
-        request.setAttribute("mySubjectStudent",mySubjectStudent);
+        request.setAttribute("subjectStudent", subjectStudent);
 
         return "my-subject-students/taskbook-edit";
     }
@@ -127,9 +127,9 @@ public class TaskBooksController {
         }
         request.setAttribute("taskbood", taskBook);
 
-        MySubjectStudent mySubjectStudent = myStudentsService.getMySubjectStudentByStudentId(id);
+        SubjectStudent subjectStudent = myStudentsService.getMySubjectStudentByStudentId(id);
 
-        request.setAttribute("mySubjectStudent",mySubjectStudent);
+        request.setAttribute("subjectStudent", subjectStudent);
 
         return "my-subject-students/taskbook-print";
     }

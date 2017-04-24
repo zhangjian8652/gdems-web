@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sword.gd.mapper.SubjectStudentsMapper">
+
+    <sql id="columns">
+        subject.tittle as 'subject.tittle',
+        subject.id as 'subject.id',
+        department.name as 'department.name',
+        department.id as 'department.id',
+        major.id as 'major.id',
+        major.name as 'major.name',
+        clasz.id as 'clasz.id',
+        clasz.name as 'clasz.name',
+        user.login_name as 'student.login_name',
+        user.no as 'student.no',
+        user.id as 'student.id',
+        director.id as 'director.id',
+        director.login_name as 'director.login_name',
+        director.name as 'director.name'
+    </sql>
+
+    <sql id="joins">
+        LEFT OUTER JOIN sys_user user ON (subject.choose_by = user.id)
+        LEFT OUTER JOIN sys_user director ON (subject.director = director.id)
+        LEFT OUTER JOIN sys_organization department ON (user.department_id = department.id)
+        LEFT OUTER JOIN sys_organization major ON (user.major_id = major.id)
+        LEFT OUTER JOIN sys_organization clasz ON (user.class_id = clasz.id)
+    </sql>
+
+    <select id="getDirectorStudentsInfoPage" resultType="com.sword.gd.entity.SubjectStudent">
+        SELECT
+        <include refid="columns"/>
+        FROM gd_subject subject
+        <include refid="joins"/>
+        WHERE subject.director = #{directorId}
+        AND UPPER(subject.status) = UPPER('APPROVED')
+        AND UPPER(subject.choose_status) = UPPER('APPROVED')
+        ORDER BY subject.create_date DESC LIMIT #{offset},#{limit}
+    </select>
+
+
+    <select id="getMySubjectStudentByStudentId" resultType="com.sword.gd.entity.SubjectStudent">
+        SELECT
+        <include refid="columns"/>
+        FROM gd_subject subject
+        <include refid="joins"/>
+        WHERE subject.choose_by = #{studentId}
+        AND UPPER(subject.status) = UPPER('APPROVED')
+        AND UPPER(subject.choose_status) = UPPER('APPROVED')
+    </select>
+
+
+    <select id="getDirectorStudentsInfoPageCount" resultType="java.lang.Integer">
+        SELECT
+        COUNT(*)
+        FROM gd_subject subject
+        <include refid="joins"/>
+        WHERE subject.director = #{directorId}
+        AND UPPER(subject.status) = UPPER('APPROVED')
+        AND UPPER(subject.choose_status) = UPPER('APPROVED')
+    </select>
+
+    <select id="getAllStudentsInfoPage" resultType="com.sword.gd.entity.SubjectStudent">
+        SELECT
+        <include refid="columns"/>
+        FROM gd_subject subject
+        <include refid="joins"/>
+        WHERE
+        1 = 1
+        <if test="subjectStudent != null">
+            <if test="subjectStudent.student != null AND subjectStudent.student.loginName != null ">
+        AND  user.login_name LIKE CONCAT('%',#{subjectStudent.student.loginName},'%')
+            </if>
+        </if>
+        <if test="subjectStudent != null">
+            <if test="subjectStudent.department != null AND subjectStudent.department.name != null ">
+                AND  department.name LIKE CONCAT('%',#{subjectStudent.department.name},'%')
+            </if>
+        </if>
+        <if test="subjectStudent != null">
+            <if test="subjectStudent.major != null AND subjectStudent.major.name != null ">
+        AND  major.name LIKE CONCAT('%',#{subjectStudent.major.name},'%')
+            </if>
+        </if>
+        <if test="subjectStudent != null">
+            <if test="subjectStudent.clasz != null AND subjectStudent.clasz.name != null ">
+        AND  clasz.name LIKE CONCAT('%',#{subjectStudent.clasz.name},'%')
+            </if>
+        </if>
+        <if test="subjectStudent != null">
+            <if test="subjectStudent.director != null AND subjectStudent.director.loginName != null ">
+        AND  director.login_name LIKE CONCAT('%',#{subjectStudent.director.loginName},'%')
+            </if>
+        </if>
+        AND UPPER(subject.status) = UPPER('APPROVED')
+        AND UPPER(subject.choose_status) = UPPER('APPROVED')
+        ORDER BY subject.create_date DESC LIMIT #{offset},#{limit}
+    </select>
+
+    <select id="getAllStudentsInfoPageCount" resultType="java.lang.Integer">
+        SELECT
+        COUNT(*)
+        FROM gd_subject subject
+        <include refid="joins"/>
+        WHERE
+        UPPER(subject.status) = UPPER('APPROVED')
+        AND UPPER(subject.choose_status) = UPPER('APPROVED')
+        AND
+        (
+        1 = 1
+        <if test="subjectStudent != null">
+            <if test="subjectStudent.student != null AND subjectStudent.student.loginName != null ">
+                OR  user.login_name LIKE CONCAT('%',#{subjectStudent.student.loginName},'%')
+            </if>
+        </if>
+        <if test="subjectStudent != null">
+            <if test="subjectStudent.department != null AND subjectStudent.department.name != null ">
+                OR  department.name LIKE CONCAT('%',#{subjectStudent.department.name},'%')
+            </if>
+        </if>
+        <if test="subjectStudent != null">
+            <if test="subjectStudent.major != null AND subjectStudent.major.name != null ">
+                OR  major.name LIKE CONCAT('%',#{subjectStudent.major.name},'%')
+            </if>
+        </if>
+        <if test="subjectStudent != null">
+            <if test="subjectStudent.clasz != null AND subjectStudent.clasz.name != null ">
+                OR  clasz.name LIKE CONCAT('%',#{subjectStudent.clasz.name},'%')
+            </if>
+        </if>
+        <if test="subjectStudent != null">
+            <if test="subjectStudent.director != null AND subjectStudent.director.loginName != null ">
+                OR  director.login_name LIKE CONCAT('%',#{subjectStudent.director.loginName},'%')
+            </if>
+        </if>
+        )
+    </select>
+
+</mapper>

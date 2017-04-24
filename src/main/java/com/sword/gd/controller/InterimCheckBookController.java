@@ -9,12 +9,9 @@ import com.sword.admin.request.util.RequestUtil;
 import com.sword.admin.response.JsonResponse;
 import com.sword.admin.service.UserService;
 import com.sword.gd.entity.InterimCheckBook;
-import com.sword.gd.entity.MySubjectStudent;
-import com.sword.gd.entity.TaskBook;
-import com.sword.gd.mapper.InterimCheckBookMapper;
+import com.sword.gd.entity.SubjectStudent;
 import com.sword.gd.service.InterimCheckBookService;
-import com.sword.gd.service.MySubjectStudentsService;
-import com.sword.gd.service.TaskBookService;
+import com.sword.gd.service.SubjectStudentsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -31,7 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 public class InterimCheckBookController {
 
     @Autowired
-    private MySubjectStudentsService myStudentsService;
+    private SubjectStudentsService myStudentsService;
 
     @Autowired
     private InterimCheckBookService interimCheckBookService;
@@ -58,9 +55,9 @@ public class InterimCheckBookController {
         }
         request.setAttribute("interimCheckBook", interimCheckBook);
 
-        MySubjectStudent mySubjectStudent = myStudentsService.getMySubjectStudentByStudentId(id);
+        SubjectStudent subjectStudent = myStudentsService.getMySubjectStudentByStudentId(id);
 
-        request.setAttribute("mySubjectStudent",mySubjectStudent);
+        request.setAttribute("subjectStudent", subjectStudent);
 
         return "my-subject-students/interim-check-book-edit";
     }
@@ -127,9 +124,9 @@ public class InterimCheckBookController {
         }
         request.setAttribute("interimCheckBook", interimCheckBook);
 
-        MySubjectStudent mySubjectStudent = myStudentsService.getMySubjectStudentByStudentId(id);
+        SubjectStudent subjectStudent = myStudentsService.getMySubjectStudentByStudentId(id);
 
-        request.setAttribute("mySubjectStudent",mySubjectStudent);
+        request.setAttribute("subjectStudent", subjectStudent);
 
         return "my-subject-students/interim-check-book-print";
     }

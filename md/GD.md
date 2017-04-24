@@ -117,21 +117,69 @@
 
 ### 评阅教师评议书
 
-表明：gd_director_comment_book
+表明：gd_reviewer_comment_book
 
 | 属性 | 字段名 | 类型 |长度| 描述|
 | :---: | :---: | :---: |:---: | :---: |
 | 主键 | id | String | 64 | 任务书主键ID|
 | 论文（设计）题目 | thesis_tittle| String| 255|论文题目|
 | 学生 | student_id| String | 64|用户id,学生|
-| 规范程度（15分）| plan_proof_score| int | 2 | 方案论证分，总分15分(能独立查阅文献和课题调研，能提出较科学、合理、可行的实施方案。)|
-| 论文设计类容（30分）| thesis_design_score| int | 2 | 方案论证分，总分30分(能独立查阅文献和课题调研，能提出较科学、合理、可行的实施方案。)|
-| 工作量和难度（20分）| workload_difficulty_score| int | 2| 工作量和难度分，总分20分(遵守毕业论文（设计）管理制度，按期完成任务书规定的内容，工作量饱满，有一定难度。)|
-| 论文（设计)质量（20分）| thesis_quality_score| int | 2|论文设计质量，总分20分(结构合理、条理清楚、文理通顺、用语符合专业要求；文体格式规范、图表清楚。图样绘制与技术要求符合国家标准，图面质量符合要求。)|
-| 创新性与应用价值（15分）| innovating_worth_score| int | 2| 论文设计质量，总分20分(具有一定的创新性和应用价值。)|
+| 规范程度（15分）| standardize_degree_score | int | 2 | 结构合理、条理清楚、文理通顺、用语符合专业要求，文体格式规范，图表清楚。图样绘制与技术要求符合国家标准，图面质量符合要求，资料齐全。|
+| 论文(设计)内容与质量（60分）| content_quality_score| int | 2 | 观点、结论正确，论证充分，设计合理。内容与专业要求相吻合，理论与实际联系紧密；查阅文献有一定广泛性；有综合归纳资料的能力，有自己的见解；|
+| 创新性与应用价值（15分）| innovating_worth_score| int | 2| 具有一定的创新性和应用价值。|
 |总分（100）| total_score | int |2| 总分数|
-|导师评语| director_comment | String |255| 导师评语|
+|评阅教师评语| reviewer_comment | String |255| 评阅教师评语|
 | 创建时间 | update_date| datetime| |创建时间|
 | 更新时间 | update_date | datetime| |更新时间|
 | 创建人 | create_by | String| 64 |创建人ID|
 | 更新人 | update_by | datetime| 64|更新人ID|
+| 标记 | remarks | string| 255 |标记|
+|删除标记|del_flag|string|1| 标记|
+
+
+### 评阅教师评议书
+
+表明：gd_reviewer_comment_book
+
+| 属性 | 字段名 | 类型 |长度| 描述|
+| :---: | :---: | :---: |:---: | :---: |
+| 主键 | id | String | 64 | 任务书主键ID|
+| 论文（设计）题目 | thesis_tittle| String| 255|论文题目|
+| 学生 | student_id| String | 64|用户id,学生|
+| 规范程度（15分）| standardize_degree_score | int | 2 | 结构合理、条理清楚、文理通顺、用语符合专业要求，文体格式规范，图表清楚。图样绘制与技术要求符合国家标准，图面质量符合要求，资料齐全。|
+| 论文(设计)内容与质量（60分）| content_quality_score| int | 2 | 观点、结论正确，论证充分，设计合理。内容与专业要求相吻合，理论与实际联系紧密；查阅文献有一定广泛性；有综合归纳资料的能力，有自己的见解；|
+| 创新性与应用价值（15分）| innovating_worth_score| int | 2| 具有一定的创新性和应用价值。|
+|总分（100）| total_score | int |2| 总分数|
+|评阅教师评语| reviewer_comment | String |255| 评阅教师评语|
+| 创建时间 | update_date| datetime| |创建时间|
+| 更新时间 | update_date | datetime| |更新时间|
+| 创建人 | create_by | String| 64 |创建人ID|
+| 更新人 | update_by | datetime| 64|更新人ID|
+| 标记 | remarks | string| 255 |标记|
+|删除标记|del_flag|string|1| 标记|
+
+
+### 答辩评议书
+
+表明：gd_examination_comment_book
+
+| 属性 | 字段名 | 类型 |长度| 描述|
+| :---: | :---: | :---: |:---: | :---: |
+| 主键 | id | String | 64 | 任务书主键ID|
+| 论文（设计）题目 | thesis_tittle| String| 255|论文题目|
+| 学生 | student_id| String | 64|用户id,学生|
+| 论文（设计）水平（30分）| design_level_score | int | 2 |论文（设计）内容正确，撰写规范、有一定的创新性和应用价值。|
+| 论文（设计）报告（25分| design_report_score| int | 2 | 论文（设计）介绍思路清晰，表达简明扼要，重点突出，能全面准确介绍论文（设计）内容，报告时间符合要求。|
+| 论文（设计）答辩（45分）| design_examination_score| int | 2| 回答问题正确，有理论依据，基本概念清楚，逻辑性较强。|
+|总分（100）| total_score | int |2| 总分数|
+|答辩(小组)评语| examination_comment | String |255| 答辩评语|
+|指导教师成绩（30%）| director_total_score | int |2| 指导教师成绩|
+|答辩小组成绩（30%）| examination_total_score | int |2| 答辩小组总成绩|
+|综合成绩| comprehensive_performance_score | int |3| 综合成绩|
+|五级分制成绩| five_level_score | int |3| 五级分制成绩|
+| 创建时间 | update_date| datetime| |创建时间|
+| 更新时间 | update_date | datetime| |更新时间|
+| 创建人 | create_by | String| 64 |创建人ID|
+| 更新人 | update_by | datetime| 64|更新人ID|
+| 标记 | remarks | string| 255 |标记|
+|删除标记|del_flag|string|1| 标记|

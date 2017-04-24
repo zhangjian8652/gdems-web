@@ -22,15 +22,15 @@ import javax.validation.Valid;
  * Created by Joker on 2017/4/21.
  */
 @Controller
-@RequestMapping("/gd/mystudents")
-public class MySubjectStudentsController {
+@RequestMapping("/gd/toreviewstudents")
+public class ToReviewStudentsController {
 
     @Autowired
-    private SubjectStudentsService myStudentsService;
+    private SubjectStudentsService subjectStudentsService;
 
     @RequestMapping(value = "/list",method = RequestMethod.GET)
     public String listView() {
-        return "my-subject-students/list";
+        return "to-review-students/list";
     }
 
 
@@ -43,11 +43,11 @@ public class MySubjectStudentsController {
 
 
         User user = RequestUtil.getLoginUserFromSession(request);
-        DataTablePage<SubjectStudent> page = myStudentsService.getDirectorStudentsInfoPage(condition, user.getId());
+        DataTablePage<SubjectStudent> page = subjectStudentsService.getAllStudentsInfoPage(condition);
 
         request.setAttribute("page",page);
 
-        return "my-subject-students/data/list";
+        return "to-review-students/data/list";
     }
 
 }

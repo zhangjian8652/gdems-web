@@ -11,32 +11,32 @@
     </ol>
 </section>
 
-[#if mySubjectStudent.student??]
-[#assign studentName = "${mySubjectStudent.student.loginName!}"/]
-[#assign studentNo = "${mySubjectStudent.student.no!}"/]
-[#assign studentId = "${mySubjectStudent.student.id!}"/]
+[#if subjectStudent.student??]
+[#assign studentName = "${subjectStudent.student.loginName!}"/]
+[#assign studentNo = "${subjectStudent.student.no!}"/]
+[#assign studentId = "${subjectStudent.student.id!}"/]
 [/#if]
 
-[#if mySubjectStudent.director??]
-[#assign directorName = "${mySubjectStudent.director.loginName!}"/]
-[#assign directorProfessionalName = "${mySubjectStudent.director.name!}"/]
+[#if subjectStudent.director??]
+[#assign directorName = "${subjectStudent.director.loginName!}"/]
+[#assign directorProfessionalName = "${subjectStudent.director.name!}"/]
 [/#if]
 
 
-[#if mySubjectStudent.department??]
-[#assign departmentName = "${mySubjectStudent.department.name!}"/]
+[#if subjectStudent.department??]
+[#assign departmentName = "${subjectStudent.department.name!}"/]
 [/#if]
 
-[#if mySubjectStudent.major??]
-[#assign majorName = "${mySubjectStudent.major.name!}"/]
+[#if subjectStudent.major??]
+[#assign majorName = "${subjectStudent.major.name!}"/]
 [/#if]
 
-[#if mySubjectStudent.clasz??]
-[#assign claszName = "${mySubjectStudent.clasz.name!}"/]
+[#if subjectStudent.clasz??]
+[#assign claszName = "${subjectStudent.clasz.name!}"/]
 [/#if]
 
-[#if mySubjectStudent.subject??]
-[#assign tittle = "${mySubjectStudent.subject.tittle!}"/]
+[#if subjectStudent.subject??]
+[#assign tittle = "${subjectStudent.subject.tittle!}"/]
 [/#if]
 
 

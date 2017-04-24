@@ -6,7 +6,7 @@ import com.sword.admin.entity.User;
 /**
  * Created by Joker on 2017/4/22.
  */
-public class MySubjectStudent {
+public class SubjectStudent {
     private User student;
     private User director;
     private Organization department;
