@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : gds
-Source Server Version : 50717
+Source Server         : localhost
+Source Server Version : 50625
 Source Host           : localhost:3306
 Source Database       : graduation_design_evaluation_ms
 
 Target Server Type    : MYSQL
-Target Server Version : 50717
+Target Server Version : 50625
 File Encoding         : 65001
 
-Date: 2017-04-23 14:12:31
+Date: 2017-04-24 19:54:19
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -85,6 +85,30 @@ CREATE TABLE `gd_mid_check` (
 -- Records of gd_mid_check
 -- ----------------------------
 INSERT INTO `gd_mid_check` VALUES ('a6906274-27d3-11e7-bf92-c85b7636065d', 'd8607faa-1c5d-11e7-a63f-c85b7636065d', '是的发表的说法是', '收费的不舒服的比赛得分', '符合', '阿斯顿v阿飞\r\n的防不胜防e\r\n而改为如果微软\r\n是的分布式发电', '能', '啊是v个\r\n热个人\r\n色温\r\n速度vs地方', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-23 11:19:23', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-23 11:34:48', null, '0');
+
+-- ----------------------------
+-- Table structure for gd_reviewer_comment_book
+-- ----------------------------
+DROP TABLE IF EXISTS `gd_reviewer_comment_book`;
+CREATE TABLE `gd_reviewer_comment_book` (
+  `id` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `thesis_tittle` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `student_id` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `standardize_degree_score` int(2) DEFAULT NULL,
+  `content_quality_score` int(2) DEFAULT NULL,
+  `innovating_worth_score` int(2) DEFAULT NULL,
+  `total_score` int(3) DEFAULT NULL,
+  `reviewer_comment` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `update_date` datetime DEFAULT NULL,
+  `update_by` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `create_date` datetime DEFAULT NULL,
+  `create_by` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- ----------------------------
+-- Records of gd_reviewer_comment_book
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for gd_subject
@@ -313,7 +337,7 @@ INSERT INTO `sys_menu` VALUES ('35e995fe-2264-11e7-a6d2-c85b7636065d', '033fff15
 INSERT INTO `sys_menu` VALUES ('36f8952c-1df4-11e7-a63f-c85b7636065d', '29599165-1df4-11e7-a63f-c85b7636065d', '菜单列表', '1', '/menu/list', null, 'fa-list-ul', '0', 'sys:menu:list', 'admin', '2017-04-10 21:47:23', 'admin', '2017-04-10 21:47:23', null, '0', 'YES');
 INSERT INTO `sys_menu` VALUES ('381e695c-276d-11e7-bf92-c85b7636065d', '2ff83d2a-2500-11e7-a6d2-c85b7636065d', '编辑评议书', '1', '/gd/directorcommentbook/edit', null, '', '0', 'gd:directorcommentbook:edit', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-22 23:06:10', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-23 09:26:54', null, '0', null);
 INSERT INTO `sys_menu` VALUES ('39cd541f-1917-11e7-b5b9-c85b7636065d', '858c7e6f8a624018a63ac8b4d2246d8a', '角色删除', '1', '/role/delete', null, 'fa-trash-o', '0', 'sys:role:delete', 'zhangjian', '2017-04-04 17:17:55', 'zhangjian', '2017-04-04 17:17:55', null, '0', null);
-INSERT INTO `sys_menu` VALUES ('3d12dac4-2501-11e7-a6d2-c85b7636065d', 'da4c1b62-1cf0-11e7-a63f-c85b7636065d', '评阅老师评议书', '1', '/gd/teacherappraisalreviewbook/list', null, 'fa-file-word-o', '0', 'gd:teacherappraisalreviewbook:list', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-19 21:08:04', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-19 21:08:04', null, '0', null);
+INSERT INTO `sys_menu` VALUES ('3d12dac4-2501-11e7-a6d2-c85b7636065d', '7ab7be99-28b2-11e7-9600-00ac8fea48d7', '评阅老师评议书', '1', '/gd/reviewercommentbook/edit', null, 'fa-file-word-o', '1', 'gd:reviewercommentbook:edit', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-19 21:08:04', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-24 14:46:04', null, '0', null);
 INSERT INTO `sys_menu` VALUES ('495bec26-1df4-11e7-a63f-c85b7636065d', '29599165-1df4-11e7-a63f-c85b7636065d', '添加菜单', '1', '/menu/add', null, 'fa-plus', '0', 'sys:menu:add', 'admin', '2017-04-10 21:47:53', 'admin', '2017-04-10 21:47:53', null, '0', null);
 INSERT INTO `sys_menu` VALUES ('4abb6a8e-1c40-11e7-a63f-c85b7636065d', 'e0454d76-1c3f-11e7-a63f-c85b7636065d', '机构删除', null, '/organization/delete', null, '', '0', 'sys:organization:delete', 'admin', '2017-04-08 17:46:50', 'admin', '2017-04-08 17:46:50', null, '0', null);
 INSERT INTO `sys_menu` VALUES ('5', '2', '用户删除', '1', '/user/delete', null, null, '1', 'sys:user:delete', 'admin', '2017-04-02 17:38:16', 'admin', '2017-04-02 17:38:16', null, '0', null);
@@ -325,11 +349,13 @@ INSERT INTO `sys_menu` VALUES ('6', '1', '用户增加', '1', '/user/add', null,
 INSERT INTO `sys_menu` VALUES ('6be12160-225b-11e7-a6d2-c85b7636065d', '5e0efea5-21c2-11e7-a6d2-c85b7636065d', '选择选题', '1', '/gd/subject/choose', null, 'fa-thumbs-up', '0', 'gd:subject:choose', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-16 12:16:05', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-16 12:32:51', null, '0', null);
 INSERT INTO `sys_menu` VALUES ('6f0b350b-2738-11e7-9600-00ac8fea48d7', 'da4c1b62-1cf0-11e7-a63f-c85b7636065d', '我的选题', '1', '/gd/subject/choose/detail', null, 'fa-bicycle', '0', 'gd:subject:choose:detail', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-22 16:48:19', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-22 16:48:19', null, '0', null);
 INSERT INTO `sys_menu` VALUES ('7410789b-1919-11e7-b5b9-c85b7636065d', '858c7e6f8a624018a63ac8b4d2246d8a', '角色更新', '1', '/role/edit', null, 'fa-toggle-on', '0', 'sys:role:edit', 'zhangjian', '2017-04-04 17:33:52', 'zhangjian', '2017-04-04 17:33:52', null, '0', null);
+INSERT INTO `sys_menu` VALUES ('7ab7be99-28b2-11e7-9600-00ac8fea48d7', 'da4c1b62-1cf0-11e7-a63f-c85b7636065d', '待评阅的学生', '1', '/gd/toreviewstudents/list', null, 'fa-graduation-cap', '0', 'gd:toreviewstudents:list', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-24 13:54:29', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-24 13:54:29', null, '0', null);
 INSERT INTO `sys_menu` VALUES ('858c7e6f8a624018a63ac8b4d2246d8a', '9256f07e5bc8463ca4175a673d505b29', '角色列表', '1', '/role/list', null, 'fa-list-ul', '0', 'sys:role:list', 'zhangjian', '2017-04-03 23:30:34', 'zhangjian', '2017-04-03 23:30:34', null, '0', 'YES');
 INSERT INTO `sys_menu` VALUES ('8f638ac5-1915-11e7-b5b9-c85b7636065d', '9256f07e5bc8463ca4175a673d505b29', '角色添加', '1', '/role/add', null, 'fa-plus', '0', 'sys:role:add', 'zhangjian', '2017-04-04 17:06:00', 'zhangjian', '2017-04-04 17:06:00', null, '0', null);
 INSERT INTO `sys_menu` VALUES ('9256f07e5bc8463ca4175a673d505b29', 'NO', '角色管理', '6', '', null, 'fa-user', '0', 'sys:role', 'zhangjian', '2017-04-03 23:07:39', 'admin', '2017-04-12 22:19:29', null, '0', 'YES');
 INSERT INTO `sys_menu` VALUES ('928082c3-21b7-11e7-a6d2-c85b7636065d', '033fff15-2181-11e7-a6d2-c85b7636065d', '选题删除', '1', '/gd/subject/delete', null, 'fa-trash', '0', 'gd:subject:delete', 'admin', '2017-04-15 16:43:14', 'admin', '2017-04-15 16:43:14', null, '0', null);
 INSERT INTO `sys_menu` VALUES ('9f746d33-21d3-11e7-a6d2-c85b7636065d', 'd1db8d5e-21d1-11e7-a6d2-c85b7636065d', '审核选题', '1', '/gd/subject/verify', null, 'fa-check-circle-o', '0', 'gd:subject:verify', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-15 20:04:02', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-16 12:35:32', null, '0', null);
+INSERT INTO `sys_menu` VALUES ('a003471d-28b2-11e7-9600-00ac8fea48d7', 'da4c1b62-1cf0-11e7-a63f-c85b7636065d', '待答辩的学生', '1', '/gd/toexaminationstudents/list', null, 'fa-gavel', '0', 'gd:toexaminationstudents:list', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-24 13:55:31', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-24 13:55:51', null, '0', null);
 INSERT INTO `sys_menu` VALUES ('a678d2e6-2500-11e7-a6d2-c85b7636065d', '2ff83d2a-2500-11e7-a6d2-c85b7636065d', '编辑中期检查表', '1', '/gd/interimcheckbook/edit', null, 'fa-file-word-o', '0', 'gd:interimcheckbook:edit', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-19 21:03:51', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-23 09:05:18', null, '0', null);
 INSERT INTO `sys_menu` VALUES ('b591e6c6-1f8a-11e7-a63f-c85b7636065d', '36f8952c-1df4-11e7-a63f-c85b7636065d', '菜单删除', '1', '/menu/delete', null, '', '0', 'sys:menu:delete', 'admin', '2017-04-12 22:17:09', 'admin', '2017-04-12 22:17:09', null, '0', null);
 INSERT INTO `sys_menu` VALUES ('b999ee26-27c3-11e7-bf92-c85b7636065d', '2ff83d2a-2500-11e7-a6d2-c85b7636065d', '打印评议书', '1', '/gd/directorcommentbook/print', null, 'fa-file-video-o', '0', 'gd:directorcommentbook:print', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-23 09:25:23', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-23 09:25:23', null, '0', null);
@@ -337,7 +363,7 @@ INSERT INTO `sys_menu` VALUES ('c4fbb540-1f8a-11e7-a63f-c85b7636065d', '36f8952c
 INSERT INTO `sys_menu` VALUES ('c87ea01c-21cb-11e7-a6d2-c85b7636065d', '033fff15-2181-11e7-a6d2-c85b7636065d', '选题详情', '1', '/gd/subject/detail', null, 'fa-diamond', '0', 'gd:subject:detail', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-15 19:07:55', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-15 19:07:55', null, '0', null);
 INSERT INTO `sys_menu` VALUES ('d1db8d5e-21d1-11e7-a6d2-c85b7636065d', 'da4c1b62-1cf0-11e7-a63f-c85b7636065d', '审核选题列表', '1', '/gd/subject/verify/list', null, 'fa-paw', '0', 'gd:subject:verify:list', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-15 19:51:08', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-15 20:02:40', null, '0', 'YES');
 INSERT INTO `sys_menu` VALUES ('d243ec63-1c3e-11e7-a63f-c85b7636065d', 'NO', '机构管理', '2', '', null, 'fa-th', '0', 'sys:organization', 'admin', '2017-04-08 17:36:18', 'admin', '2017-04-12 22:28:23', null, '0', 'YES');
-INSERT INTO `sys_menu` VALUES ('d92eaf58-2500-11e7-a6d2-c85b7636065d', 'da4c1b62-1cf0-11e7-a63f-c85b7636065d', '答辩评议书', '1', '/gd/replycommentsbook/list', null, 'fa-file-word-o', '0', 'gd:replycommentsbook:list', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-19 21:05:16', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-19 21:05:16', null, '0', null);
+INSERT INTO `sys_menu` VALUES ('d92eaf58-2500-11e7-a6d2-c85b7636065d', 'da4c1b62-1cf0-11e7-a63f-c85b7636065d', '答辩评议书', '1', '/gd/examinationcommentbook/edit', null, 'fa-file-word-o', '1', 'gd:examinationcommentbook:edit', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-19 21:05:16', '5884804e-1c5d-11e7-a63f-c85b7636065d', '2017-04-24 14:46:45', null, '0', null);
 INSERT INTO `sys_menu` VALUES ('da4c1b62-1cf0-11e7-a63f-c85b7636065d', 'NO', '毕业设计管理', '1', '', null, 'fa-cubes', '0', 'sys:gdem', 'admin', '2017-04-09 14:50:51', 'admin', '2017-04-13 22:00:04', null, '0', 'YES');
 INSERT INTO `sys_menu` VALUES ('e0454d76-1c3f-11e7-a63f-c85b7636065d', 'd243ec63-1c3e-11e7-a63f-c85b7636065d', '机构列表', '1', '/organization/list', null, 'fa-list-ul', '0', 'sys:organization:list', 'admin', '2017-04-08 17:43:51', 'admin', '2017-04-08 17:43:51', null, '0', 'YES');
 
