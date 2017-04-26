@@ -122,7 +122,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public boolean save(User user, String roleId) throws Exception {
 
-        if (!StringUtils.isEmpty(user.getDepartmentId())) {
+        if (!StringUtils.isEmpty(user.getDepartmentId()) && !"NONE".equalsIgnoreCase(user.getDepartmentId())) {
             Organization department = new Organization();
             department.setId(user.getDepartmentId());
             Organization departmentFromDB = organizationMapper.selectByPrimaryKey(department);
