@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 public class ExaminationCommentBookController {
 
     @Autowired
-    private SubjectStudentsService myStudentsService;
+    private SubjectStudentsService subjectStudentsService;
 
     @Autowired
     private ExaminationCommentBookService examinationCommentBookService;
@@ -64,7 +64,7 @@ public class ExaminationCommentBookController {
             }
         }
 
-        SubjectStudent subjectStudent = myStudentsService.getMySubjectStudentByStudentId(id);
+        SubjectStudent subjectStudent = subjectStudentsService.getMySubjectStudentByStudentId(id);
 
         request.setAttribute("subjectStudent", subjectStudent);
 
@@ -165,7 +165,7 @@ public class ExaminationCommentBookController {
         }
 
 
-        SubjectStudent subjectStudent = myStudentsService.getMySubjectStudentByStudentId(id);
+        SubjectStudent subjectStudent = subjectStudentsService.getMySubjectStudentByStudentId(id);
 
         request.setAttribute("subjectStudent", subjectStudent);
 

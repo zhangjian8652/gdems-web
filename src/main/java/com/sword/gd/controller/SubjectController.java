@@ -4,6 +4,7 @@ import com.sword.admin.entity.Role;
 import com.sword.admin.entity.User;
 import com.sword.admin.entity.common.EntityUtil;
 import com.sword.admin.exception.InvalidRequestException;
+import com.sword.admin.exception.NotFoundException;
 import com.sword.admin.exception.SwordException;
 import com.sword.admin.request.entity.DatatableCondition;
 import com.sword.admin.request.util.RequestUtil;
@@ -11,10 +12,14 @@ import com.sword.admin.response.DataTablePage;
 import com.sword.admin.response.JsonResponse;
 import com.sword.admin.service.RoleService;
 import com.sword.admin.service.UserService;
+import com.sword.gd.entity.ExaminationCommentBook;
 import com.sword.gd.entity.Subject;
 import com.sword.gd.entity.SubjectConfig;
+import com.sword.gd.entity.SubjectStudent;
 import com.sword.gd.service.ConfigService;
+import com.sword.gd.service.ExaminationCommentBookService;
 import com.sword.gd.service.SubjectService;
+import com.sword.gd.service.SubjectStudentsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -46,6 +51,13 @@ public class SubjectController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private SubjectStudentsService subjectStudentsService;
+
+    @Autowired
+    private ExaminationCommentBookService examinationCommentBookService;
+
 
 
     @RequestMapping(value = "/verify/list", method = RequestMethod.GET)
@@ -335,6 +347,37 @@ public class SubjectController {
         return "subject/choose-detail";
     }
 
+    @RequestMapping(value = "/choose/performance", method = RequestMethod.GET)
+    public String performance(HttpServletRequest request) throws Exception {
+
+
+        User user = RequestUtil.getLoginUserFromSession(request);
+
+        ExaminationCommentBook examinationCommentBook = examinationCommentBookService.getByStudentId(user.getId());
+        if (examinationCommentBook == null) {
+            examinationCommentBook = new ExaminationCommentBook();
+        }
+        request.setAttribute("examinationCommentBook", examinationCommentBook);
+
+        if (!StringUtils.isEmpty(examinationCommentBook.getExaminationComment())) {
+            String[] comments = examinationCommentBook.getExaminationComment().split(":");
+            for (int i = 1; i <= comments.length; i++) {
+                request.setAttribute("comment" + i, comments[i - 1]);
+            }
+        }
+
+
+        SubjectStudent subjectStudent = subjectStudentsService.getMySubjectStudentByStudentId(user.getId());
+
+        if (subjectStudent == null) {
+            subjectStudent = new SubjectStudent();
+        }
+        request.setAttribute("subjectStudent", subjectStudent);
+
+        return "subject/choose-performance";
+    }
+
+
 
     @RequestMapping(value = "/verify", method = RequestMethod.GET)
     public String verifyView(HttpServletRequest request, @RequestParam String id) throws Exception {
@@ -603,6 +646,7 @@ public class SubjectController {
 
         EntityUtil.setCommonUpdateValue(subject, user);
         subject.setChooseStatus(chooseStatus);
+        subject.setDirector(user.getId());
 
         boolean rst = subjectService.update(subject);
 
