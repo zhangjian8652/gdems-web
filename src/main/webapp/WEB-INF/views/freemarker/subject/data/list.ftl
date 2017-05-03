@@ -45,7 +45,7 @@
         [#elseif subject.chooseStatus = "APPROVED"]
         "chooseStatus": "<span class='label label-success'>已被选择并通过审核</span>",
         [#elseif subject.chooseStatus = "DENIED"]
-        "chooseStatus": "<span class='label label-danger'>已被选择审核没过</span>
+        "chooseStatus": "<span class='label label-danger'>已被选择审核没过</span>",
         [#else]
         "chooseStatus": "<span class='label label-warning'>待选择</span>",
         [/#if]
