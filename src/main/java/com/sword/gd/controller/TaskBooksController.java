@@ -134,4 +134,23 @@ public class TaskBooksController {
         return "my-subject-students/taskbook-print";
     }
 
+    @RequestMapping(value = "/mine", method = RequestMethod.GET)
+    public String mineView(HttpServletRequest request) throws Exception {
+
+
+        User user = RequestUtil.getLoginUserFromSession(request);
+
+        TaskBook taskBook = taskBookService.getByStudentId(user.getId());
+        if (taskBook == null) {
+            taskBook = new TaskBook();
+        }
+        request.setAttribute("taskbood", taskBook);
+
+        SubjectStudent subjectStudent = myStudentsService.getMySubjectStudentByStudentId(user.getId());
+
+        request.setAttribute("subjectStudent", subjectStudent);
+
+        return "my-subject-students/taskbook-mine";
+    }
+
 }

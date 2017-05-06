@@ -131,4 +131,28 @@ public class InterimCheckBookController {
         return "my-subject-students/interim-check-book-print";
     }
 
+    @RequestMapping(value = "/mine", method = RequestMethod.GET)
+    public String mineView(HttpServletRequest request) throws Exception {
+
+
+        User user = RequestUtil.getLoginUserFromSession(request);
+
+        if (user == null) {
+            throw new NotFoundException(HttpStatus.NOT_FOUND + "", "找不到该用户。");
+        }
+
+        InterimCheckBook interimCheckBook = interimCheckBookService.getByStudentId(user.getId());
+        if (interimCheckBook == null) {
+            interimCheckBook = new InterimCheckBook();
+        }
+        request.setAttribute("interimCheckBook", interimCheckBook);
+
+        SubjectStudent subjectStudent = myStudentsService.getMySubjectStudentByStudentId(user.getId());
+
+        request.setAttribute("subjectStudent", subjectStudent);
+
+        return "my-subject-students/interim-check-book-mine";
+    }
+
+
 }

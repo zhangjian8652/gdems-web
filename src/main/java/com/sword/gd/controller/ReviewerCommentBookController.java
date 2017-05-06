@@ -130,4 +130,27 @@ public class ReviewerCommentBookController {
         return "subject-students/reviewer-comment-book-print";
     }
 
+    @RequestMapping(value = "/mine", method = RequestMethod.GET)
+    public String mineView(HttpServletRequest request) throws Exception {
+
+
+        User user = RequestUtil.getLoginUserFromSession(request);
+        if (user == null) {
+            throw new NotFoundException(HttpStatus.NOT_FOUND + "", "找不到该用户。");
+        }
+
+        ReviewerCommentBook reviewerCommentBook = reviewerCommentBookService.getByStudentId(user.getId());
+        if (reviewerCommentBook == null) {
+            reviewerCommentBook = new ReviewerCommentBook();
+        }
+        request.setAttribute("reviewerCommentBook", reviewerCommentBook);
+
+        SubjectStudent subjectStudent = myStudentsService.getMySubjectStudentByStudentId(user.getId());
+
+        request.setAttribute("subjectStudent", subjectStudent);
+
+        return "subject-students/reviewer-comment-book-mine";
+    }
+
+
 }

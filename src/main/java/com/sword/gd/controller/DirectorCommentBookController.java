@@ -131,4 +131,27 @@ public class DirectorCommentBookController {
         return "my-subject-students/director-comment-book-print";
     }
 
+
+    @RequestMapping(value = "/mine", method = RequestMethod.GET)
+    public String mineView(HttpServletRequest request) throws Exception {
+
+        User user = RequestUtil.getLoginUserFromSession(request);
+
+        if (user == null) {
+            throw new NotFoundException(HttpStatus.NOT_FOUND + "", "找不到该用户。");
+        }
+
+        DirectorCommentBook directorCommentBook = directorCommentBookService.getByStudentId(user.getId());
+        if (directorCommentBook == null) {
+            directorCommentBook = new DirectorCommentBook();
+        }
+        request.setAttribute("directorCommentBook", directorCommentBook);
+
+        SubjectStudent subjectStudent = myStudentsService.getMySubjectStudentByStudentId(user.getId());
+
+        request.setAttribute("subjectStudent", subjectStudent);
+
+        return "my-subject-students/director-comment-book-mine";
+    }
+
 }
