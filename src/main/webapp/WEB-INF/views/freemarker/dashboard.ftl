@@ -30,8 +30,8 @@
         <!-- Main content -->
         <section class="content">
           <!-- Small boxes (Stat box) -->
-          <div class="row" style="font-size: 100px;">
-              欢迎来到毕业设计管理系统。。。
+          <div class="row" style="font-size: 50px; text-align: center;">
+              欢迎来到毕业设计管理系统。
           </div>
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
