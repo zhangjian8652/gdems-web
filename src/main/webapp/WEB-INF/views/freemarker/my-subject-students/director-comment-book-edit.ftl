@@ -106,7 +106,7 @@
                                 <td colspan="4">
                                     能独立查阅文献和课题调研，能提出<br>较科学、合理、可行的实施方案。
                                 </td>
-                                <td><input type="text" class="form-control spinner" name="planProofScore"
+                                <td><input type="text" class="form-control spinner" name="planProofScore" readonly
                                            value="${directorCommentBook.planProofScore!0}"></td>
                             </tr>
                             <tr>
@@ -114,7 +114,7 @@
                                 <td colspan="4">
                                     坚持实事求是科学态度，没有造假和抄袭行为。观点、结论正确、论证充分、设计合理。内容与专业要求相吻合，理论与实际联系紧密。
                                 </td>
-                                <td><input type="text" class="form-control spinner" name="thesisDesignScore"
+                                <td><input type="text" class="form-control spinner" name="thesisDesignScore" readonly
                                            value="${directorCommentBook.thesisDesignScore!0}"></td>
                             </tr>
                             <tr>
@@ -122,7 +122,7 @@
                                 <td colspan="4">
                                     遵守毕业论文（设计）管理制度，按期完成任务书规定的内容，工作量饱满，有一定难度。
                                 </td>
-                                <td><input type="text" class="form-control spinner" name="workloadDifficultyScore"
+                                <td><input type="text" class="form-control spinner" name="workloadDifficultyScore" readonly
                                            value="${directorCommentBook.workloadDifficultyScore!0}"></td>
                             </tr>
                             <tr>
@@ -130,7 +130,7 @@
                                 <td colspan="4">
                                     结构合理、条理清楚、文理通顺、用语符合专业要求；文体格式规范、图表清楚。图样绘制与技术要求符合国家标准，图面质量符合要求。
                                 </td>
-                                <td><input type="text" class="form-control spinner" name="thesisQualityScore"
+                                <td><input type="text" class="form-control spinner" name="thesisQualityScore" readonly
                                            value="${directorCommentBook.thesisQualityScore!0}"></td>
                             </tr>
                             <tr>
@@ -138,12 +138,12 @@
                                 <td colspan="4">
                                     具有一定的创新性和应用价值
                                 </td>
-                                <td><input type="text" class="form-control spinner" name="innovatingWorthScore"
+                                <td><input type="text" class="form-control spinner" name="innovatingWorthScore" readonly
                                            value="${directorCommentBook.innovatingWorthScore!0}"></td>
                             </tr>
                             <tr>
                                 <td colspan="5">总分(100分)</td>
-                                <td>${directorCommentBook.totalScore!}分</td>
+                                <td><span id="totald">${directorCommentBook.totalScore!}</span>分</td>
                             </tr>
                             <tr>
                                 <td colspan="6">
@@ -202,6 +202,21 @@
             min: 0,
             max: 15
         });
+
+
+        var totalScoreInerval = setInterval(function(){
+            if($("input[name='planProofScore']").length <= 0){
+                clearInterval(totalScoreInerval);
+                return;
+            }
+            var total = 0;
+            total += Number($("input[name='planProofScore']").val());
+            total += Number($("input[name='thesisDesignScore']").val());
+            total += Number($("input[name='workloadDifficultyScore']").val());
+            total += Number($("input[name='thesisQualityScore']").val());
+            total += Number($("input[name='innovatingWorthScore']").val());
+            $("#totald").text(total);
+        },1000);
 
         //登录表单验证开始
         var rules = {

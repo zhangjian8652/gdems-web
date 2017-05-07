@@ -133,7 +133,7 @@
                             </tr>
                             <tr>
                                 <td colspan="5">总分(100分)</td>
-                                <td>${examinationCommentBook.totalScore!}分</td>
+                                <td><span id="totale">${examinationCommentBook.totalScore!0}</span>分</td>
                             </tr>
                             <tr>
                                 <td colspan="6">
@@ -230,6 +230,19 @@
             min: 0,
             max: 100
         });
+
+
+        var totalScoreInerval = setInterval(function(){
+            if($("input[name='designLevelScore']").length <= 0){
+                clearInterval(totalScoreInerval);
+                return;
+            }
+            var total = 0;
+            total += Number($("input[name='designLevelScore']").val());
+            total += Number($("input[name='designReportScore']").val());
+            total += Number($("input[name='designExaminationScore']").val());
+            $("#totale").text(total);
+        },1000);
 
         //登录表单验证开始
         var rules = {

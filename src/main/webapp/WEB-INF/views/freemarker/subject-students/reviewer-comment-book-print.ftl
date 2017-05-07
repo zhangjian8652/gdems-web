@@ -122,7 +122,9 @@
                             <tr>
                                 <td colspan="6">
                                     评阅教师评语：<br>
-                                  ${reviewerCommentBook.reviewerComment?replace("\r\n","<br>")?replace("\n","<br>")?replace("\r","<br>")!}
+                                    [#if reviewerCommentBook.reviewerComment]
+                                        ${reviewerCommentBook.reviewerComment?replace("\r\n","<br>")?replace("\n","<br>")?replace("\r","<br>")!}
+                                    [/#if]
                                 </td>
                             </tr>
                             <tr>
