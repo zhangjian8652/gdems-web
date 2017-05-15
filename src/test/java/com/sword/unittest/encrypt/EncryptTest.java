@@ -7,7 +7,7 @@ import org.junit.Test;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * @Author zhangjian
+ * @Author zhengzhe
  * @Date 2017/3/30
  * @Copyright:
  * @Describe:

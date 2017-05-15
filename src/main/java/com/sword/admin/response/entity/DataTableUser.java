@@ -3,7 +3,7 @@ package com.sword.admin.response.entity;
 import java.io.Serializable;
 
 /**
- * @Author zhangjian
+ * @Author zhengzhe
  * @Date 2017/3/31
  * @Copyright:
  * @Describe:

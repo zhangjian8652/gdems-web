@@ -14,7 +14,7 @@ import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 
 /**
- * @Author zhangjian
+ * @Author zhengzhe
  * @Date 2015/10/20
  */
 public class EncryptUtil {

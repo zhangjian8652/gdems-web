@@ -93,6 +93,9 @@
        </mvc:interceptor>
     </mvc:interceptors>
 
+    <bean id="authInterceptor" class="com.sword.admin.interceptor.AuthInterceptor" />
+    <bean id="permissionInterceptor" class="com.sword.admin.interceptor.PerimissionInterceptor" />
+
 <!--    <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/admin/**"/>
@@ -102,8 +105,7 @@
         </mvc:interceptor>
     </mvc:interceptors>-->
 
-   <bean id="authInterceptor" class="com.sword.admin.interceptor.AuthInterceptor" />
-   <bean id="permissionInterceptor" class="com.sword.admin.interceptor.PerimissionInterceptor" />
+
 
     <import resource="mvc-dispatcher-servlet-static.xml"/>
 </beans>

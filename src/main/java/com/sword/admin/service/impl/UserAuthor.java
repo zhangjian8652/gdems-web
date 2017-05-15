@@ -17,7 +17,7 @@ import java.util.List;
 import static com.sword.admin.service.impl.UserAuthor.AuthType.USERNAME_PASSWORD;
 
 /**
- * @Author zhangjian
+ * @Author zhengzhe
  * @Date 2017/3/29
  * @Copyright:
  * @Describe:

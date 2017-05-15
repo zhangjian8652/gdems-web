@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 /**
- * @Author zhangjian
+ * @Author zhengzhe
  * @Date 2017/3/30
  * @Copyright:
  * @Describe:

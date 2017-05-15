@@ -4,7 +4,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
- * @Author zhangjian
+ * @Author zhengzhe
  * @Date 2017/3/29
  * @Copyright:
  * @Describe:

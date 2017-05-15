@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import java.util.Date;
 
 /**
- * @Author zhangjian
+ * @Author zhengzhe
  * @Date 2017/2/22
  * @Copyright:
  * @Describe:

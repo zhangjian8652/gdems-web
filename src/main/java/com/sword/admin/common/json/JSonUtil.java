@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 
 /**
- * @Author zhangjian
+ * @Author zhengzhe
  * @Date 2015/12/13
  */
 public class JSonUtil {

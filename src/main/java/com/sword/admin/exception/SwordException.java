@@ -1,7 +1,7 @@
 package com.sword.admin.exception;
 
 /**
- * @Author zhangjian
+ * @Author zhengzhe
  * @Date 2017/2/13
  * @Copyright:
  * @Describe:

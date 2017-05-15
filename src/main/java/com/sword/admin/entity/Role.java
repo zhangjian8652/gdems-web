@@ -12,7 +12,7 @@ import javax.validation.constraints.Pattern;
 
 /**
  * 角色Entity
- * @author zhangjian
+ * @author zhengzhe
  * @version 2017-02-22
  */
 @Table(name = "sys_role")

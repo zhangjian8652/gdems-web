@@ -1,7 +1,7 @@
 package com.sword.admin.common.json;
 
 /**
- * author:zhangjian
+ * author:zhengzhe
  * date:2016-01-16
  * describe:
  **/

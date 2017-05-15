@@ -4,7 +4,7 @@ import com.sword.admin.exception.AuthenticationException;
 import com.sword.admin.entity.User;
 
 /**
- * @Author zhangjian
+ * @Author zhengzhe
  * @Date 2017/3/29
  * @Copyright:
  * @Describe:

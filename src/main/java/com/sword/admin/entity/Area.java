@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 /**
  * 区域Entity
- * @author zhangjian
+ * @author zhengzhe
  * @version 2017-02-22
  */
 @Table(name = "sys_area")
