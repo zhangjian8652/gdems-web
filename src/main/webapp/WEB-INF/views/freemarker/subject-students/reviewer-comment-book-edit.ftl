@@ -108,7 +108,7 @@
                                 <td colspan="4">
                                     结构合理、条理清楚、文理通顺、用语符合专业要求，文体格式规范，图表清楚。图样绘制与技术要求符合国家标准，图面质量符合要求，资料齐全。
                                 </td>
-                                <td><input type="text" class="form-control spinner" name="standardizeDegreeScore"
+                                <td><input type="text" class="form-control spinner" name="standardizeDegreeScore" readonly
                                            value="${reviewerCommentBook.standardizeDegreeScore!0}"></td>
                             </tr>
                             <tr>
@@ -119,7 +119,7 @@
                                 <td colspan="4">
                                     观点、结论正确，论证充分，设计合理。内容与专业要求相吻合，理论与实际联系紧密；查阅文献有一定广泛性；有综合归纳资料的能力，有自己的见解；
                                 </td>
-                                <td><input type="text" class="form-control spinner" name="contentQualityScore"
+                                <td><input type="text" class="form-control spinner" name="contentQualityScore" readonly
                                            value="${reviewerCommentBook.contentQualityScore!0}"></td>
                             </tr>
                             <tr>
@@ -127,12 +127,12 @@
                                 <td colspan="4">
                                     具有一定的创新性和应用价值。
                                 </td>
-                                <td><input type="text" class="form-control spinner" name="innovatingWorthScore"
+                                <td><input type="text" class="form-control spinner" name="innovatingWorthScore" readonly
                                            value="${reviewerCommentBook.innovatingWorthScore!0}"></td>
                             </tr>
                             <tr>
                                 <td colspan="5">总分(100分)</td>
-                                <td>${reviewerCommentBook.totalScore!}分</td>
+                                <td><span id="totalr">${reviewerCommentBook.totalScore!}</span>分</td>
                             </tr>
                             <tr>
                                 <td colspan="6">
@@ -181,6 +181,20 @@
             min: 0,
             max: 15
         });
+
+
+        var totalScoreInerval = setInterval(function(){
+            if($("input[name='standardizeDegreeScore']").length <= 0){
+                clearInterval(totalScoreInerval);
+                return;
+            }
+            var total = 0;
+            total += Number($("input[name='standardizeDegreeScore']").val());
+            total += Number($("input[name='contentQualityScore']").val());
+            total += Number($("input[name='innovatingWorthScore']").val());
+            $("#totalr").text(total);
+        },1000);
+
 
         //登录表单验证开始
         var rules = {
