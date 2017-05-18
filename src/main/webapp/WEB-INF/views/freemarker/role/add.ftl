@@ -41,30 +41,8 @@
                                     <!-- /.input group -->
                                 </div>
                                 <!-- /.form-group -->
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">英文名:</label>
-                                    <div class="col-sm-4 input-group">
-                                        <input type="text" class="form-control" name="englishName" id="english-name">
-                                        <span class="glyphicon glyphicon-pencil form-control-feedback"></span>
-                                    </div>
-                                    <!-- /.input group -->
-                                </div>
+
                                 <!-- /.form-group -->
-
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">角色类型:</label>
-
-                                    <div class="col-sm-2 input-group">
-                                        <select class="select2" name="roleType"
-                                                data-placeholder="选择角色类型"
-                                                style="width: 100%;">
-                                            <option value="NORMAL">普通</option>
-                                            <option value="DIRECTOR">老师</option>
-                                            <option value="STUDENT">学生</option>
-                                            <option value="STUDENT">管理员</option>
-                                        </select>
-                                    </div>
-                                </div>
 
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">拥有权限:</label>

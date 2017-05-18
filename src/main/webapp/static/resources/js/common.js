@@ -86,7 +86,7 @@ $.ajaxSetup({
         try {
             var result = eval("(" + xhr.responseText + ")");
             if (result.code == "403") {
-                location.href = URIS.login;
+                location.href = $path + URIS.login;
                 return false;
             }
         } catch (e) {

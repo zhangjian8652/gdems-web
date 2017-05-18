@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>毕业设计考核 | 登录</title>
+    <title>管理系统 | 登录</title>
     [#include "common/common-meta.ftl"/]
     [#include "common/common-css.ftl"/]
     <link rel="stylesheet" href="${path!}/static/resources/css/login.css" >
@@ -9,7 +9,7 @@
   <body class="hold-transition">
     <div class="login-box">
       <div class="login-logo">
-        <a href="#"><b>新疆大学毕业设计</b>&nbsp;管理系统</a>
+        <a href="#"><b></b>&nbsp;管理系统</a>
       </div><!-- /.login-logo -->
       <div class="login-box-body">
         <p class="login-box-msg">登录</p>

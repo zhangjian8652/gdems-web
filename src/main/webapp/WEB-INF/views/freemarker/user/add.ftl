@@ -188,6 +188,8 @@
         var $major= $("#major").select2();
         var $clasz= $("#clasz").select2();
 
+        $("input").val("");
+
         var $roleCheckboxes = $(".role-checkbox");
 
         $roleCheckboxes.iCheck({
