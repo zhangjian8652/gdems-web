@@ -69,10 +69,26 @@ var loadView = function (uri) {
     getDetailButton = function (id) {
         return "<button type='button' class='btn bg-orange margin-right detail' data-id " + id + ">详情</button>"
     },
-
     getDeleteButton = function (id) {
         return "<button type='button' class='btn bg-olive margin-right delete' data-id " + id + ">删除</button>"
+    },
+    loadding = function () {
+        //禁止滚动条
+        $(document.body).css({
+            "overflow-x":"hidden",
+            "overflow-y":"hidden"
+        });
+        $(".wm-body").show();
+    },
+    loadingComplete = function () {
+        //启用滚动条
+        $(document.body).css({
+            "overflow-x":"auto",
+            "overflow-y":"auto"
+        });
+        $(".wm-body").hide();
     }
+
     ;
 var successCodePrefix = "20";
 
@@ -81,6 +97,9 @@ $.ajaxSetup({
     aysnc: false, // 默认同步加载
     headers: { // 默认添加请求头
         "Authorization": "XXXXXXXX-XXXXXXX"
+    },
+    beforeSend:function(){
+        loadding();
     },
     complete: function (xhr, status) {
         try {
@@ -92,12 +111,15 @@ $.ajaxSetup({
         } catch (e) {
 
         }
+        loadingComplete();
 
     },
     error:function() {
+        loadingComplete();
         $("#tipper").messager().error("系统错误，请稍后再试！");
     }
 });
+
 
 
 var CommonUtil = {

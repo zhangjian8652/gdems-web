@@ -9,6 +9,7 @@
   <body class="hold-transition">
     <div class="login-box">
       <div class="login-logo">
+          <i class="icon-spinner icon-spin"></i>
         <a href="#"><b></b>&nbsp;管理系统</a>
       </div><!-- /.login-logo -->
       <div class="login-box-body">

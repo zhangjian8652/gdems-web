@@ -69,7 +69,7 @@
                                     <label class="col-sm-2 control-label">&nbsp;</label>
 
                                     <div class="col-sm-4 input-group">
-                                            <button type="button" class="btn  btn-info btn-lg  margin">取消添加</button>
+                                            <button type="button" class="btn  btn-info btn-lg  margin" onclick="CommonUtil.loadView('/role/list')">取消添加</button>
                                             <button type="submit" class="btn  btn-success btn-lg margin">确定添加</button>
                                     </div>
                                 </div>

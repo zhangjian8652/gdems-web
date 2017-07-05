@@ -1,44 +1,57 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
 
-      <title>毕业设计 | 管理系统</title>
-    [#include "common/common-meta.ftl"/]
-    [#include "common/common-css.ftl"/]
-  </head>
-  <body class="sidebar-mini wysihtml5-supported skin-green fixed">
-    <div class="wrapper">
+    <title>毕业设计 | 管理系统</title>
+[#include "common/common-meta.ftl"/]
+[#include "common/common-css.ftl"/]
+</head>
+<body class="sidebar-mini wysihtml5-supported skin-green fixed">
+<div class="wrapper">
 
 
-    [#include "common/dashboard-header.ftl"/]
-    [#include "common/dashboard-menu.ftl"/]
+[#include "common/dashboard-header.ftl"/]
+[#include "common/dashboard-menu.ftl"/]
 
-      <!-- Content Wrapper. Contains page content -->
-      <div class="content-wrapper" id="container">
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper" id="container">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-          <h1>
-           主页
-            <small>控制面板</small>
-          </h1>
-          <ol class="breadcrumb">
-            <li><a href="${path!}/dashboard"><i class="fa fa-dashboard"></i> 主页</a></li>
-            <li class="active">控制面板</li>
-          </ol>
+            <h1>
+                主页
+                <small>控制面板</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="${path!}/dashboard"><i class="fa fa-dashboard"></i> 主页</a></li>
+                <li class="active">控制面板</li>
+            </ol>
         </section>
 
         <!-- Main content -->
         <section class="content">
-          <!-- Small boxes (Stat box) -->
-          <div class="row" style="font-size: 50px; text-align: center;">
-              欢迎来到毕业设计管理系统。
-          </div>
+            <!-- Small boxes (Stat box) -->
+            <div class="row" style="font-size: 50px; text-align: center;">
+                欢迎来到毕业设计管理系统。
+            </div>
         </section><!-- /.content -->
-      </div><!-- /.content-wrapper -->
+    </div><!-- /.content-wrapper -->
 
 
-    </div><!-- ./wrapper -->
+</div><!-- ./wrapper -->
 
-    [#include "common/common-js.ftl"/]
-  </body>
+[#include "common/common-js.ftl"/]
+
+<div class="wm-body">
+    <div class="wm-box">
+        <div class="main53d">
+            <ul>
+                <li><img src="${path!}/static/resources/images/loading/main5-pic1.png"></li>
+                <li><img src="${path!}/static/resources/images/loading/main5-pic2.png"></li>
+                <li><img src="${path!}/static/resources/images/loading/main5-pic3.png"></li>
+            </ul>
+        </div>
+    </div>
+    <div class="wm-background"></div>
+</div>
+</body>
 </html>
