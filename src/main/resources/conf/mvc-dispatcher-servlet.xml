@@ -82,7 +82,19 @@
             <mvc:exclude-mapping path="/static/**"/>
             <ref bean="authInterceptor"/>
         </mvc:interceptor>
+       <mvc:interceptor>
+           <mvc:mapping path="/**"/>
+           <mvc:exclude-mapping path="/"/>
+           <mvc:exclude-mapping path="/login"/>
+           <mvc:exclude-mapping path="/authLogin"/>
+           <mvc:exclude-mapping path="/dashboard"/>
+           <mvc:exclude-mapping path="/static/**"/>
+           <ref bean="permissionInterceptor"/>
+       </mvc:interceptor>
     </mvc:interceptors>
+
+    <bean id="authInterceptor" class="com.sword.admin.interceptor.AuthInterceptor" />
+    <bean id="permissionInterceptor" class="com.sword.admin.interceptor.PerimissionInterceptor" />
 
 <!--    <mvc:interceptors>
         <mvc:interceptor>
@@ -93,7 +105,7 @@
         </mvc:interceptor>
     </mvc:interceptors>-->
 
-   <bean id="authInterceptor" class="com.sword.gdems.web.interceptor.AuthInterceptor" />
+
 
     <import resource="mvc-dispatcher-servlet-static.xml"/>
 </beans>

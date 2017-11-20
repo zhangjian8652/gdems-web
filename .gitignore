@@ -1,4 +1,3 @@
-target/
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
@@ -19,7 +18,6 @@ target/
 nbproject/private/
 build/
 nbbuild/
-dist/
 nbdist/
 .nb-gradle/
 
@@ -27,3 +25,4 @@ nbdist/
 ### Themes Resources ####
 themes/
 temp/
+target/

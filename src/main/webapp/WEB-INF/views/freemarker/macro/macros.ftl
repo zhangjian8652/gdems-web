@@ -20,7 +20,7 @@
                         <td>${menu.permission!}</td>
                         <td>${menu.icon!}</td>
                         <td>
-                            [@macro.operationButtons id="${menu.id}" uriBase="menu"/]
+                            [@macro.operationButtons id="${menu.id}" uriBase="menu" permissionBase="sys:menu"/]
                         </td>
                     </tr>
                         [@macro.menuTreeTableChildren parentId="${menu.id}" uriBase="menu"/]
@@ -35,6 +35,26 @@
     $(function () {
         $("#menu-table").treetable({expandable: true});
         $("#menu-table tr:nth-child(2) td:first-child a").click();
+
+        var operation = function () {
+            var $this = $(this),
+                    uriBase = $this.data("uribase"),
+                    operation = $this.data("operation"),
+                    id = $this.data("id"),
+                    url = "/" + uriBase + "/" + operation + "?id=" + id;
+
+            if (operation == "delete") {
+                $.get(url, CommonUtil.ajaxCallback);
+                setTimeout(function () {
+                    CommonUtil.loadView("/" + uriBase + "/list");
+                }, 3000)
+            } else {
+                CommonUtil.loadView(url);
+            }
+
+        }
+
+        $(".operation").click(operation);
     })
 </script>
 [/#macro]
@@ -49,7 +69,7 @@
                 <td>${menu.permission!}</td>
                 <td>${menu.icon!}</td>
                 <td>
-                    [@macro.operationButtons id="${menu.id}"  uriBase=uriBase/]
+                    [@macro.operationButtons id="${menu.id}"  uriBase=uriBase permissionBase="sys:menu"/]
                 </td>
             </tr>
                 [@macro.menuTreeTableChildren parentId="${menu.id}" uriBase=uriBase/]
@@ -91,9 +111,12 @@
                     id = $this.data("id"),
                     url = "/" + uriBase + "/" + operation + "?id=" + id;
 
-            if(operation == "delete"){
+            if (operation == "delete") {
                 $.get(url, CommonUtil.ajaxCallback);
-            }else{
+                setTimeout(function () {
+                    CommonUtil.loadView("/" + uriBase + "/list");
+                }, 3000)
+            } else {
                 CommonUtil.loadView(url);
             }
 
@@ -126,7 +149,7 @@
                         [/#if]
                     [/@user]
                     <td>
-                        [@macro.operationButtons id="${organization.id!}" uriBase="${uriBase!}"/]
+                        [@macro.operationButtons id="${organization.id!}" uriBase="${uriBase!}" permissionBase="sys:organization"/]
                     </td>
                 </tr>
                     [@macro.organizationTreeTableChildren parentId="${organization.id!}" uriBase="${uriBase!}"/]
@@ -138,10 +161,25 @@
 
 [#--织机构树形结构table结束--]
 
-[#macro operationButtons id uriBase]
-    [@macro.editButton id=id uriBase=uriBase/]
+[#macro operationButtons id uriBase permissionBase]
+
+    [@permission permission = permissionBase + ":edit" userId="${USER.id}" type="BOOLEAN";isOk]
+        [#assign edit = isOk/]
+    [/@permission]
+    [@permission permission= permissionBase + ":detail" userId="${USER.id}" type="BOOLEAN";isOk]
+        [#assign detail = isOk/]
+    [/@permission]
+    [@permission permission = permissionBase + ":delete" userId="${USER.id}" type="BOOLEAN";isOk]
+        [#assign delete = isOk/]
+    [/@permission]
+
+    [#if edit]
+        [@macro.editButton id=id uriBase=uriBase/]
+    [/#if]
 [#--    [@macro.detailButton id=id uriBase=uriBase/]--]
-    [@macro.deleteButton id=id uriBase=uriBase/]
+    [#if delete]
+     [@macro.deleteButton id=id uriBase=uriBase/]
+    [/#if]
 [/#macro]
 
 [#macro editButton id uriBase]
@@ -159,3 +197,54 @@
         data-uribase="${uriBase}">删除
 </button>
 [/#macro]
+
+
+
+
+[#-- ztree menu --]
+
+[#macro ztreeParent ]
+    [@macro.ztreeChildren parentId=""/]
+[/#macro]
+
+[#macro ztreeChildren parentId]
+[
+    [@menu parentId=parentId type="LIST";list]
+        [#if list?? && list?size > 0]
+            [#list list as menu]
+                [#if menu_index > 0]
+                ,
+                [/#if]
+            {
+            id:"${menu.id!}",
+            name:"${menu.name!}",
+            halfCheck:true,
+                [#if selectedMenus?? && selectedMenus?size > 0]
+                    [#list selectedMenus as sMenu]
+                        [#if sMenu?? && sMenu.id?? && sMenu.id = menu.id]
+                            [#assign selected = true/]
+                        [/#if]
+                    [/#list]
+                [/#if]
+                [#if selected?? && selected]
+                "checked":true,
+                    [#assign selected = false/]
+                [#else]
+                "checked":false,
+                [/#if]
+                [#if menu.isParent?? && menu.isParent == "YES"]
+                isParent:true,
+                children:[@macro.ztreeChildren parentId="${menu.id!}"/]
+                [#else]
+                isParent:false
+                [/#if]
+            }
+            [/#list]
+        [/#if]
+    [/@menu]
+]
+[/#macro]
+
+[#-- 用户的权限菜单 --]
+
+

@@ -15,6 +15,9 @@
 <link rel="stylesheet" href="${path!}/static/plugins/jquery-treetable/css/jquery.treetable.css">
 <link rel="stylesheet" href="${path!}/static/plugins/jquery-treetable/css/jquery.treetable.theme.default.css">
 
+<link rel="stylesheet" href="${path!}/static/plugins/datepicker/datepicker3.css">
+<!-- print js-->
+<link rel="stylesheet" href="${path}/static/plugins/Print.js-1.0.14/dist/print.min.css">
 
 
 <link rel="stylesheet" href="${path!}/static/plugins/spinner/jquery.spinner.css">

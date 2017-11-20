@@ -43,9 +43,8 @@
                                 <!-- /.form-group -->
                                 <div class="form-group" style="display: none;">
                                     <label class="col-sm-2 control-label">英文名:</label>
-
                                     <div class="col-sm-4 input-group">
-                                        <input type="text" class="form-control" name="email">
+                                        <input type="text" class="form-control" name="englishName" id="english-name">
                                         <span class="glyphicon glyphicon-pencil form-control-feedback"></span>
                                     </div>
                                     <!-- /.input group -->
@@ -59,7 +58,10 @@
                                         <select class="select2" name="roleType"
                                                 data-placeholder="选择角色类型"
                                                 style="width: 100%;">
-                                            <option value="NORMAL">普通角色</option>
+                                            <option value="NORMAL">普通</option>
+                                            <option value="DIRECTOR">老师</option>
+                                            <option value="STUDENT">学生</option>
+                                            <option value="STUDENT">管理员</option>
                                         </select>
                                     </div>
                                 </div>
@@ -270,28 +272,11 @@
 
         };
 
-        var zNodes =
-                [
-                    [@menu parentId="" type="LIST";list]
-        [#if list?? && list?size > 0]
-        [#list list as menu]
-        [#if menu_index > 0]
-        ,
-        [/#if]
-        {
-            id:"${menu.id}",
-                    name:"${menu.name}",
-                halfCheck:true,
-                checked:false,
-                isParent:true
-        }
-        [/#list]
-        [/#if]
-
-        [/@menu]
-        ];
+        var zNodes = [@macro.ztreeParent/];
 
         treeObj = $.fn.zTree.init($("#privilege-tree"), setting, zNodes);
+        treeObj.expandAll(true);
+
     });
 
 

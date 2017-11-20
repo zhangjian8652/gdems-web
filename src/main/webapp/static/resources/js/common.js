@@ -42,8 +42,6 @@ $(function () {
         var uri = $(this).data("uri");
         loadView(uri);
     });
-
-
 });
 
 
@@ -105,10 +103,10 @@ $.ajaxSetup({
 var CommonUtil = {
     ajaxCallback:function(data) {
             if (data.code.startsWith(successCodePrefix)) {
-                $tipper.messager().success(data.message);
+                $("#tipper").messager().success(data.message);
                 return;
             }else{
-                $tipper.messager().error(data.message);
+                $("#tipper").messager().error(data.message);
                 return;
             }
     },loadViewToBox:loadViewToBox,
@@ -330,3 +328,5 @@ var ZTreeUtil = {
 
 
 };
+
+

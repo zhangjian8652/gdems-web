@@ -1,5 +1,5 @@
 /**
- * Created by zhangjian on 2017/3/28.
+ * Created by zhengzhe on 2017/3/28.
  */
 
 $(function () {
@@ -74,7 +74,7 @@ $(function () {
                 var jsonData = data;
 
                 if(successCode === jsonData.code){
-                    location.href = URIS.dashboard;
+                    location.href = $path + URIS.dashboard;
                     return;
                 }
 

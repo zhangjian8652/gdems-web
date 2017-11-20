@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.sword.gdems.web.mapper.RoleMapper">
+<mapper namespace="com.sword.admin.mapper.RoleMapper">
 
     <sql id="allColumns">
    			*
@@ -11,7 +11,7 @@
    </sql>
     
     
-    <select id="getByUserId" resultType="com.sword.gdems.web.entity.Role">
+    <select id="getByUserId" resultType="com.sword.admin.entity.Role">
 
         SELECT
         <include refid="allColumns"/>
@@ -33,6 +33,10 @@
 
     </insert>
 
+
+    <insert id="deleteRoleMenuByRoleId">
+        DELETE  FROM  sys_role_menu WHERE role_id = #{roleId}
+    </insert>
 
 </mapper>
 

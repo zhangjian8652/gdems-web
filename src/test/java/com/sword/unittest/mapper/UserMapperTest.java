@@ -3,11 +3,8 @@ package com.sword.unittest.mapper;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.sword.gdems.common.encrypt.util.EncryptUtil;
-import com.sword.gdems.web.config.GlobalConfig;
-import com.sword.gdems.web.entity.User;
-import com.sword.gdems.web.entity.common.EntityUtil;
-import com.sword.gdems.web.mapper.UserMapper;
+import com.sword.admin.entity.User;
+import com.sword.admin.mapper.UserMapper;
 import com.sword.unittest.common.SpringTest;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +13,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 /**
- * @Author zhangjian
+ * @Author zhengzhe
  * @Date 2017/3/29
  * @Copyright:
  * @Describe:
@@ -47,7 +44,7 @@ public class UserMapperTest extends SpringTest{
     @Test
     public void testSelectOne() throws NoSuchAlgorithmException {
         User user = new User();
-        user.setLoginName("zhangjian");
+        user.setLoginName("zhengzhe");
         user.setPassword("31ace546d14f7add7423867cbb6bc87a5e7bcc7e");
         User user1 = userMapper.selectOne(user);
         System.out.println(user1.toString());
@@ -56,7 +53,7 @@ public class UserMapperTest extends SpringTest{
     @Test
     public void testSelectList() throws NoSuchAlgorithmException {
         User user = new User();
-        user.setLoginName("zhangjian");
+        user.setLoginName("zhengzhe");
         List<User> users = userMapper.select(user);
         System.out.println(users.toString());
     }

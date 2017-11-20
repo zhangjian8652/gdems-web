@@ -49,11 +49,8 @@ table.treetable {
     position: relative;
 }
 
-.tree-select-modal .modal {
+.tree-select-modal .modal,.icons-select-modal .modal {
     background: transparent !important;
-}
-
-.tree-select-modal .modal {
     position: absolute;
     display: block;
 }
@@ -62,10 +59,39 @@ table.treetable {
     height: 240px;
     overflow-y: scroll;
 }
-.tree-select-modal   .modal-dialog {
-    width: 350px;
+.tree-select-modal  .modal-dialog,.icons-select-modal .modal-dialog {
+    width: 355px;
 }
 
 .input-group button{
     float: right;
+}
+
+.modal-dialog .font-awesome-icon-list{
+    height: 250px;
+    width: 360px;
+    overflow-y: scroll;
+}
+.font-awesome-icon-list i{
+    cursor: pointer;
+}
+.radio-group label{
+    margin: 5px 5px;
+}
+
+.small-box h3 {
+    white-space: normal;
+}
+#tipper{
+    position: fixed;
+    z-index: 1000;
+    top: 200px;
+}
+.form-control:focus {
+    border-color: #00a65a;
+    box-shadow: none;
+}
+
+input:focus {
+    outline: #00a65a auto 5px;
 }

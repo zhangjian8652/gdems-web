@@ -1,7 +1,7 @@
 package com.sword.unittest.mapper;
 
-import com.sword.gdems.common.encrypt.util.EncryptUtil;
-import com.sword.gdems.web.config.GlobalConfig;
+import com.sword.admin.common.encrypt.util.EncryptUtil;
+import com.sword.admin.config.GlobalConfig;
 import org.junit.Test;
 
 import java.security.NoSuchAlgorithmException;

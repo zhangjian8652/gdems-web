@@ -7,7 +7,7 @@
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i>主页</a></li>
         <li><a href="#">机构管理</a></li>
-        <li class="active">添加机构</li>
+        <li class="active">编辑机构</li>
     </ol>
 </section>
 
@@ -19,7 +19,7 @@
             <!-- Form Element sizes -->
             <div class="box box-success">
                 <div class="box-header with-border">
-                    <h3 class="box-title">添加机构</h3>
+                    <h3 class="box-title">编辑机构</h3>
                 </div>
                 <div class="box-body">
                     <div class="row">
@@ -31,12 +31,13 @@
                         <div class="col-md-6">
                             [@organization id="${id!}" type="entity";entity]
                                 [#assign currentOrganization = entity/]
-                            <form id="organization-edit-form" action="/organization/add" method="post" class="form-horizontal">
+                            <form id="organization-edit-form" action="/organization/edit" method="post" class="form-horizontal">
+                                <input type="hidden" value="${currentOrganization.id!}" name="id" id="id">
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">机构名:</label>
 
                                     <div class="col-sm-4 input-group">
-                                        <input type="text" class="form-control" name="name" id="name" value="${currentOrganization.name!}">
+                                        <input type="text" class="form-control" name="name" id="name" value="${currentOrganization.name!}" readonly>
                                         <span class="glyphicon glyphicon-user form-control-feedback"></span>
                                     </div>
                                     <!-- /.input group -->
@@ -204,11 +205,13 @@
 
                 var name = $("#name").val()
                         , type = $("#type").val()
+                        , id = $("#id").val()
                         , sort = $("#sort").val()
                         , master = $("#master").val()
                         , parentId =document.getElementById("parentId").value;
 
                 requestData = {
+                    id: id,
                     name: name,
                     parentId: parentId,
                     master: master,

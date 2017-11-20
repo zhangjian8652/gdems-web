@@ -100,11 +100,11 @@
         ,
         [/#if]
         {
-            id:"${menu.id!}",
-                    name:"${menu.name!}",
+                id:"${menu.id!}",
+                name:"${menu.name!}",
                 halfCheck:true,
                 checked:false,
-                isParent:true
+                isParent:true,
         }
         [/#list]
         [/#if]

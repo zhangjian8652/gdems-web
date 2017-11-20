@@ -35,7 +35,7 @@
                                     <label class="col-sm-2 control-label">菜单名称:</label>
 
                                     <div class="col-sm-4 input-group">
-                                        <input type="text" class="form-control" name="name" id="name">
+                                        <input type="text" class="form-control clean" name="name" id="name">
                                         <span class="glyphicon glyphicon-user form-control-feedback"></span>
                                     </div>
                                     <!-- /.input group -->
@@ -46,9 +46,9 @@
                                     <label class="col-sm-2 control-label">父菜单</label>
 
                                     <div class="col-sm-4 input-group">
-                                        <input type="text" class="form-control" name="parentName" id="parentName" readonly>
+                                        <input type="text" class="form-control clean" name="parentName" id="parentName" readonly placeholder="双击选择">
                                         <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                                        <input type="text" name="parentId" id="parentId" value="" style="display: none;">
+                                        <input type="text" name="parentId" id="parentId" value="" class="clean" style="display: none;">
                                     </div>
                                 </div>
                                 <!-- /.form-group -->
@@ -57,7 +57,7 @@
                                     <label class="col-sm-2 control-label">访问链接:</label>
 
                                     <div class="col-sm-4 input-group">
-                                        <input type="text" class="form-control" name="href" placeholder="访问链接">
+                                        <input type="text" class="form-control clean" name="href" placeholder="访问链接">
                                         <span class="glyphicon glyphicon-link form-control-feedback"></span>
                                     </div>
                                     <!-- /.input group -->
@@ -68,7 +68,7 @@
                                     <label class="col-sm-2 control-label">图标样式:</label>
 
                                     <div class="col-sm-4 input-group">
-                                        <input type="text" class="form-control" name="icon" placeholder="图标样式">
+                                        <input type="text" class="form-control clean" name="icon" placeholder="图标样式，双击选择" readonly id="icon">
                                         <span class="glyphicon glyphicon-bookmark form-control-feedback"></span>
                                     </div>
                                     <!-- /.input group -->
@@ -79,7 +79,7 @@
                                     <label class="col-sm-2 control-label">权限名:</label>
 
                                     <div class="col-sm-4 input-group">
-                                        <input type="text" class="form-control" name="permission" id="permission" placeholder="例如：sys:menu:add">
+                                        <input type="text" class="form-control clean" name="permission" id="permission" placeholder="例如：sys:menu:add">
                                         <span class="glyphicon glyphicon-sunglasses form-control-feedback"></span>
                                     </div>
                                     <!-- /.input group -->
@@ -156,9 +156,61 @@
         <!-- /.modal -->
 
     </div>
-    <div class="row">
-        [#include "icons.ftl"/]
+
+    <div class="icons-select-modal hide">
+        <div class="modal modal-info">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title">选择图标</h4>
+                    </div>
+                    <div class="modal-body">
+                    [#include "icons.ftl"/]
+                    </div>
+                    <div class="modal-footer">
+
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+        <script type="text/javascript">
+            $(function(){
+
+                $(".font-awesome-icon-list i").click(setSelectedIcon);
+                $(".close").click(hideIcons);
+
+
+                function showIcons(){
+                    $(".icons-select-modal").removeClass("hide");
+                }
+
+                function hideIcons(){
+                    $(".icons-select-modal").addClass("hide");
+                }
+
+                function setSelectedIcon(){
+                    var classNames =  $(this).attr("class");
+                    var icon3 = classNames.split(" ")[2];
+                    if(iconId != undefined && iconId != null) {
+                        $(iconId).val(icon3);
+                    }
+                    hideIcons();
+                }
+
+                var iconId;
+                $("#icon").click(function() {
+                    iconId = "#icon";
+                    showIcons();
+                })
+            });
+
+
+
+        </script>
     </div>
+
 
 </section><!-- /.content -->
 
@@ -219,6 +271,10 @@
                     , minlength: "菜单名长度必须大于{0}"
                     , maxlength: "菜单名长度不能大于{0}"
                     , remote: "菜单名已经存在"
+                },
+                permission:{
+                    required:"权限名必须填写"
+                    , remote: "该权限已经存在"
                 }
             },
             submitHandler: function (form) {   //表单提交句柄,为一回调函数，带一个参数：form
@@ -236,8 +292,7 @@
                     if (successCode === jsonData.code) {
                         $tipper.messager().success(jsonData.message);
                         //将所有输入框重置
-                        $("input:text").val("");
-                        loadMenuView();
+                        $(".clean").val("");
                         return;
                     }
 
@@ -275,7 +330,6 @@
 
     var selectedNode={};
     var currentSelectId,currentSelectValueId;
-
     function setSelectedValue(){
         if(selectedNode != undefined) {
             $(currentSelectId).val(selectedNode.id);
